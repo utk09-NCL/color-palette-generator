@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import CustomSlider from "./CustomSlider/CustomSlider";
 
 const HSLColorInput = ({ hsl, onHslChange }) => {
   const [h, s, l] = hsl;
@@ -62,6 +63,42 @@ const HSLColorInput = ({ hsl, onHslChange }) => {
           placeholder="L"
           aria-label="L"
           className="border-2 border-slate-300 rounded-lg w-full px-2 py-1"
+        />
+      </div>
+      <div className="mt-4 space-y-2">
+        <CustomSlider
+          min={0}
+          max={360}
+          value={isNaN(h) ? 0 : h}
+          onChange={(e) =>
+            handleHslInputChange(0, parseFloat(e.target.value) || 0)
+          }
+          gradient="linear-gradient(to right, red, red, yellow, lime, cyan, blue, magenta, red)"
+        />
+
+        <CustomSlider
+          min={0}
+          max={100}
+          value={isNaN(s) ? 0 : s * 100}
+          onChange={(event) =>
+            handleHslInputChange(1, parseFloat(event.target.value) / 100 || 0)
+          }
+          gradient={`linear-gradient(to right,
+            hsl(${h},0%,${l * 100}%),
+            hsl(${h},100%,${l * 100}%))`}
+        />
+
+        <CustomSlider
+          min={0}
+          max={100}
+          value={isNaN(l) ? 0 : l * 100}
+          onChange={(e) =>
+            handleHslInputChange(2, parseFloat(e.target.value) / 100 || 0)
+          }
+          gradient={`linear-gradient(to right,
+            hsl(${h}, ${s * 100}%, 0%),
+            hsl(${h}, ${s * 100}%, 50%),
+            hsl(${h}, ${s * 100}%, 100%))`}
         />
       </div>
     </div>

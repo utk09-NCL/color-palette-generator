@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import CustomSlider from "./CustomSlider/CustomSlider";
 
 const RGBColorInput = ({ rgb, onRgbChange }) => {
   const [r, g, b] = rgb.map((val) => val);
@@ -36,6 +37,29 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           placeholder="B"
           aria-label="B"
           className="border-2 border-slate-300 rounded-lg w-full px-2 py-1"
+        />
+      </div>
+      <div className="mt-4 space-y-2">
+        <CustomSlider
+          min={0}
+          max={255}
+          value={r}
+          onChange={(e) => onRgbChange(0, parseInt(e.target.value) || 0)}
+          gradient="linear-gradient(to right, #000000, #ff0000)"
+        />
+        <CustomSlider
+          min={0}
+          max={255}
+          value={g}
+          onChange={(e) => onRgbChange(1, parseInt(e.target.value) || 0)}
+          gradient="linear-gradient(to right, #000000, #00ff00)"
+        />
+        <CustomSlider
+          min={0}
+          max={255}
+          value={b}
+          onChange={(e) => onRgbChange(2, parseInt(e.target.value) || 0)}
+          gradient="linear-gradient(to right, #000000, #0000ff)"
         />
       </div>
     </div>
