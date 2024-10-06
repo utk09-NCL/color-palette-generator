@@ -12,7 +12,7 @@ const HSLColorInput = ({ hsl, onHslChange }) => {
           min={0}
           max={360}
           value={h}
-          onChange={(e) => onHslChange(0, parseInt(e.target.value) || 0)}
+          onChange={(e) => onHslChange(0, parseFloat(e.target.value) || 0)}
           placeholder="H"
           aria-label="H"
           className="border-2 border-slate-300 rounded-lg w-full px-2 py-1"
@@ -22,7 +22,7 @@ const HSLColorInput = ({ hsl, onHslChange }) => {
           min={0}
           max={100}
           value={s}
-          onChange={(e) => onHslChange(1, parseInt(e.target.value) || 0)}
+          onChange={(e) => onHslChange(1, parseFloat(e.target.value) || 0)}
           placeholder="S"
           aria-label="S"
           className="border-2 border-slate-300 rounded-lg w-full px-2 py-1"
@@ -32,7 +32,7 @@ const HSLColorInput = ({ hsl, onHslChange }) => {
           min={0}
           max={100}
           value={l}
-          onChange={(e) => onHslChange(2, parseInt(e.target.value) || 0)}
+          onChange={(e) => onHslChange(2, parseFloat(e.target.value) || 0)}
           placeholder="L"
           aria-label="L"
           className="border-2 border-slate-300 rounded-lg w-full px-2 py-1"
