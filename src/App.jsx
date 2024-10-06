@@ -8,7 +8,6 @@ function App() {
         GHW | Color Palette Generator
       </h1>
       <section className="p-1 border-2 border-slate-300 rounded-xl mt-10">
-        <h1 className="underline text-center">Input a Color</h1>
         <ColorInput />
       </section>
     </main>
