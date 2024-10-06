@@ -4,6 +4,7 @@ import chroma from "chroma-js";
 import HEXColorInput from "./HEXColorInput";
 import HSLColorInput from "./HSLColorInput";
 import RGBColorInput from "./RGBColorInput";
+import ColorPreview from "./ColorPreview";
 
 const ColorInput = ({ colorValue, onChangeColor }) => {
   const [chromaColor, setChromaColor] = useState(chroma(colorValue));
@@ -54,6 +55,7 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-4 lg:gap-y-0">
+      <ColorPreview color={chromaColor.css()} />
       <HEXColorInput hex={hexInput} onHexChange={handleHexChange} />
       <RGBColorInput rgb={rgbValues} onRgbChange={handleRgbChange} />
       <HSLColorInput hsl={hslValues} onHslChange={handleHslChange} />
