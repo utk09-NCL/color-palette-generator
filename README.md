@@ -102,10 +102,12 @@ Please note that this is a work in progress, and some features may not be fully 
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
+## 🤝 Contributing (Code and Design)
 
 Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md)
 file for guidelines on how to contribute to this project. Please note that by participating in this project, you agree to abide by the terms of the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+You can even contribute by creating designs for the project. Check the [DESIGN.md](./design/DESIGN.md) file for more information.
 
 ## 🐛 Issue Reporting
 
@@ -133,5 +135,3 @@ If you like this project, give it a ⭐️ on GitHub and share it with your frie
 If you have any queries or want to discuss this project or just tech, find my contact details on my [Personal Website]: utk09[dot]com
 
 ## Thanks in advance for all your contributions! 🌟
-
----
