@@ -1,4 +1,4 @@
-# Color Conjure
+# Color Conjure 🎨
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/77b1cc7e-418c-4dc4-9ee0-bd8f985968f5/deploy-status)](https://app.netlify.com/sites/color-conjure/deploys)
 
@@ -7,6 +7,10 @@ Color Conjure is an open-source color palette generator that helps designers and
 ## 🚀 Demo
 
 Check out the live application: [Color Conjure on Netlify](https://color-conjure.netlify.app/)
+
+Please note that this is a work in progress, and some features may not be fully functional.
+
+❗️PLEASE NOTE ❗️ - We use [Seline](https://seline.so) for tracking user interactions and improving the application. _Seline is a simple, lightweight, cookieless, private website analytics tool._
 
 ## ✨ Features
 
@@ -101,7 +105,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🤝 Contributing
 
 Contributions are welcome! Please read the [CONTRIBUTING.md](CONTRIBUTING.md)
-file for guidelines on how to contribute to this project.
+file for guidelines on how to contribute to this project. Please note that by participating in this project, you agree to abide by the terms of the [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 ## 🐛 Issue Reporting
 
