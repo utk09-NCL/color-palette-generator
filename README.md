@@ -135,3 +135,7 @@ If you like this project, give it a ⭐️ on GitHub and share it with your frie
 If you have any queries or want to discuss this project or just tech, find my contact details on my [Personal Website]: utk09[dot]com
 
 ## Thanks in advance for all your contributions! 🌟
+
+### Author
+
+- [utk09-NCL](https://github.com/utk09-NCL)
