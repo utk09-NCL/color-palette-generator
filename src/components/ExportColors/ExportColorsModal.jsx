@@ -3,10 +3,11 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-hot-toast";
+import clsx from "clsx";
+
 import { EXPORT_FORMATS } from "../../constants";
 import Modal from "../Shared/Modal";
 import Button from "../Shared/Button";
-import clsx from "clsx";
 
 /**
  * Modal component to export generated colors in various formats.

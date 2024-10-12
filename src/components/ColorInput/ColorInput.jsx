@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import chroma from "chroma-js";
+import chroma, { valid } from "chroma-js";
 import { toast } from "react-hot-toast";
+
+import useDebounce from "../../hooks/useDebounce";
+
 import HEXColorInput from "./HEXColorInput";
 import RGBColorInput from "./RGBColorInput";
 import HSLColorInput from "./HSLColorInput";
 import ColorPreview from "./ColorPreview";
-import useDebounce from "../../hooks/useDebounce";
 
 /**
  * Component for inputting and manipulating colors in various formats (HEX, RGB, HSL).
@@ -94,7 +96,7 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
    * Updates chromaColor, hexInput, hslValues, and rgbValues based on the new colorValue.
    */
   useEffect(() => {
-    if (chroma.valid(colorValue)) {
+    if (valid(colorValue)) {
       const newColor = chroma(colorValue);
       setChromaColor(newColor);
       setHexInput(colorValue);
@@ -110,7 +112,7 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
   useEffect(() => {
     if (debouncedHexInput === "") return; // Do nothing if input is empty.
 
-    if (chroma.valid(debouncedHexInput)) {
+    if (valid(debouncedHexInput)) {
       const newColor = chroma(debouncedHexInput);
       setChromaColor(newColor);
       setHslValues(newColor.hsl()); // Update HSL values.

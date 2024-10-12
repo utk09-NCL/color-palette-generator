@@ -2,11 +2,13 @@
 
 import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
-import chroma from "chroma-js";
+import chroma, { scale } from "chroma-js";
+
 import ExportColorsModal from "../ExportColors/ExportColorsModal";
-import ContrastCheckerModal from "./ContrastCheckerModal";
 import Button from "../Shared/Button";
 import { TOTAL_SHADES } from "../../constants";
+
+import ContrastCheckerModal from "./ContrastCheckerModal";
 
 /**
  * Component to display a grid of color shades and provide options to export or check contrast.
@@ -28,10 +30,9 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
    */
   const shades = useMemo(
     () =>
-      chroma
-        .scale(
-          [chroma(baseColor).brighten(1.5), chroma(baseColor).darken(2)], // Create a scale from lighter to darker.
-        )
+      scale(
+        [chroma(baseColor).brighten(1.5), chroma(baseColor).darken(2)], // Create a scale from lighter to darker.
+      )
         .mode("lab") // Use Lab color space for perceptual uniformity.
         .colors(TOTAL_SHADES) // Generate the specified number of shades.
         .map((color) => chroma(color)), // Convert each color to a chroma object.

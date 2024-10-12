@@ -1,10 +1,12 @@
 // src/components/ContrastChecker/ContrastCheckerModal.jsx
 
 import PropTypes from "prop-types";
+
 import useContrastData from "../../hooks/useContrastData";
-import ContrastTable from "./ContrastTable";
 import Modal from "../Shared/Modal";
 import Button from "../Shared/Button";
+
+import ContrastTable from "./ContrastTable";
 
 /**
  * Modal component to display contrast ratios between colors.

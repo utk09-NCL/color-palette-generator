@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "clean:install": "node -e \"const os = require('os'); const isWindows = os.platform() === 'win32'; if (isWindows) { console.log('Running on Windows'); require('child_process').execSync('npm run clean:install:win', { stdio: 'inherit' }); } else { console.log('Running on Linux or macOS'); require('child_process').execSync('npm run clean:install:mac', { stdio: 'inherit' }); }\"",
     "clean:install:mac": "rm -rf node_modules dist && npm install",
-    "clean:install:win": "rmdir /s /q node_modules dist && npm install"
+    "clean:install:win": "rmdir /s /q node_modules dist && npm install",
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@headlessui/react": "2.1.8",
@@ -24,6 +25,8 @@
     "react-hot-toast": "2.4.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "19.5.0",
+    "@commitlint/config-conventional": "19.5.0",
     "@eslint/js": "9.11.1",
     "@types/chroma-js": "2.4.4",
     "@types/react": "18.3.10",
@@ -32,13 +35,29 @@
     "autoprefixer": "10.4.20",
     "eslint": "9.11.1",
     "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "2.31.0",
+    "eslint-plugin-jsx-a11y": "6.10.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-react": "7.37.0",
     "eslint-plugin-react-hooks": "5.1.0-beta-26f2496093-20240514",
     "eslint-plugin-react-refresh": "0.4.12",
     "globals": "15.9.0",
+    "husky": "9.1.6",
+    "lint-staged": "15.2.10",
     "postcss": "8.4.47",
     "tailwindcss": "3.4.12",
     "vite": "5.4.8"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{css,scss}": [
+      "prettier --write"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
   }
 }

@@ -1,8 +1,9 @@
 // src/components/ColorInput/HSLColorInput.jsx
 
-import PropTypes from "prop-types"; // Import PropTypes for type checking
-import CustomSlider from "./CustomSlider/CustomSlider"; // Import the CustomSlider component
-import { toast } from "react-hot-toast"; // Import toast for notifications
+import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
+
+import CustomSlider from "./CustomSlider/CustomSlider";
 
 /**
  * Component for inputting and adjusting HSL (Hue, Saturation, Lightness) color values.
