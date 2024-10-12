@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# IDE
+.idea
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Cache
+.cache
+.cache-loader

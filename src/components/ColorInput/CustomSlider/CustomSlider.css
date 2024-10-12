@@ -1,9 +1,11 @@
+/* src/components/ColorInput/CustomSlider/CustomSlider.css */
 .slider-container {
   position: relative;
   width: 100%;
 }
 
 .slider {
+  -webkit-appearance: none;
   appearance: none;
   width: 100%;
   height: 20px;
@@ -18,8 +20,19 @@
   -webkit-appearance: none;
   width: 16px;
   height: 16px;
-  background-color: transparent;
-  border: 2px solid rgb(240, 240, 240);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid black;
   border-radius: 50%;
   cursor: pointer;
+  margin-top: -5px;
+}
+
+.slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: transparent;
+}
+
+.slider:focus {
+  outline: none;
 }

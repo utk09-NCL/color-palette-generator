@@ -1,0 +1,16 @@
+/* src/styles/App.css */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700;900&display=swap');
+
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+body {
+  font-family: 'Zen Kaku Gothic New', sans-serif;
+  line-height: 1.6;
+  font-size: 1rem;
+}
