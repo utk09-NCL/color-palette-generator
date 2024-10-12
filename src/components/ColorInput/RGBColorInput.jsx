@@ -1,6 +1,7 @@
 // src/components/ColorInput/RGBColorInput.jsx
 
 import PropTypes from "prop-types";
+
 import CustomSlider from "./CustomSlider/CustomSlider";
 
 /**

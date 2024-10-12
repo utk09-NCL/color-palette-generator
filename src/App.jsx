@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
+
 import ColorSection from "./components/ColorSection/ColorSection";
+import Button from "./components/Shared/Button";
 import { ALLOWED_COLOR_NAMES } from "./constants";
 import { generateExportData } from "./utils/colorUtils";
-import Button from "./components/Shared/Button";
 import "./styles/App.css";
 
 /**

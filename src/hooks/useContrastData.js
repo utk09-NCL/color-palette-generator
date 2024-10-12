@@ -1,7 +1,8 @@
 // src/hooks/useContrastData.js
 
 import { useMemo } from "react";
-import chroma from "chroma-js";
+import chroma, { contrast } from "chroma-js";
+
 import { calculateShadeStep } from "../utils/colorUtils";
 
 /**
@@ -28,7 +29,7 @@ const useContrastData = (shades) => {
     // Compare each shade with black and white text
     shades.forEach((bgShade) => {
       textColors.forEach((fgShade) => {
-        const contrastRatio = chroma.contrast(bgShade, fgShade);
+        const contrastRatio = contrast(bgShade, fgShade);
         const ratings = getWCAGRating(contrastRatio);
         combos.push({
           bgShade: bgShade.hex().toUpperCase(),
@@ -45,7 +46,7 @@ const useContrastData = (shades) => {
     // Compare each shade with every other shade
     shades.forEach((bgShade) => {
       shades.forEach((fgShade) => {
-        const contrastRatio = chroma.contrast(bgShade, fgShade);
+        const contrastRatio = contrast(bgShade, fgShade);
         const ratings = getWCAGRating(contrastRatio);
         const bgStep = getShadeStep(bgShade);
         const fgStep = getShadeStep(fgShade);

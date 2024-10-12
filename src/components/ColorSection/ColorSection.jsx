@@ -3,8 +3,9 @@
 import { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-hot-toast";
-import chroma from "chroma-js";
+import { valid } from "chroma-js";
 import clsx from "clsx";
+
 import ColorInput from "../ColorInput/ColorInput";
 import GenerateContrastGridColors from "../ContrastChecker/GenerateContrastGridColors";
 import { ALLOWED_COLOR_NAMES } from "../../constants";
@@ -54,7 +55,7 @@ function ColorSection({
     }
 
     // Validate the base color using chroma.js.
-    if (chroma.valid(color)) {
+    if (valid(color)) {
       setGeneratedColor(color);
       const shades = generateColorShades(color);
       onColorsGenerated({

@@ -1,7 +1,7 @@
 // src/components/ContrastChecker/ContrastTable.jsx
 
 import PropTypes from "prop-types";
-import chroma from "chroma-js";
+import { contrast } from "chroma-js";
 import {
   useReactTable,
   getCoreRowModel,
@@ -30,8 +30,7 @@ const ContrastTable = ({ data }) => {
             className="text-center"
             style={{
               backgroundColor: bgShade,
-              color:
-                chroma.contrast(bgShade, "white") > 4.5 ? "white" : "black",
+              color: contrast(bgShade, "white") > 4.5 ? "white" : "black",
             }}
           >
             {info.getValue()}
@@ -48,8 +47,7 @@ const ContrastTable = ({ data }) => {
             className="text-center"
             style={{
               backgroundColor: fgShade,
-              color:
-                chroma.contrast(fgShade, "white") > 4.5 ? "white" : "black",
+              color: contrast(fgShade, "white") > 4.5 ? "white" : "black",
             }}
           >
             {info.getValue()}
