@@ -26,6 +26,7 @@ Please note that this is a work in progress, and some features may not be fully 
 - **[chroma-js](https://gka.github.io/chroma.js/)**
 - **[@tanstack/react-table](https://tanstack.com/table/latest)**
 - **[react-hot-toast](https://react-hot-toast.com/)**
+- **[react-router-dom](https://reactrouter.com/en/main)**
 - **[@headlessui/react](https://headlessui.com/)**
 - **[clsx](https://github.com/lukeed/clsx)**
 - **[vite](https://vitejs.dev/)**
