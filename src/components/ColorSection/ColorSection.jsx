@@ -85,6 +85,7 @@ function ColorSection({
 
       {/* Input field for the color name */}
       <input
+        data-testid="color-name-input" // Test ID for testing
         type="text"
         value={colorName}
         onChange={(e) => setColorName(e.target.value)}
