@@ -17,6 +17,7 @@ const HEXColorInput = ({ hex, onHexChange }) => {
 
       {/* Input field for HEX color */}
       <input
+        data-testid="hex-input" // Test ID for testing
         type="text"
         value={hex} // The current value of the input field
         onChange={(e) => onHexChange(e.target.value)} // Update parent component on change
