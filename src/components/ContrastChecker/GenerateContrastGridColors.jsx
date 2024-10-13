@@ -51,7 +51,7 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
   };
 
   return (
-    <div>
+    <div data-testid={`generated-colors-${colorName}`}>
       {/* Action buttons */}
       <div className="flex justify-end mb-4 space-x-4">
         {/* Button to open the Export Colors modal */}
