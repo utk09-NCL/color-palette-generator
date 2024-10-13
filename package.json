@@ -13,7 +13,9 @@
     "clean:install": "node -e \"const os = require('os'); const isWindows = os.platform() === 'win32'; if (isWindows) { console.log('Running on Windows'); require('child_process').execSync('npm run clean:install:win', { stdio: 'inherit' }); } else { console.log('Running on Linux or macOS'); require('child_process').execSync('npm run clean:install:mac', { stdio: 'inherit' }); }\"",
     "clean:install:mac": "rm -rf node_modules dist && npm install",
     "clean:install:win": "rmdir /s /q node_modules dist && npm install",
-    "prepare": "husky || true"
+    "prepare": "husky || true",
+    "postinstall": "husky install",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "@headlessui/react": "2.1.8",
