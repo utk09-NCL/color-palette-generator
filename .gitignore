@@ -34,3 +34,6 @@ Thumbs.db
 # Cache
 .cache
 .cache-loader
+
+coverage
+reports/*

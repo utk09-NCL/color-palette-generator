@@ -67,6 +67,21 @@ describe("ColorSection", () => {
     expect(view.getByTestId("generated-colors-primary")).toBeInTheDocument();
   });
 
+  it("displays generated colors uses primary when empty string color name", () => {
+    const view = render(
+      <ColorSection
+        initialColorName={"    "} // testing for spaces in input
+        onDelete={onDeleteMock}
+        onColorsGenerated={onColorsGeneratedMock}
+      />,
+    );
+
+    const generateColorsButton = view.getByTestId("generate-colors-btn");
+    fireEvent.click(generateColorsButton);
+
+    expect(view.getByTestId("generated-colors-primary")).toBeInTheDocument();
+  });
+
   it("does not render with custom not allowed color name", async () => {
     render(
       <ColorSection
@@ -82,5 +97,22 @@ describe("ColorSection", () => {
     expect(toast.error).toHaveBeenCalledWith(
       "Invalid color name. Use one of the following: primary, secondary, tertiary, accent, info, success, warning, error, custom",
     );
+  });
+
+  it("sets color name on input", () => {
+    render(
+      <ColorSection
+        initialColorName="newColourName"
+        onDelete={onDeleteMock}
+        onColorsGenerated={onColorsGeneratedMock}
+      />,
+    );
+
+    const input = screen.getByPlaceholderText(
+      "Color Name: primary, secondary...",
+    );
+    fireEvent.change(input, { target: { value: "newColorName" } });
+
+    expect(input.value).toBe("newColorName");
   });
 });
