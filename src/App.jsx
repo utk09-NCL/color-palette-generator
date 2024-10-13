@@ -2,6 +2,7 @@
 
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Footer from './components/NavFooter';
 
 import Home from "./pages/Home";
 
@@ -13,6 +14,11 @@ const router = createBrowserRouter([
     id: "home",
     path: "/",
     element: <Home />,
+  },
+  {
+    id:"footer",
+    path:"/",
+    element:<Footer />
   },
 ]);
 
