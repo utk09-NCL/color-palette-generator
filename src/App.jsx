@@ -2,7 +2,7 @@
 
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Footer from './components/NavFooter';
+import Footer from './components/NavFooter.jsx';
 
 import Home from "./pages/Home";
 
