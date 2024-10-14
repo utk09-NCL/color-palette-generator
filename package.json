@@ -14,7 +14,6 @@
     "clean:install:mac": "rm -rf node_modules dist && npm install",
     "clean:install:win": "rmdir /s /q node_modules dist && npm install",
     "prepare": "husky || true",
-    "postinstall": "husky init",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
