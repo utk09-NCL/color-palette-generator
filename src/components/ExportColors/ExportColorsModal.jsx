@@ -82,16 +82,16 @@ const ExportColorsModal = ({ isOpen, onClose, shades, colorName }) => {
         Export Colors
       </h3>
 
-      <div className="flex">
+      <div className="lg:flex">
         {/* Format Selection Sidebar */}
-        <div className="w-1/4 border-r pr-4">
-          <ul>
+        <div className="lg:w-1/4 lg:border-r lg:pr-4">
+          <ul className="grid grid-cols-2 gap-4 lg:block">
             {EXPORT_FORMATS.map((option) => (
-              <li key={option.id} className="mb-2">
+              <li key={option.id} className="mb-2 border-0 border-black">
                 <Button
                   onClick={() => setSelectedFormat(option.id)}
                   className={clsx(
-                    "w-full text-left",
+                    "w-full text-center lg:text-left border-0 border-black py-1 px-2 shadow-sm shadow-gray-400 ",
                     selectedFormat === option.id
                       ? "bg-blue-500 text-white"
                       : "hover:bg-gray-100",
@@ -104,8 +104,8 @@ const ExportColorsModal = ({ isOpen, onClose, shades, colorName }) => {
           </ul>
         </div>
         {/* Code Display Area */}
-        <div className="w-3/4 pl-4">
-          <pre className="bg-gray-100 p-4 rounded h-64 overflow-auto">
+        <div className="lg:w-3/4 lg:pl-4 mt-4 lg:mt-0">
+          <pre className="bg-gray-100 p-4 rounded-[10px] h-64 overflow-auto shadow-sm shadow-gray-400">
             <code>{codeOutput}</code>
           </pre>
           <div className="mt-4 flex justify-between">
