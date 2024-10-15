@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { FaCaretUp } from "react-icons/fa";
 
 import { ALLOWED_COLOR_NAMES } from "../constants";
 import { generateExportData } from "../utils/colorUtils";
 import Button from "../components/Shared/Button";
 import ColorSection from "../components/ColorSection/ColorSection";
-// import { ChevronUp } from "lucide-react";
-import { FaCaretUp } from "react-icons/fa";
 
 /**
  * The main Home component that renders the application.
@@ -203,8 +202,7 @@ const Home = () => {
           className="fixed bottom-4 border-2 right-4 p-2 text-black rounded-sm shadow-md lg:hidden"
           style={{ borderColor: baseColor }}
         >
-          {/* <ChevronUp /> */}
-          <FaCaretUp size={40} />
+          <FaCaretUp size={40} color={baseColor} />
         </button>
       )}
     </main>
