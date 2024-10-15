@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { FaCaretUp } from "react-icons/fa";
 
 import { ALLOWED_COLOR_NAMES } from "../constants";
 import { generateExportData } from "../utils/colorUtils";
@@ -75,7 +76,7 @@ const Home = () => {
       [id]: colorData,
     }));
   };
-
+  const baseColor = Object.values(generatedColors)[0]?.baseColor;
   /**
    * Exports all generated colors as a JSON string and copies it to the clipboard.
    */
@@ -120,6 +121,34 @@ const Home = () => {
       () => toast.error("Failed to copy colors to clipboard."),
     );
   };
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Toggle the visibility of the button based on the scroll position
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
+
+  // Smooth scroll to the top when button is clicked
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <main className="container mx-auto px-6 py-12">
       {/* App title */}
@@ -167,6 +196,15 @@ const Home = () => {
           } // Callback when colors are generated
         />
       ))}
+      {isVisible && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-4 border-2 right-4 p-2 text-black rounded-sm shadow-md lg:hidden"
+          style={{ borderColor: baseColor }}
+        >
+          <FaCaretUp size={40} color={baseColor} />
+        </button>
+      )}
     </main>
   );
 };
