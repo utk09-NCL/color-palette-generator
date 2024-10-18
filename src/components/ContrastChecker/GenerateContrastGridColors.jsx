@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
 import chroma, { scale } from "chroma-js";
 
 import ExportColorsModal from "../ExportColors/ExportColorsModal";
@@ -50,6 +51,14 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
     return luminance > 0.5 ? "#000000" : "#ffffff"; // Return black text for light backgrounds and white text for dark backgrounds.
   };
 
+  // Handle copying code to clipboard
+  const handleCopy = (hexValue) => {
+    navigator.clipboard.writeText(hexValue).then(
+      () => toast.success(`Copied ${hexValue} to clipboard!`),
+      () => toast.error("Failed to copy code to clipboard."),
+    );
+  };
+
   return (
     <div data-testid={`generated-colors-${colorName}`}>
       {/* Action buttons */}
@@ -86,13 +95,14 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
 
           return (
             // Individual shade block
-            <div
+            <button
               key={shade.hex()} // Unique key for React rendering.
-              className="p-2 text-center"
+              className="p-2 text-center hover:cursor-pointer"
               style={{
                 backgroundColor: shade.hex(), // Set background to the shade color.
                 color: textColor, // Set text color for readability.
               }}
+              onClick={() => handleCopy(shade.hex().toUpperCase())} //Copy Hex value to clipboard
             >
               {/* Display the shade step (e.g., 100, 200) */}
               <p className="font-light">{`${step}`}</p>
@@ -102,7 +112,7 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
 
               {/* Display the color name */}
               <p className="mt-2">{name}</p>
-            </div>
+            </button>
           );
         })}
       </div>
