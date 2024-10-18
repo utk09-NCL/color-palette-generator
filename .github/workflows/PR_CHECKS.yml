@@ -41,7 +41,7 @@ jobs:
 
       # Step 6: Run Unit Tests with Coverage
       - name: Run Tests with Coverage
-        run: npm run test -- --coverage
+        run: npm run test
         env:
           CI: true # Ensure tests run in CI mode
 
