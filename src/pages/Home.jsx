@@ -43,6 +43,9 @@ const Home = () => {
       ...prevSections,
       { id: Date.now(), initialColorName: nextName },
     ]);
+
+    // setSections triggers a re-render of the component, so adding a slight delay ensures the toast doesn't disappear prematurely.
+    setTimeout(() => toast.success("Color set added!"), 50);
   };
 
   /**
