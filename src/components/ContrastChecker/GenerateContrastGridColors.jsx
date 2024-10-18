@@ -7,6 +7,7 @@ import chroma, { scale } from "chroma-js";
 import ExportColorsModal from "../ExportColors/ExportColorsModal";
 import Button from "../Shared/Button";
 import { TOTAL_SHADES } from "../../constants";
+import { handleCopy } from "../../utils/copyToClipboard";
 
 import ContrastCheckerModal from "./ContrastCheckerModal";
 
@@ -86,13 +87,14 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
 
           return (
             // Individual shade block
-            <div
+            <button
               key={shade.hex()} // Unique key for React rendering.
               className="p-2 text-center"
               style={{
                 backgroundColor: shade.hex(), // Set background to the shade color.
                 color: textColor, // Set text color for readability.
               }}
+              onClick={() => handleCopy(shade.hex().toUpperCase())} //Copy Hex value to clipboard
             >
               {/* Display the shade step (e.g., 100, 200) */}
               <p className="font-light">{`${step}`}</p>
@@ -102,7 +104,7 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
 
               {/* Display the color name */}
               <p className="mt-2">{name}</p>
-            </div>
+            </button>
           );
         })}
       </div>
