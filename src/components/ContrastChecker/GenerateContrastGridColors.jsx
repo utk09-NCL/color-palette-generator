@@ -2,12 +2,12 @@
 
 import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
-import { toast } from "react-hot-toast";
 import chroma, { scale } from "chroma-js";
 
 import ExportColorsModal from "../ExportColors/ExportColorsModal";
 import Button from "../Shared/Button";
 import { TOTAL_SHADES } from "../../constants";
+import { handleCopy } from "../../utils/copyToClipboard";
 
 import ContrastCheckerModal from "./ContrastCheckerModal";
 
@@ -49,14 +49,6 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
   const getTextColor = (bgColor) => {
     const luminance = chroma(bgColor).luminance(); // Get the luminance of the background color.
     return luminance > 0.5 ? "#000000" : "#ffffff"; // Return black text for light backgrounds and white text for dark backgrounds.
-  };
-
-  // Handle copying code to clipboard
-  const handleCopy = (hexValue) => {
-    navigator.clipboard.writeText(hexValue).then(
-      () => toast.success(`Copied ${hexValue} to clipboard!`),
-      () => toast.error("Failed to copy code to clipboard."),
-    );
   };
 
   return (
