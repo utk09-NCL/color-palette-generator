@@ -44,7 +44,7 @@
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.0",
     "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-react": "7.37.0",
+    "eslint-plugin-react": "7.37.1",
     "eslint-plugin-react-hooks": "5.1.0-beta-26f2496093-20240514",
     "eslint-plugin-react-refresh": "0.4.12",
     "globals": "15.9.0",
