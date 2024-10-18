@@ -36,6 +36,11 @@ Please note that this is a work in progress, and some features may not be fully 
 - **[husky](https://typicode.github.io/husky)**
 - **[commitlint](https://commitlint.js.org/)**
 - **[lint-staged](https://github.com/lint-staged/lint-staged)**
+- **[vitest](https://vitest.dev/)**
+- **[jsdom](https://github.com/jsdom/jsdom)**
+- **[@testing-library/jest-dom](https://testing-library.com/docs/ecosystem-jest-dom/)**
+- **[@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)**
+- **[@vitest/coverage-istanbul](https://vitest.dev/guide/coverage.html#coverage-providers)**
 
 ## 🛠️ Installation
 
