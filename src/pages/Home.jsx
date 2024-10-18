@@ -63,6 +63,8 @@ const Home = () => {
       delete newColors[id];
       return newColors;
     });
+
+    toast.success("Color set removed!");
   };
 
   /**
