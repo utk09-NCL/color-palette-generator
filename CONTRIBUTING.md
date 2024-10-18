@@ -21,7 +21,7 @@ Have an idea for a new feature? [open an issue](https://github.com/utk09-NCL/col
 2. **Clone Your Fork**
 
    ```bash
-   git clone https://github.com/utk09-NCL/color-palette-generator.git
+   git clone https://github.com/<your_username>/color-palette-generator.git
 
    cd color-palette-generator
    ```
@@ -34,6 +34,9 @@ Have an idea for a new feature? [open an issue](https://github.com/utk09-NCL/col
 
     # Create a new branch for your feature or fix using a descriptive name
     git checkout -b my-new-feature-branch
+
+    # Update the dependencies in node_modules
+    npm install
    ```
 
 4. **Make Changes**
