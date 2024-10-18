@@ -2,11 +2,14 @@
 
 import { useState, useMemo } from "react";
 import PropTypes from "prop-types";
+import { toast } from "react-hot-toast";
 import chroma, { scale } from "chroma-js";
+import { toast } from "react-hot-toast";
 
 import ExportColorsModal from "../ExportColors/ExportColorsModal";
 import Button from "../Shared/Button";
 import { TOTAL_SHADES } from "../../constants";
+import { copyToClipboard } from "../../utils/copyToClipboard";
 
 import ContrastCheckerModal from "./ContrastCheckerModal";
 
@@ -50,6 +53,13 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
     return luminance > 0.5 ? "#000000" : "#ffffff"; // Return black text for light backgrounds and white text for dark backgrounds.
   };
 
+  const handleCopy = (dataToCopy) => {
+    copyToClipboard(dataToCopy).then(
+      () => toast.success(`Copied ${dataToCopy} to clipboard!`),
+      () => toast.error("Failed to copy code to clipboard."),
+    );
+  };
+
   return (
     <div data-testid={`generated-colors-${colorName}`}>
       {/* Action buttons */}
@@ -86,13 +96,14 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
 
           return (
             // Individual shade block
-            <div
+            <Button
               key={shade.hex()} // Unique key for React rendering.
-              className="p-2 text-center"
+              className="p-2 text-center hover:cursor-pointer"
               style={{
                 backgroundColor: shade.hex(), // Set background to the shade color.
                 color: textColor, // Set text color for readability.
               }}
+              onClick={() => handleCopy(shade.hex().toUpperCase())} //Copy Hex value to clipboard
             >
               {/* Display the shade step (e.g., 100, 200) */}
               <p className="font-light">{`${step}`}</p>
@@ -102,7 +113,7 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
 
               {/* Display the color name */}
               <p className="mt-2">{name}</p>
-            </div>
+            </Button>
           );
         })}
       </div>
