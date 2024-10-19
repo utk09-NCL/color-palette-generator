@@ -4,6 +4,7 @@ import {
   calculateShadeStep,
   generateColorShades,
   generateExportData,
+  generateRandomBackgroundColor,
 } from "./colorUtils";
 
 describe("calculateShadeStep", () => {
@@ -65,5 +66,22 @@ describe("generateColorShades", () => {
     const result = generateColorShades(baseColor, 0);
 
     expect(result).toHaveLength(2);
+  });
+});
+
+describe("generateRandomBackgroundColor", () => {
+  it("should return one of the predefined background color arrays", () => {
+    const backgroundOptions = {
+      0: ["#1BB4E0", "#000850"],
+      1: ["#FC456B", "#3F5EFB"],
+      2: ["#4B6CB7", "#192848"],
+      3: ["#D56639", "#DAAE51"],
+      4: ["#00D2FF", "#3A47D5"],
+    };
+
+    const result = generateRandomBackgroundColor();
+    const values = Object.values(backgroundOptions);
+
+    expect(values).toContainEqual(result);
   });
 });
