@@ -128,14 +128,21 @@ const Home = () => {
   return (
     <main className="container mx-auto px-6 py-12">
       {/* App title */}
-      <h1 className="text-4xl font-medium mb-6 text-center uppercase">
+      <h1
+        data-testid="app-title"
+        className="text-4xl font-medium mb-6 text-center uppercase"
+      >
         Color Conjure
       </h1>
 
       {/* Buttons for adding sections and exporting colors */}
       <div className="flex flex-wrap justify-center items-center space-x-4">
         {/* Button to add a new color set */}
-        <Button onClick={addSection} className="bg-rose-600 text-white">
+        <Button
+          dataTestid="add-color-set"
+          onClick={addSection}
+          className="bg-rose-600 text-white"
+        >
           Add Color Set
         </Button>
 
@@ -144,6 +151,7 @@ const Home = () => {
           <>
             {/* Button to export all colors as JSON */}
             <Button
+              dataTestid="export-all-colors-json"
               onClick={exportAllColorsAsJSON}
               className="bg-emerald-600 text-white"
             >
@@ -152,6 +160,7 @@ const Home = () => {
 
             {/* Button to export all colors as CSS variables */}
             <Button
+              dataTestid="export-all-colors-css"
               onClick={exportAllColorsAsCSSVariables}
               className="bg-amber-600 text-white"
             >
