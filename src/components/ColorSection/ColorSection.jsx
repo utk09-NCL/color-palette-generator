@@ -74,7 +74,7 @@ function ColorSection({
       data-testid={`color-section-${initialColorName}`} // Test ID for testing
     >
       {/* Button to remove the color section */}
-      <div className="flex justify-end">
+      <div className="flex justify-end pb-2 md:pb-0">
         <Button
           onClick={onDelete}
           className="text-red-500 font-bold hover:bg-red-500 hover:text-white"
@@ -90,7 +90,7 @@ function ColorSection({
         value={colorName}
         onChange={(e) => setColorName(e.target.value)}
         placeholder="Color Name: primary, secondary..."
-        className="border px-2 py-1 rounded-lg w-64 mb-4 text-center"
+        className="border px-2 py-1 rounded-lg w-full md:w-64 mb-4 text-center"
       />
 
       {/* Component for inputting and previewing the base color */}
