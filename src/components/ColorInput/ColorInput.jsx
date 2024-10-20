@@ -132,7 +132,7 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
   }, [debouncedHexInput, onChangeColor]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-2 px-0 md:px-2">
       {/* Color preview section */}
       <div className="lg:col-span-1 flex items-center justify-center">
         <ColorPreview color={chromaColor.css()} />
