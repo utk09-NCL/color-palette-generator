@@ -1,14 +1,12 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect } from "react";
 import { FaGithub, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
 
 const Header = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false); // To control the mobile slider
 
   // Detect if the device is mobile using a media query hook
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,70 +62,67 @@ const Header = () => {
   return (
     <div
       className={`${
-        isMobile ? "w-full" : scrollProgress > 0 ? "pt-0" : "pt-4"
+        scrollProgress > 0 ? "pt-0" : "pt-4"
       } fixed top-0 z-[9999] w-full flex justify-center items-center transition-all duration-300 ease-in-out`}
     >
-      {isMobile ? (
-        <>
-          {/* Mobile View */}
-          <header className="bg-headerBackground fixed top-0 w-full z-50 p-4">
-            <div className="relative flex items-center justify-between w-full">
-              {/* Hamburger Icon */}
-              <button
-                onClick={toggleMenu}
-                className="text-gray-500 text-2xl focus:outline-none"
-              >
-                <FaBars />
-              </button>
-              {/* Logo */}
-              <h1 className="text-[20px] font-extrabold text-headerBrand whitespace-nowrap">
-                Color Conjure
-              </h1>
-              {/* GitHub Link */}
-              <Link
-                to={"https://github.com/utk09-NCL/color-palette-generator/"}
-                className="w-6 h-6"
-              >
-                <FaGithub className="w-full h-full" />
-              </Link>
-            </div>
-          </header>
-          {/* Render Mobile Nav Slider */}
-          {renderMobileNav()}
-        </>
-      ) : (
-        // Desktop View
-        <header
-          className="bg-headerBackground transition-all duration-300 ease-in-out w-full"
-          style={headerStyle}
-        >
-          <div className="relative flex items-center justify-between p-4 w-full">
+      <>
+        {/* Mobile View */}
+        <header className="bg-headerBackground fixed top-0 w-full z-50 p-4 lg:hidden">
+          <div className="relative flex items-center justify-between w-full">
+            {/* Hamburger Icon */}
+            <button
+              onClick={toggleMenu}
+              className="text-gray-500 text-2xl focus:outline-none"
+            >
+              <FaBars />
+            </button>
             {/* Logo */}
-            <h1 className="text-[20px] md:text-[24px] font-extrabold text-headerBrand whitespace-nowrap">
+            <h1 className="text-[20px] font-extrabold text-headerBrand whitespace-nowrap">
               Color Conjure
             </h1>
-
-            {/* Navigation Link - Centered */}
-            <div className="absolute left-1/2 transform -translate-x-1/2">
-              <Link to="/" className="text-[16px] md:text-[20px] font-semibold">
-                Home
-              </Link>
-            </div>
-
-            {/* GitHub Link - Right Side */}
-            <div className="flex items-center space-x-4">
-              <Link
-                to={"https://github.com/utk09-NCL/color-palette-generator/"}
-                className="w-6 h-6 md:w-8 md:h-8"
-              >
-                <FaGithub className="w-full h-full" />
-              </Link>
-            </div>
+            {/* GitHub Link */}
+            <Link
+              to={"https://github.com/utk09-NCL/color-palette-generator/"}
+              className="w-6 h-6"
+            >
+              <FaGithub className="w-full h-full" />
+            </Link>
           </div>
         </header>
-      )}
+        {/* Render Mobile Nav Slider */}
+        {renderMobileNav()}
+      </>
+
+      <header
+        className="bg-headerBackground transition-all duration-300 ease-in-out w-full hidden lg:block"
+        style={headerStyle}
+      >
+        <div className="relative flex items-center justify-between p-4 w-full">
+          {/* Logo */}
+          <h1 className="text-[20px] md:text-[24px] font-extrabold text-headerBrand whitespace-nowrap">
+            Color Conjure
+          </h1>
+
+          {/* Navigation Link - Centered */}
+          <div className="absolute left-1/2 transform -translate-x-1/2">
+            <Link to="/" className="text-[16px] md:text-[20px] font-semibold">
+              Home
+            </Link>
+          </div>
+
+          {/* GitHub Link - Right Side */}
+          <div className="flex items-center space-x-4">
+            <Link
+              to={"https://github.com/utk09-NCL/color-palette-generator/"}
+              className="w-6 h-6 md:w-8 md:h-8"
+            >
+              <FaGithub className="w-full h-full" />
+            </Link>
+          </div>
+        </div>
+      </header>
     </div>
   );
 };
 
-export default memo(Header);
+export default Header;

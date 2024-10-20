@@ -1,18 +1,11 @@
 // src/App.jsx
 import { Toaster } from "react-hot-toast";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import "./styles/App.css";
-import Header from "./components/Header/Header";
-
-const Layout = () => (
-  <div>
-    <Header />
-    <Outlet />
-  </div>
-);
+import Layout from "./components/Layout/Layout";
 
 // Create a browser router
 const router = createBrowserRouter([
