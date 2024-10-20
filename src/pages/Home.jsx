@@ -126,7 +126,7 @@ const Home = () => {
     );
   };
   return (
-    <main className="container mx-auto px-6 py-12">
+    <main className="container mx-auto px-6 py-12 mt-12">
       {/* App title */}
 
       {/* Buttons for adding sections and exporting colors */}

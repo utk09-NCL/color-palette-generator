@@ -8,10 +8,10 @@ import "./styles/App.css";
 import Header from "./components/Header/Header";
 
 const Layout = () => (
-  <>
+  <div>
     <Header />
     <Outlet />
-  </>
+  </div>
 );
 
 // Create a browser router

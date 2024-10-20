@@ -1,9 +1,14 @@
 import { useState, useEffect, memo } from "react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 const Header = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // To control the mobile slider
+
+  // Detect if the device is mobile using a media query hook
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,32 +30,102 @@ const Header = () => {
     borderRadius: `${(1 - scrollProgress) * 0.75}rem`,
   };
 
+  // Toggle menu open/close
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+
+  // Mobile slider navigation
+  const renderMobileNav = () => (
+    <div
+      className={`fixed top-0 left-0 h-full w-64 bg-headerBackground z-50 transition-transform duration-300 ease-in-out transform ${
+        isMenuOpen ? "translate-x-0" : "-translate-x-full"
+      }`}
+    >
+      <div className="flex justify-between p-4 items-center border-b border-gray-200">
+        <h1 className="text-[20px] font-bold text-headerBrand">Menu</h1>
+        <button onClick={toggleMenu} className="text-gray-500 text-2xl">
+          <FaTimes />
+        </button>
+      </div>
+      <div className="flex flex-col p-4 space-y-4">
+        <Link to="/" onClick={toggleMenu} className="text-[16px] font-semibold">
+          Home
+        </Link>
+        <Link
+          to="https://github.com/utk09-NCL/color-palette-generator/"
+          onClick={toggleMenu}
+          className="text-[16px] font-semibold"
+        >
+          GitHub
+        </Link>
+      </div>
+    </div>
+  );
+
   return (
     <div
-      className={`${scrollProgress > 0 ? "pt-0" : "pt-4"} sticky z-[9999] top-0 w-full flex justify-center items-center transition-all duration-300 ease-in-out`}
+      className={`${
+        isMobile ? "w-full" : scrollProgress > 0 ? "pt-0" : "pt-4"
+      } fixed top-0 z-[9999] w-full flex justify-center items-center transition-all duration-300 ease-in-out`}
     >
-      <header
-        className="bg-headerBackground transition-all duration-300 ease-in-out w-full"
-        style={headerStyle}
-      >
-        <div className="relative flex items-center justify-between p-4 w-full">
-          <h1 className="text-[24px] font-extrabold text-headerBrand whitespace-nowrap">
-            Color Conjure
-          </h1>
+      {isMobile ? (
+        <>
+          {/* Mobile View */}
+          <header className="bg-headerBackground fixed top-0 w-full z-50 p-4">
+            <div className="relative flex items-center justify-between w-full">
+              {/* Hamburger Icon */}
+              <button
+                onClick={toggleMenu}
+                className="text-gray-500 text-2xl focus:outline-none"
+              >
+                <FaBars />
+              </button>
+              {/* Logo */}
+              <h1 className="text-[20px] font-extrabold text-headerBrand whitespace-nowrap">
+                Color Conjure
+              </h1>
+              {/* GitHub Link */}
+              <Link
+                to={"https://github.com/utk09-NCL/color-palette-generator/"}
+                className="w-6 h-6"
+              >
+                <FaGithub className="w-full h-full" />
+              </Link>
+            </div>
+          </header>
+          {/* Render Mobile Nav Slider */}
+          {renderMobileNav()}
+        </>
+      ) : (
+        // Desktop View
+        <header
+          className="bg-headerBackground transition-all duration-300 ease-in-out w-full"
+          style={headerStyle}
+        >
+          <div className="relative flex items-center justify-between p-4 w-full">
+            {/* Logo */}
+            <h1 className="text-[20px] md:text-[24px] font-extrabold text-headerBrand whitespace-nowrap">
+              Color Conjure
+            </h1>
 
-          <div className="absolute left-1/2 transform -translate-x-1/2">
-            <Link to={"/"} className="text-[20px] font-semibold">
-              Home
-            </Link>
-          </div>
+            {/* Navigation Link - Centered */}
+            <div className="absolute left-1/2 transform -translate-x-1/2">
+              <Link to="/" className="text-[16px] md:text-[20px] font-semibold">
+                Home
+              </Link>
+            </div>
 
-          <div>
-            <Link to={"https://github.com/utk09-NCL/color-palette-generator/"}>
-              <FaGithub className="w-8 h-8" />
-            </Link>
+            {/* GitHub Link - Right Side */}
+            <div className="flex items-center space-x-4">
+              <Link
+                to={"https://github.com/utk09-NCL/color-palette-generator/"}
+                className="w-6 h-6 md:w-8 md:h-8"
+              >
+                <FaGithub className="w-full h-full" />
+              </Link>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      )}
     </div>
   );
 };
