@@ -1,25 +1,30 @@
 // src/App.jsx
-
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-
 import "./styles/App.css";
+import Layout from "./components/Layout/Layout";
 
 // Create a browser router
 const router = createBrowserRouter([
   {
-    id: "home",
     path: "/",
-    element: <Home />,
-    errorElement: <NotFound />,
-  },
-  {
-    id: "not-found",
-    path: "*",
-    element: <NotFound />,
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+        errorElement: <NotFound />,
+      },
+      {
+        id: "not-found",
+        path: "*",
+        element: <NotFound />,
+      },
+      // Add more routes here as needed
+    ],
   },
 ]);
 

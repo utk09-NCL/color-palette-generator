@@ -126,11 +126,8 @@ const Home = () => {
     );
   };
   return (
-    <main className="container mx-auto px-6 py-12">
+    <main className="container mx-auto px-6 py-12 mt-12">
       {/* App title */}
-      <h1 className="text-4xl font-medium mb-6 text-center uppercase">
-        Color Conjure
-      </h1>
 
       {/* Buttons for adding sections and exporting colors */}
       <div className="flex flex-wrap justify-center items-center space-x-4">
