@@ -48,13 +48,15 @@ const Header = () => {
         <Link to="/" onClick={toggleMenu} className="text-[16px] font-semibold">
           Home
         </Link>
-        <Link
-          to="https://github.com/utk09-NCL/color-palette-generator/"
+        <a
+          href="https://github.com/utk09-NCL/color-palette-generator/"
           onClick={toggleMenu}
-          className="text-[16px] font-semibold"
+          className="text-[16px] font-semibold cursor-pointer"
+          target="_blank"
+          rel="noreferrer"
         >
           GitHub
-        </Link>
+        </a>
       </div>
     </div>
   );
@@ -81,12 +83,12 @@ const Header = () => {
               Color Conjure
             </h1>
             {/* GitHub Link */}
-            <Link
-              to={"https://github.com/utk09-NCL/color-palette-generator/"}
-              className="w-6 h-6"
+            <a
+              href="https://github.com/utk09-NCL/color-palette-generator/"
+              className="w-6 h-6 cursor-pointer"
             >
               <FaGithub className="w-full h-full" />
-            </Link>
+            </a>
           </div>
         </header>
         {/* Render Mobile Nav Slider */}
@@ -112,12 +114,14 @@ const Header = () => {
 
           {/* GitHub Link - Right Side */}
           <div className="flex items-center space-x-4">
-            <Link
-              to={"https://github.com/utk09-NCL/color-palette-generator/"}
-              className="w-6 h-6 md:w-8 md:h-8"
+            <a
+              href="https://github.com/utk09-NCL/color-palette-generator/"
+              className="w-6 h-6 md:w-8 md:h-8 cursor-pointer"
+              target="_blank"
+              rel="noreferrer"
             >
               <FaGithub className="w-full h-full" />
-            </Link>
+            </a>
           </div>
         </div>
       </header>
