@@ -36,6 +36,11 @@ Please note that this is a work in progress, and some features may not be fully 
 - **[husky](https://typicode.github.io/husky)**
 - **[commitlint](https://commitlint.js.org/)**
 - **[lint-staged](https://github.com/lint-staged/lint-staged)**
+- **[vitest](https://vitest.dev/)**
+- **[jsdom](https://github.com/jsdom/jsdom)**
+- **[@testing-library/jest-dom](https://testing-library.com/docs/ecosystem-jest-dom/)**
+- **[@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)**
+- **[@vitest/coverage-istanbul](https://vitest.dev/guide/coverage.html#coverage-providers)**
 
 ## 🛠️ Installation
 
@@ -136,6 +141,12 @@ If you like this project, give it a ⭐️ on GitHub and share it with your frie
 If you have any queries or want to discuss this project or just tech, find my contact details on my [Personal Website]: utk09[dot]com
 
 ## Thanks in advance for all your contributions! 🌟
+
+## 👥 Our Contributors
+
+A big shoutout to all the contributors who have helped in building this project.
+
+[![Contributors](https://contrib.rocks/image?repo=utk09-NCL/color-palette-generator)](https://github.com/utk09-NCL/color-palette-generator/graphs/contributors)
 
 ### Author
 

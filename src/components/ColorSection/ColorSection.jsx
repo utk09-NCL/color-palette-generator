@@ -69,7 +69,10 @@ function ColorSection({
   }, [color, colorName, onColorsGenerated]);
 
   return (
-    <section className="p-4 border-2 border-gray-200 rounded-xl mt-10">
+    <section
+      className="p-4 border-2 border-gray-200 rounded-xl mt-10"
+      data-testid={`color-section-${initialColorName}`} // Test ID for testing
+    >
       {/* Button to remove the color section */}
       <div className="flex justify-end">
         <Button
@@ -82,6 +85,7 @@ function ColorSection({
 
       {/* Input field for the color name */}
       <input
+        data-testid="color-name-input" // Test ID for testing
         type="text"
         value={colorName}
         onChange={(e) => setColorName(e.target.value)}
@@ -95,6 +99,7 @@ function ColorSection({
       {/* Button to generate color shades */}
       <div className="text-center mt-6">
         <Button
+          dataTestid="generate-colors" // Test ID for testing
           onClick={handleGenerateColors}
           className={clsx({
             "bg-white text-black": color === "#ffffff",

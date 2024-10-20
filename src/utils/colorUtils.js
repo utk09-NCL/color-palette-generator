@@ -26,3 +26,18 @@ export const generateColorShades = (baseColor, totalShades = 11) => {
     .colors(totalShades)
     .map((shadeColor) => chroma(shadeColor).hex().toUpperCase());
 };
+
+export const generateRandomBackgroundColor = () => {
+  const backgroundOptions = {
+    0: ["#1BB4E0", "#000850"],
+    1: ["#FC456B", "#3F5EFB"],
+    2: ["#4B6CB7", "#192848"],
+    3: ["#D56639", "#DAAE51"],
+    4: ["#00D2FF", "#3A47D5"],
+  };
+
+  const randomIndex = Math.floor(
+    Math.random() * Object.keys(backgroundOptions).length,
+  );
+  return backgroundOptions[randomIndex];
+};
