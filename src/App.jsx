@@ -2,6 +2,7 @@
 
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Footer from './components/NavFooter.jsx';
 
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
@@ -20,6 +21,11 @@ const router = createBrowserRouter([
     id: "not-found",
     path: "*",
     element: <NotFound />,
+  },
+  {
+    id:"footer",
+    path:"/",
+    element:<Footer />
   },
 ]);
 
