@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import { toast } from "react-hot-toast";
-import { valid } from "chroma-js";
+import chroma, { valid } from "chroma-js";
 import clsx from "clsx";
 
 import ColorInput from "../ColorInput/ColorInput";
@@ -68,6 +68,9 @@ function ColorSection({
     }
   }, [color, colorName, onColorsGenerated]);
 
+  // Luminance is a method in chroma.js that calculates the brightness of 'color' and returns a value between 0 and 1
+  const luminance = chroma(color).luminance();
+
   return (
     <section
       className="p-4 border-2 border-gray-200 rounded-xl mt-10"
@@ -102,8 +105,8 @@ function ColorSection({
           dataTestid="generate-colors" // Test ID for testing
           onClick={handleGenerateColors}
           className={clsx({
-            "bg-white text-black": color === "#ffffff",
-            "text-white": color !== "#ffffff",
+            "text-black font-bold": luminance > 0.5, // if luminance is greater than 0.5, make the button text black and bold
+            "text-white font-bold": luminance <= 0.5, // if luminance is less than or equal to 0.5, make the button text white and bold
           })}
           style={{ backgroundColor: color }}
         >
