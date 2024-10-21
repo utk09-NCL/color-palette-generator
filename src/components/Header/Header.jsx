@@ -65,7 +65,7 @@ const Header = () => {
     <div
       className={`${
         scrollProgress > 0 ? "pt-0" : "pt-4"
-      } fixed top-0 z-[9999] w-full flex justify-center items-center transition-all duration-300 ease-in-out`}
+      } fixed top-0 z-50 w-full flex justify-center items-center transition-all duration-300 ease-in-out`}
     >
       <>
         {/* Mobile View */}
