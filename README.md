@@ -146,7 +146,7 @@ If you have any queries or want to discuss this project or just tech, find my co
 
 A big shoutout to all the contributors who have helped in building this project.
 
-[![Contributors](https://contrib.rocks/image?repo=utk09-NCL/color-palette-generator)](https://github.com/utk09-NCL/color-palette-generator/graphs/contributors)
+[Contributors](https://github.com/utk09-NCL/color-palette-generator/graphs/contributors)
 
 ### Author
 
