@@ -79,6 +79,7 @@ function ColorSection({
       {/* Button to remove the color section */}
       <div className="flex justify-end pb-2 md:pb-0">
         <Button
+          dataTestid="delete-color-set"
           onClick={onDelete}
           className="text-red-500 font-bold hover:bg-red-500 hover:text-white"
         >
