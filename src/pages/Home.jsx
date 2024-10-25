@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
+import { FaCaretUp } from "react-icons/fa";
 
 import { ALLOWED_COLOR_NAMES } from "../constants";
 import { generateExportData } from "../utils/colorUtils";
@@ -21,6 +22,7 @@ const Home = () => {
 
   // State to store all generated colors from the color sections.
   const [generatedColors, setGeneratedColors] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
 
   /**
    * Adds a new color section to the app.
@@ -81,6 +83,8 @@ const Home = () => {
     }));
   };
 
+  // Extracting base color from the generatedColors
+  const baseColor = Object.values(generatedColors)[0]?.baseColor;
   /**
    * Exports all generated colors as a JSON string and copies it to the clipboard.
    */
@@ -125,6 +129,32 @@ const Home = () => {
       () => toast.error("Failed to copy colors to clipboard."),
     );
   };
+
+  useEffect(() => {
+    // Toggle the visibility of the button based on the scroll position
+    const toggleVisibility = () => {
+      if (window.scrollY > 300) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
+  }, []);
+
+  // Smooth scroll to the top when button is clicked
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <main className="container mx-auto px-6 py-12 mt-12">
       {/* Buttons for adding sections and exporting colors */}
@@ -167,6 +197,15 @@ const Home = () => {
           } // Callback when colors are generated
         />
       ))}
+      {isVisible && (
+        <Button
+          onClick={scrollToTop}
+          className="fixed bottom-4 border-2 right-4 h-[60px] w-[60px] flex justify-center items-center rounded-sm shadow-md lg:hidden"
+          style={{ borderColor: baseColor }}
+        >
+          <FaCaretUp size={40} color={baseColor} />
+        </Button>
+      )}
     </main>
   );
 };
