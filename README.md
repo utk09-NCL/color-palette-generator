@@ -41,6 +41,7 @@ Please note that this is a work in progress, and some features may not be fully 
 - **[@testing-library/jest-dom](https://testing-library.com/docs/ecosystem-jest-dom/)**
 - **[@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)**
 - **[@vitest/coverage-istanbul](https://vitest.dev/guide/coverage.html#coverage-providers)**
+- **[react-icons](https://www.npmjs.com/package/react-icons)**
 
 ## 🛠️ Installation
 
