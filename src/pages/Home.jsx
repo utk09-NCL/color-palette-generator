@@ -22,6 +22,7 @@ const Home = () => {
 
   // State to store all generated colors from the color sections.
   const [generatedColors, setGeneratedColors] = useState({});
+  const [isVisible, setIsVisible] = useState(false);
 
   /**
    * Adds a new color section to the app.
@@ -76,6 +77,8 @@ const Home = () => {
       [id]: colorData,
     }));
   };
+
+  // Extracting base color from the generatedColors
   const baseColor = Object.values(generatedColors)[0]?.baseColor;
   /**
    * Exports all generated colors as a JSON string and copies it to the clipboard.
@@ -121,8 +124,6 @@ const Home = () => {
       () => toast.error("Failed to copy colors to clipboard."),
     );
   };
-
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Toggle the visibility of the button based on the scroll position
@@ -197,13 +198,13 @@ const Home = () => {
         />
       ))}
       {isVisible && (
-        <button
+        <Button
           onClick={scrollToTop}
-          className="fixed bottom-4 border-2 right-4 p-2 text-black rounded-sm shadow-md lg:hidden"
+          className="fixed bottom-4 border-2 right-4 h-[60px] w-[60px] flex justify-center items-center rounded-sm shadow-md lg:hidden"
           style={{ borderColor: baseColor }}
         >
           <FaCaretUp size={40} color={baseColor} />
-        </button>
+        </Button>
       )}
     </main>
   );
