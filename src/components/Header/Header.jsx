@@ -54,6 +54,14 @@ const Header = () => {
         >
           Home
         </Link>
+        <Link
+          to="/about"
+          onClick={toggleMenu}
+          className="text-[16px] font-semibold"
+          data-testid="mobile-home-link"
+        >
+          About
+        </Link>
         <a
           href="https://github.com/utk09-NCL/color-palette-generator/"
           onClick={toggleMenu}
@@ -111,13 +119,20 @@ const Header = () => {
             Color Conjure
           </h1>
 
-          <div className="absolute left-1/2 transform -translate-x-1/2">
+          <div className="absolute left-1/2 transform flex gap-4 -translate-x-1/2">
             <Link
               to="/"
               className="text-[16px] md:text-[20px] font-semibold"
               data-testid="desktop-home-link"
             >
               Home
+            </Link>
+            <Link
+              to="/about"
+              className="text-[16px] md:text-[20px] font-semibold"
+              data-testid="desktop-home-link"
+            >
+              About
             </Link>
           </div>
 

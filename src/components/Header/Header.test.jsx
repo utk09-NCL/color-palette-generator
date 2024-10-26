@@ -26,14 +26,20 @@ describe("Header", () => {
       </MemoryRouter>,
     );
 
-    // Check desktop header is present
+    // Check desktop header is present and hidden on mobile
     const desktopHeader = screen.getByTestId("desktop-header");
     expect(desktopHeader).toBeInTheDocument();
+    expect(desktopHeader).toHaveClass("hidden", "lg:block");
 
-    // Check home link
-    const homeLink = screen.getByTestId("desktop-home-link");
-    expect(homeLink).toBeInTheDocument();
-    expect(homeLink).toHaveAttribute("href", "/");
+    // Check brand name
+    expect(screen.getAllByText("Color Conjure")).toHaveLength(2);
+
+    // Check navigation links
+    const homeLinks = screen.getAllByRole("link", { name: /home/i });
+    expect(homeLinks[0]).toHaveAttribute("href", "/");
+
+    const aboutLinks = screen.getAllByRole("link", { name: /about/i });
+    expect(aboutLinks[0]).toHaveAttribute("href", "/about");
 
     // Check GitHub link
     const githubLink = screen.getByTestId("desktop-github-link");
@@ -42,12 +48,11 @@ describe("Header", () => {
       "href",
       "https://github.com/utk09-NCL/color-palette-generator/",
     );
+    expect(githubLink).toHaveAttribute("target", "_blank");
+    expect(githubLink).toHaveAttribute("rel", "noreferrer");
   });
 
   it("toggles mobile menu when hamburger icon is clicked", () => {
-    // Set window width to mobile view
-    global.innerWidth = 500;
-
     render(
       <MemoryRouter>
         <Header />
@@ -70,21 +75,24 @@ describe("Header", () => {
     expect(mobileMenu).toHaveClass("-translate-x-full");
   });
 
-  it("has correct link attributes", () => {
+  it("closes mobile menu when navigation links are clicked", () => {
     render(
       <MemoryRouter>
         <Header />
       </MemoryRouter>,
     );
 
-    // Check desktop GitHub link attributes
-    const desktopGithubLink = screen.getByTestId("desktop-github-link");
-    expect(desktopGithubLink).toHaveAttribute("target", "_blank");
-    expect(desktopGithubLink).toHaveAttribute("rel", "noreferrer");
-    expect(desktopGithubLink).toHaveAttribute(
-      "href",
-      "https://github.com/utk09-NCL/color-palette-generator/",
-    );
+    // Open menu
+    const hamburgerButton = screen.getByTestId("hamburger-button");
+    fireEvent.click(hamburgerButton);
+
+    // Click home link in mobile menu
+    const homeLink = screen.getAllByRole("link", { name: /home/i });
+    fireEvent.click(homeLink[0]);
+
+    // Check if menu is closed
+    const mobileMenu = screen.getByTestId("mobile-menu");
+    expect(mobileMenu).toHaveClass("-translate-x-full");
   });
 
   it("adds and removes scroll event listener", () => {
@@ -114,37 +122,66 @@ describe("Header", () => {
       </MemoryRouter>,
     );
 
-    // Simulate scroll
+    // Simulate scroll beyond maxScroll (10px)
     Object.defineProperty(window, "scrollY", { value: 15 });
     fireEvent.scroll(window);
 
     const desktopHeader = screen.getByTestId("desktop-header");
+
+    // Check if header style is updated according to scrollProgress = 1
     expect(desktopHeader).toHaveStyle({
-      width: "100%",
-      transform: "scale(1)",
-      borderRadius: "0rem",
+      width: "100%", // 100 - (1 - 1) * 20 = 100%
+      transform: "scale(1)", // 0.9 + 1 * 0.1 = 1
+      borderRadius: "0rem", // (1 - 1) * 0.75 = 0
     });
   });
 
-  it("closes mobile menu when navigation link is clicked", () => {
-    global.innerWidth = 500;
-
+  it("displays correct content in mobile menu", () => {
     render(
       <MemoryRouter>
         <Header />
       </MemoryRouter>,
     );
 
-    // Open menu
+    // Open mobile menu
     const hamburgerButton = screen.getByTestId("hamburger-button");
     fireEvent.click(hamburgerButton);
 
-    // Click home link
-    const mobileHomeLink = screen.getByTestId("mobile-home-link");
-    fireEvent.click(mobileHomeLink);
+    // Check for menu title
+    expect(screen.getByText("Menu")).toBeInTheDocument();
 
-    // Check if menu is closed
-    const mobileMenu = screen.getByTestId("mobile-menu");
-    expect(mobileMenu).toHaveClass("-translate-x-full");
+    // Check for navigation links
+    const homeLink = screen.getAllByRole("link", { name: /home/i });
+    expect(homeLink[0]).toBeInTheDocument();
+
+    const aboutLink = screen.getAllByRole("link", { name: /about/i });
+    expect(aboutLink[0]).toBeInTheDocument();
+
+    // Check for GitHub link
+    const githubLink = screen.getByTestId("mobile-github-link");
+    expect(githubLink).toBeInTheDocument();
+    expect(githubLink).toHaveAttribute(
+      "href",
+      "https://github.com/utk09-NCL/color-palette-generator/",
+    );
+  });
+
+  it("adjusts padding based on scroll position", () => {
+    render(
+      <MemoryRouter>
+        <Header />
+      </MemoryRouter>,
+    );
+
+    // Initially should have pt-4
+    const headerWrapper = screen.getByTestId("desktop-header").parentElement;
+    expect(headerWrapper).toHaveClass("pt-4");
+
+    // Simulate scroll
+    Object.defineProperty(window, "scrollY", { value: 15 });
+    fireEvent.scroll(window);
+
+    // Should now have pt-0
+    expect(headerWrapper).toHaveClass("pt-0");
   });
 });
