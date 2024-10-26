@@ -25,7 +25,7 @@ const NotFound = () => {
         style={{
           background: "rgba(0, 0, 0, 0.21)",
           backdropFilter: "blur(6.7px)",
-          webkitBackdropFilter: "blur(6.7px)",
+          WebkitBackdropFilter: "blur(6.7px)",
         }}
       >
         <p className=" mt-4 text-base font-semibold text-slate-50">404</p>
