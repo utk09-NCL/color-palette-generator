@@ -26,6 +26,13 @@ export type ExportData = {
 export type BaseColor = string;
 
 // Function to calculate the shade step
+/**
+ * Function to calculate the shade step based on the index and total shades
+ * @param {number} index
+ * @param {number} totalShades
+ * @returns {number} The calculated shade step
+ * @example calculateShadeStep(0, 11) // 50
+ */
 export const calculateShadeStep = ({
   index,
   totalShades,

@@ -62,7 +62,7 @@ const HSLColorInput = ({ hsl, onHslChange }) => {
           onChange={(e) =>
             handleHslInputChange(0, parseFloat(e.target.value) || 0)
           } // Update hue value
-          className="border px-2 py-1 rounded-lg w-full"
+          className="w-full rounded-lg border px-2 py-1"
           placeholder="H" // Placeholder text
         />
 
@@ -75,7 +75,7 @@ const HSLColorInput = ({ hsl, onHslChange }) => {
           onChange={(e) =>
             handleHslInputChange(1, parseFloat(e.target.value) / 100 || 0)
           } // Update saturation value
-          className="border px-2 py-1 rounded-lg w-full"
+          className="w-full rounded-lg border px-2 py-1"
           placeholder="S"
         />
 
@@ -88,7 +88,7 @@ const HSLColorInput = ({ hsl, onHslChange }) => {
           onChange={(e) =>
             handleHslInputChange(2, parseFloat(e.target.value) / 100 || 0)
           } // Update lightness value
-          className="border px-2 py-1 rounded-lg w-full"
+          className="w-full rounded-lg border px-2 py-1"
           placeholder="L"
         />
       </div>

@@ -23,7 +23,7 @@ const ContrastCheckerModal = ({ isOpen, onClose, shades }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       {/* Modal Header */}
-      <div className="flex justify-between mb-4">
+      <div className="mb-4 flex justify-between">
         <h3 className="text-lg font-medium leading-6 text-gray-900">
           Color Contrast Checker
         </h3>

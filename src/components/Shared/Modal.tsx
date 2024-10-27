@@ -20,7 +20,7 @@ const Modal = ({ isOpen, onClose, children }) => {
         className="fixed inset-0 z-10 overflow-y-auto"
         onClose={onClose}
       >
-        <div className="min-h-screen px-4 text-center bg-black bg-opacity-50">
+        <div className="min-h-screen bg-black bg-opacity-50 px-4 text-center">
           {/* Centering trick */}
           <span
             className="inline-block h-screen align-middle"
@@ -38,7 +38,7 @@ const Modal = ({ isOpen, onClose, children }) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="inline-block w-full max-w-5xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg">
+            <div className="my-8 inline-block w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
               {children}
             </div>
           </Transition.Child>

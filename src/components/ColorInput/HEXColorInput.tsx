@@ -21,7 +21,7 @@ const HEXColorInput = ({ hex, onHexChange }) => {
         type="text"
         value={hex} // The current value of the input field
         onChange={(e) => onHexChange(e.target.value)} // Update parent component on change
-        className="border px-2 py-1 rounded-lg w-full"
+        className="w-full rounded-lg border px-2 py-1"
         placeholder="HEX" // Placeholder text when the input is empty
       />
     </div>
