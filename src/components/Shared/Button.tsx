@@ -1,18 +1,31 @@
-// src/components/Shared/Button.jsx
+// src/components/Shared/Button.tsx
 
-import PropTypes from "prop-types";
 import clsx from "clsx";
+import {
+  type ReactNode,
+  type MouseEventHandler,
+  type CSSProperties,
+} from "react";
+
+export type ButtonProps = {
+  children: ReactNode;
+  className?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  style?: CSSProperties;
+  dataTestid?: string;
+};
 
 /**
  * Reusable Button component.
  *
- * @param {React.ReactNode} props.children - The button label.
- * @param {string} props.className - Additional class names.
- * @param {function} props.onClick - Click handler function.
- * @param {boolean} props.disabled - Whether the button is disabled.
- * @param {object} props.style - Additional inline styles.
- * @param {string} props.dataTestid - The data-testid attribute value.
- * @returns {JSX.Element} The rendered component.
+ * @param {ReactNode} props.children - The button label.
+ * @param {string} [props.className] - Additional class names.
+ * @param {MouseEventHandler<HTMLButtonElement>} [props.onClick] - Click handler function.
+ * @param {boolean} [props.disabled=false] - Whether the button is disabled.
+ * @param {CSSProperties} [props.style] - Additional inline styles.
+ * @param {string} [props.dataTestid] - The data-testid attribute value.
+ * @returns {ReactNode} The rendered component.
  */
 const Button = ({
   children,
@@ -21,7 +34,7 @@ const Button = ({
   disabled = false,
   style,
   dataTestid,
-}) => {
+}: ButtonProps): ReactNode => {
   return (
     <button
       data-testid={`${dataTestid}-btn`}
@@ -37,15 +50,6 @@ const Button = ({
       {children}
     </button>
   );
-};
-
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  onClick: PropTypes.func,
-  disabled: PropTypes.bool,
-  style: PropTypes.object,
-  dataTestid: PropTypes.string,
 };
 
 export default Button;

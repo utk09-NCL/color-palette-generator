@@ -1,30 +1,45 @@
-// src/hooks/useContrastData.js
+// src/hooks/useContrastData.ts
 
 import { useMemo } from "react";
-import chroma, { contrast } from "chroma-js";
+import chroma, { type Color, contrast } from "chroma-js";
 
 import { calculateShadeStep } from "../utils/colorUtils";
 
 /**
+ * Type for individual contrast data entry.
+ */
+export type ContrastData = {
+  bgShade: string;
+  fgShade: string;
+  bgLabel: string;
+  fgLabel: string;
+  contrastRatio: number;
+  aa: "Pass" | "Fail";
+  aaa: "Pass" | "Fail";
+};
+
+/**
  * Custom hook to generate contrast data between shades and text colors.
  *
- * @param {Array} shades - Array of chroma color objects representing shades.
- * @returns {Array} The generated contrast data.
+ * @param {Color[]} shades - Array of chroma color objects representing shades.
+ * @returns {ContrastData[]} The generated contrast data.
  */
-const useContrastData = (shades) => {
+const useContrastData = (shades: Color[]): ContrastData[] => {
   const data = useMemo(() => {
-    const getWCAGRating = (contrast) => ({
-      aa: contrast >= 4.5 ? "Pass" : "Fail",
-      aaa: contrast >= 7 ? "Pass" : "Fail",
+    const getWCAGRating = (
+      contrastRatio: number,
+    ): { aa: "Pass" | "Fail"; aaa: "Pass" | "Fail" } => ({
+      aa: contrastRatio >= 4.5 ? "Pass" : "Fail",
+      aaa: contrastRatio >= 7 ? "Pass" : "Fail",
     });
 
-    const getShadeStep = (shade) => {
+    const getShadeStep = (shade: Color): number => {
       const index = shades.findIndex((s) => s.hex() === shade.hex());
-      return calculateShadeStep(index, shades.length);
+      return calculateShadeStep({ index, totalShades: shades.length });
     };
 
-    const combos = [];
-    const textColors = [chroma("black"), chroma("white")];
+    const combos: ContrastData[] = [];
+    const textColors: Color[] = [chroma("black"), chroma("white")];
 
     // Compare each shade with black and white text
     shades.forEach((bgShade) => {

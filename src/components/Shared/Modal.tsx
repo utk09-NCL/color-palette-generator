@@ -1,18 +1,23 @@
-// src/components/Shared/Modal.jsx
+// src/components/Shared/Modal.tsx
 
-import { Fragment } from "react";
-import PropTypes from "prop-types";
-import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, type ReactNode } from "react";
+import { Dialog, Transition, TransitionChild } from "@headlessui/react";
+
+export type ModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+};
 
 /**
  * Reusable Modal component.
  *
  * @param {boolean} props.isOpen - Whether the modal is open.
  * @param {function} props.onClose - Function to close the modal.
- * @param {React.ReactNode} props.children - Modal content.
- * @returns {JSX.Element} The rendered component.
+ * @param {ReactNode} props.children - Modal content.
+ * @returns {ReactNode} The rendered component.
  */
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children }: ModalProps): ReactNode => {
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog
@@ -29,7 +34,7 @@ const Modal = ({ isOpen, onClose, children }) => {
             &#8203;
           </span>
           {/* Modal content */}
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0 scale-95"
@@ -41,17 +46,11 @@ const Modal = ({ isOpen, onClose, children }) => {
             <div className="my-8 inline-block w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
               {children}
             </div>
-          </Transition.Child>
+          </TransitionChild>
         </div>
       </Dialog>
     </Transition>
   );
-};
-
-Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 export default Modal;
