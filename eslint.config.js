@@ -9,31 +9,50 @@ import importPlugin from "eslint-plugin-import";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import prettier from "eslint-plugin-prettier";
 import prettierConfig from "eslint-config-prettier";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 
 export default [
+  // Base configuration and ignores
   {
-    ignores: ["dist", "node_modules"],
+    ignores: [
+      "dist",
+      "node_modules",
+      "build",
+      "eslint.config.js",
+      "tailwind.config.js",
+      "postcss.config.js",
+      "tsconfig.*.json",
+      "vitest.setup.ts",
+    ],
   },
+  // TypeScript and React configurations
   {
-    files: ["**/*.{js,jsx}"],
+    files: ["**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
+      parser: tsParser,
       globals: {
         ...globals.browser,
         ...globals.node,
       },
       parserOptions: {
         ecmaFeatures: { jsx: true },
+        project: ["tsconfig.node.json", "tsconfig.app.json"],
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     settings: {
       react: {
-        version: "detect", // Automatically detect the React version
+        version: "detect",
       },
       "import/resolver": {
         node: {
           extensions: [".js", ".jsx", ".ts", ".tsx"],
+        },
+        typescript: {
+          project: "./tsconfig.app.json",
         },
       },
     },
@@ -44,6 +63,7 @@ export default [
       import: importPlugin,
       "jsx-a11y": jsxA11y,
       prettier,
+      "@typescript-eslint": tsPlugin,
     },
     rules: {
       // Base ESLint recommended rules
@@ -51,6 +71,7 @@ export default [
 
       // React and React Hooks recommended rules
       ...react.configs.recommended.rules,
+      ...react.configs["jsx-runtime"].rules,
       ...reactHooks.configs.recommended.rules,
 
       // Import plugin recommended rules
@@ -62,7 +83,22 @@ export default [
       // Disable rules that conflict with Prettier
       ...prettierConfig.rules,
 
-      // Custom rules
+      // TypeScript and additional custom rules
+      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/explicit-function-return-type": [
+        "warn",
+        {
+          allowExpressions: true,
+          allowTypedFunctionExpressions: true,
+        },
+      ],
+      "@typescript-eslint/explicit-module-boundary-types": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        { argsIgnorePattern: "^_" },
+      ],
+
+      // Other custom rules
       "react/jsx-no-target-blank": "off",
       "react-refresh/only-export-components": [
         "warn",
@@ -71,8 +107,6 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
       "prettier/prettier": ["error"],
-
-      // Additional custom rules for better code quality
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "import/order": [
         "error",
