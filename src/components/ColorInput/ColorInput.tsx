@@ -27,10 +27,7 @@ export type ColorInputProps = {
  * @param {function} onChangeColor - Callback function to notify parent of color changes.
  * @returns {ReactElement} The rendered component.
  */
-const ColorInput = ({
-  colorValue,
-  onChangeColor,
-}: ColorInputProps): ReactElement => {
+const ColorInput = ({ colorValue, onChangeColor }: ColorInputProps): ReactElement => {
   // Initialize chromaColor state with the initial color value using chroma.js.
   const [chromaColor, setChromaColor] = useState<Color>(chroma(colorValue));
 
@@ -41,12 +38,8 @@ const ColorInput = ({
   const debouncedHexInput = useDebounce(hexInput, 500);
 
   // State for HSL and RGB values derived from the chromaColor.
-  const [hslValues, setHslValues] = useState<[number, number, number]>(
-    chromaColor.hsl(),
-  );
-  const [rgbValues, setRgbValues] = useState<[number, number, number]>(
-    chromaColor.rgb(),
-  );
+  const [hslValues, setHslValues] = useState<[number, number, number]>(chromaColor.hsl());
+  const [rgbValues, setRgbValues] = useState<[number, number, number]>(chromaColor.rgb());
 
   /**
    * Handler for changes in the HEX input field.

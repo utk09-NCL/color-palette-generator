@@ -1,11 +1,6 @@
 // src/components/Header/Header.tsx
 
-import {
-  useState,
-  useEffect,
-  type ReactElement,
-  type CSSProperties,
-} from "react";
+import { useState, useEffect, type ReactElement, type CSSProperties } from "react";
 import { FaGithub, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
@@ -17,8 +12,7 @@ const Header = (): ReactElement => {
     const handleScroll = (): void => {
       const scrollPosition = window.scrollY;
       const maxScroll = 10;
-      const progress =
-        scrollPosition > maxScroll ? 1 : scrollPosition / maxScroll;
+      const progress = scrollPosition > maxScroll ? 1 : scrollPosition / maxScroll;
       setScrollProgress(progress);
     };
 

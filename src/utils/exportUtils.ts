@@ -55,9 +55,7 @@ export const generateExportCode = (
         .map(
           ([name, shades]) =>
             `'${name}': {\n${shades
-              .map(
-                (shade, index) => `  ${formatShade(shade, colorSteps[index])}`,
-              )
+              .map((shade, index) => `  ${formatShade(shade, colorSteps[index])}`)
               .join("\n")}\n}`,
         )
         .join(",\n");
@@ -67,10 +65,7 @@ export const generateExportCode = (
         .map(
           ([name, shades]) =>
             `${shades
-              .map(
-                (shade, index) =>
-                  `$${name}-${colorSteps[index]}: ${shade.hex().toUpperCase()};`,
-              )
+              .map((shade, index) => `$${name}-${colorSteps[index]}: ${shade.hex().toUpperCase()};`)
               .join("\n")}`,
         )
         .join("\n");

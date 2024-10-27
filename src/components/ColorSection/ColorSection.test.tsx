@@ -22,10 +22,7 @@ describe("ColorSection", () => {
 
   it("renders with default color name", () => {
     const view = render(
-      <ColorSection
-        onDelete={onDeleteMock}
-        onColorsGenerated={onColorsGeneratedMock}
-      />,
+      <ColorSection onDelete={onDeleteMock} onColorsGenerated={onColorsGeneratedMock} />,
     );
     expect(view.getByTestId("color-section-primary")).toBeInTheDocument();
   });
@@ -43,22 +40,14 @@ describe("ColorSection", () => {
 
   it("initially does not display generated colors", () => {
     const view = render(
-      <ColorSection
-        onDelete={onDeleteMock}
-        onColorsGenerated={onColorsGeneratedMock}
-      />,
+      <ColorSection onDelete={onDeleteMock} onColorsGenerated={onColorsGeneratedMock} />,
     );
-    expect(
-      view.queryByTestId("generated-colors-primary"),
-    ).not.toBeInTheDocument();
+    expect(view.queryByTestId("generated-colors-primary")).not.toBeInTheDocument();
   });
 
   it("displays generated colors when available", () => {
     const view = render(
-      <ColorSection
-        onDelete={onDeleteMock}
-        onColorsGenerated={onColorsGeneratedMock}
-      />,
+      <ColorSection onDelete={onDeleteMock} onColorsGenerated={onColorsGeneratedMock} />,
     );
 
     const generateColorsButton = view.getByTestId("generate-colors-btn");
@@ -108,9 +97,7 @@ describe("ColorSection", () => {
       />,
     );
 
-    const input = screen.getByPlaceholderText(
-      "Color Name: primary, secondary...",
-    );
+    const input = screen.getByPlaceholderText("Color Name: primary, secondary...");
     fireEvent.change(input, { target: { value: "newColorName" } });
 
     expect((input as HTMLInputElement).value).toBe("newColorName");

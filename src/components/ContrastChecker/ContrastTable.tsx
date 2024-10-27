@@ -85,9 +85,7 @@ const ContrastTable = ({ data }: ContrastTableProps): ReactNode => {
         const value = info.getValue();
         return (
           <span
-            className={`font-semibold ${
-              value === "Pass" ? "text-emerald-600" : "text-rose-600"
-            }`}
+            className={`font-semibold ${value === "Pass" ? "text-emerald-600" : "text-rose-600"}`}
           >
             {value}
           </span>
@@ -100,9 +98,7 @@ const ContrastTable = ({ data }: ContrastTableProps): ReactNode => {
         const value = info.getValue();
         return (
           <span
-            className={`font-semibold ${
-              value === "Pass" ? "text-emerald-600" : "text-rose-600"
-            }`}
+            className={`font-semibold ${value === "Pass" ? "text-emerald-600" : "text-rose-600"}`}
           >
             {value}
           </span>
@@ -132,10 +128,7 @@ const ContrastTable = ({ data }: ContrastTableProps): ReactNode => {
                   onClick={header.column.getToggleSortingHandler()}
                   className="cursor-pointer select-none border-b px-4 py-2"
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
+                  {flexRender(header.column.columnDef.header, header.getContext())}
                   {header.column.getIsSorted() === "asc"
                     ? " 🔼"
                     : header.column.getIsSorted() === "desc"

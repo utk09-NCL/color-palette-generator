@@ -1,11 +1,7 @@
 // src/components/Shared/Button.tsx
 
 import clsx from "clsx";
-import {
-  type ReactNode,
-  type MouseEventHandler,
-  type CSSProperties,
-} from "react";
+import { type ReactNode, type MouseEventHandler, type CSSProperties } from "react";
 
 export type ButtonProps = {
   children: ReactNode;

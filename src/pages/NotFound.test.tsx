@@ -18,9 +18,7 @@ describe("NotFound Component", () => {
     const pageNotFoundMessage = screen.getByText("Page not found");
     expect(pageNotFoundMessage).toBeInTheDocument();
 
-    const sorryMessage = screen.getByText(
-      "Sorry, we couldn't find the page you're looking for.",
-    );
+    const sorryMessage = screen.getByText("Sorry, we couldn't find the page you're looking for.");
     expect(sorryMessage).toBeInTheDocument();
   });
 

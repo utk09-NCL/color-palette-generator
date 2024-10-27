@@ -19,13 +19,8 @@ export type ExportColorsModalProps = {
   shades: Record<string, Color[]>;
 };
 
-const ExportColorsModal = ({
-  isOpen,
-  onClose,
-  shades,
-}: ExportColorsModalProps): ReactElement => {
-  const [selectedFormat, setSelectedFormat] =
-    useState<ExportFormat>("tailwindHex");
+const ExportColorsModal = ({ isOpen, onClose, shades }: ExportColorsModalProps): ReactElement => {
+  const [selectedFormat, setSelectedFormat] = useState<ExportFormat>("tailwindHex");
 
   const codeOutput = generateExportCode(shades, selectedFormat);
 
@@ -38,9 +33,7 @@ const ExportColorsModal = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <h3 className="mb-4 text-lg font-medium leading-6 text-gray-900">
-        Export Colors
-      </h3>
+      <h3 className="mb-4 text-lg font-medium leading-6 text-gray-900">Export Colors</h3>
 
       <div className="lg:flex">
         <div className="lg:w-1/4 lg:border-r lg:pr-4">
@@ -51,9 +44,7 @@ const ExportColorsModal = ({
                   onClick={() => setSelectedFormat(option.id as ExportFormat)}
                   className={clsx(
                     "w-full px-2 py-1 text-center shadow-sm lg:text-left",
-                    selectedFormat === option.id
-                      ? "bg-blue-500 text-white"
-                      : "hover:bg-gray-100",
+                    selectedFormat === option.id ? "bg-blue-500 text-white" : "hover:bg-gray-100",
                   )}
                 >
                   {option.name}

@@ -18,16 +18,12 @@ const Home = (): ReactElement => {
   const [sections, setSections] = useState<ColorSectionType[]>([
     { id: Date.now(), initialColorName: "primary" },
   ]);
-  const [generatedColors, setGeneratedColors] = useState<
-    Record<number, ColorData>
-  >({});
+  const [generatedColors, setGeneratedColors] = useState<Record<number, ColorData>>({});
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
   const addSection = (): void => {
     const existingNames = sections.map((s) => s.initialColorName);
-    const availableNames = ALLOWED_COLOR_NAMES.filter(
-      (name) => !existingNames.includes(name),
-    );
+    const availableNames = ALLOWED_COLOR_NAMES.filter((name) => !existingNames.includes(name));
     const nextName = availableNames[0] || `custom-${Date.now()}`;
 
     setSections((prevSections) => [
@@ -58,9 +54,7 @@ const Home = (): ReactElement => {
   const getAllShadesByName = (): Record<string, Color[]> => {
     return Object.values(generatedColors).reduce(
       (acc, colorData) => {
-        acc[colorData.colorName] = colorData.shades.map((shade) =>
-          chroma(shade),
-        );
+        acc[colorData.colorName] = colorData.shades.map((shade) => chroma(shade));
         return acc;
       },
       {} as Record<string, Color[]>,
@@ -74,10 +68,7 @@ const Home = (): ReactElement => {
           Add Color Set
         </Button>
         {Object.keys(generatedColors).length > 0 && (
-          <Button
-            onClick={() => setIsExportModalOpen(true)}
-            className="bg-blue-600 text-white"
-          >
+          <Button onClick={() => setIsExportModalOpen(true)} className="bg-blue-600 text-white">
             Export All Colors
           </Button>
         )}
@@ -88,9 +79,7 @@ const Home = (): ReactElement => {
           key={section.id}
           initialColorName={section.initialColorName}
           onDelete={() => removeSection(section.id)}
-          onColorsGenerated={(colorData) =>
-            handleColorsGenerated(section.id, colorData)
-          }
+          onColorsGenerated={(colorData) => handleColorsGenerated(section.id, colorData)}
         />
       ))}
 

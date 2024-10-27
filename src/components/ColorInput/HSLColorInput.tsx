@@ -19,10 +19,7 @@ export type HSLColorInputProps = {
  * @param {HSLColorInputProps} props - The HSL values and onChange handler.
  * @returns {ReactElement} The rendered HSL color input component.
  */
-const HSLColorInput = ({
-  hsl,
-  onHslChange,
-}: HSLColorInputProps): ReactElement => {
+const HSLColorInput = ({ hsl, onHslChange }: HSLColorInputProps): ReactElement => {
   // Destructure the HSL array into individual components
   const [h, s, l] = hsl;
 

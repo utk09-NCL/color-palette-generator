@@ -49,9 +49,7 @@ function ColorSection({
   const [generatedColor, setGeneratedColor] = useState<string | null>(null);
 
   // State to hold the name of the color set, defaulting to 'primary' if not provided.
-  const [colorName, setColorName] = useState<string>(
-    initialColorName || "primary",
-  );
+  const [colorName, setColorName] = useState<string>(initialColorName || "primary");
 
   // State to hold a validated color name to pass to GenerateContrastGridColors
   const [validatedColorName, setValidatedColorName] = useState<string | null>(
@@ -146,10 +144,7 @@ function ColorSection({
       {/* Display the generated color shades if available and name is valid */}
       {generatedColor && validatedColorName && (
         <div className="my-6">
-          <GenerateContrastGridColors
-            baseColor={generatedColor}
-            colorName={validatedColorName}
-          />
+          <GenerateContrastGridColors baseColor={generatedColor} colorName={validatedColorName} />
         </div>
       )}
     </section>

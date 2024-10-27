@@ -33,17 +33,12 @@ export type BaseColor = string;
  * @returns {number} The calculated shade step
  * @example calculateShadeStep(0, 11) // 50
  */
-export const calculateShadeStep = ({
-  index,
-  totalShades,
-}: CalculateShadeStepType): number => {
+export const calculateShadeStep = ({ index, totalShades }: CalculateShadeStepType): number => {
   return index === 0 ? 50 : index === totalShades - 1 ? 950 : index * 100;
 };
 
 // Function to generate export data from generated colors
-export const generateExportData = (
-  generatedColors: GeneratedColors,
-): ExportData => {
+export const generateExportData = (generatedColors: GeneratedColors): ExportData => {
   return Object.values(generatedColors).reduce((acc, colorSet) => {
     acc[colorSet.colorName] = colorSet.shades.reduce(
       (shadeAcc: { [key: number]: string }, shade: string, index: number) => {
@@ -61,10 +56,7 @@ export const generateExportData = (
 };
 
 // Function to generate shades of a color
-export const generateColorShades = (
-  baseColor: BaseColor,
-  totalShades: number = 11,
-): string[] => {
+export const generateColorShades = (baseColor: BaseColor, totalShades: number = 11): string[] => {
   return scale([chroma(baseColor).brighten(1.5), chroma(baseColor).darken(2)])
     .mode("lab")
     .colors(totalShades)
@@ -86,8 +78,6 @@ export const generateRandomBackgroundColor = (): RandomBackgroundColor => {
     4: ["#00D2FF", "#3A47D5"],
   };
 
-  const randomIndex = Math.floor(
-    Math.random() * Object.keys(backgroundOptions).length,
-  );
+  const randomIndex = Math.floor(Math.random() * Object.keys(backgroundOptions).length);
   return backgroundOptions[randomIndex];
 };

@@ -20,17 +20,10 @@ export type ModalProps = {
 const Modal = ({ isOpen, onClose, children }: ModalProps): ReactNode => {
   return (
     <Transition show={isOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={onClose}
-      >
+      <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>
         <div className="min-h-screen bg-black bg-opacity-50 px-4 text-center">
           {/* Centering trick */}
-          <span
-            className="inline-block h-screen align-middle"
-            aria-hidden="true"
-          >
+          <span className="inline-block h-screen align-middle" aria-hidden="true">
             &#8203;
           </span>
           {/* Modal content */}

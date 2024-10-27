@@ -13,11 +13,7 @@ const mockColor = (
   return {
     hex: () => hex,
     hsl: () =>
-      hsl.map((value, index) => (index === 0 ? value : value / 100)) as [
-        number,
-        number,
-        number,
-      ],
+      hsl.map((value, index) => (index === 0 ? value : value / 100)) as [number, number, number],
     rgb: () => rgb,
   } as Color;
 };

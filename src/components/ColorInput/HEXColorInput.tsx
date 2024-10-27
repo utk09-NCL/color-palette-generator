@@ -17,10 +17,7 @@ export type HEXColorInputProps = {
  * @param {function} onHexChange - Callback function to handle changes to the HEX value.
  * @returns {ReactElement} The rendered HEX color input component.
  */
-const HEXColorInput = ({
-  hex,
-  onHexChange,
-}: HEXColorInputProps): ReactElement => {
+const HEXColorInput = ({ hex, onHexChange }: HEXColorInputProps): ReactElement => {
   return (
     <div className="w-full">
       {/* Label for the HEX input */}
@@ -31,9 +28,7 @@ const HEXColorInput = ({
         data-testid="hex-input" // Test ID for testing
         type="text"
         value={hex} // The current value of the input field
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          onHexChange(e.target.value)
-        } // Update parent component on change
+        onChange={(e: ChangeEvent<HTMLInputElement>) => onHexChange(e.target.value)} // Update parent component on change
         className="w-full rounded-lg border px-2 py-1"
         placeholder="HEX" // Placeholder text when the input is empty
       />

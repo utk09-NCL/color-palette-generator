@@ -94,17 +94,11 @@ describe("Header", () => {
       </MemoryRouter>,
     );
 
-    expect(mockAddEventListener).toHaveBeenCalledWith(
-      "scroll",
-      expect.any(Function),
-    );
+    expect(mockAddEventListener).toHaveBeenCalledWith("scroll", expect.any(Function));
 
     unmount();
 
-    expect(mockRemoveEventListener).toHaveBeenCalledWith(
-      "scroll",
-      expect.any(Function),
-    );
+    expect(mockRemoveEventListener).toHaveBeenCalledWith("scroll", expect.any(Function));
   });
 
   it("updates header style on scroll", () => {

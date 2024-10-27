@@ -18,10 +18,7 @@ interface RGBColorInputProps {
  * @param {RGBColorInputProps} props - The RGB values and onChange handler.
  * @returns {ReactElement} The rendered RGB color input component.
  */
-const RGBColorInput = ({
-  rgb,
-  onRgbChange,
-}: RGBColorInputProps): ReactElement => {
+const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement => {
   // Destructure and round the RGB values for display
   const [r, g, b] = rgb.map((val) => Math.round(val));
 

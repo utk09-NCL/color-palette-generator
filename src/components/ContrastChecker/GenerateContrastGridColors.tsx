@@ -91,8 +91,7 @@ const GenerateContrastGridColors = ({
       <div className="grid grid-cols-1 gap-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-11">
         {shades.map((shade, index) => {
           // Determine the shade step (e.g., 50, 100, ..., 950).
-          const step =
-            index === 0 ? 50 : index === TOTAL_SHADES - 1 ? 950 : index * 100;
+          const step = index === 0 ? 50 : index === TOTAL_SHADES - 1 ? 950 : index * 100;
 
           // Get the appropriate text color for the shade.
           const textColor = getTextColor(shade);

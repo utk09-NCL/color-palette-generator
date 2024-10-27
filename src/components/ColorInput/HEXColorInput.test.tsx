@@ -16,9 +16,7 @@ describe("HEXColorInput", () => {
 
   it("calls onHexChange when input value changes", () => {
     const onHexChange = vi.fn();
-    const view = render(
-      <HEXColorInput hex="#bc560a" onHexChange={onHexChange} />,
-    );
+    const view = render(<HEXColorInput hex="#bc560a" onHexChange={onHexChange} />);
     const input = view.getByTestId("hex-input");
 
     fireEvent.change(input, { target: { value: "#ffffff" } });
