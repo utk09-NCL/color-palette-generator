@@ -1,13 +1,15 @@
+// src/components/ColorSection/ColorSection.test.tsx
+
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { render, fireEvent, screen } from "@testing-library/react";
-import { toast } from "react-hot-toast";
 
 import ColorSection from "./ColorSection";
 
-// Mock react-hot-toast
+// Mock react-hot-toast (if used in your component)
 vi.mock("react-hot-toast", () => ({
   toast: {
     error: vi.fn(),
+    success: vi.fn(),
     dismiss: vi.fn(),
   },
 }));
@@ -19,87 +21,79 @@ describe("ColorSection", () => {
 
   const onDeleteMock = vi.fn();
   const onColorsGeneratedMock = vi.fn();
+  const onColorNameChangeMock = vi.fn();
+  const usedColorNames: string[] = [];
 
   it("renders with default color name", () => {
-    const view = render(
-      <ColorSection onDelete={onDeleteMock} onColorsGenerated={onColorsGeneratedMock} />,
+    render(
+      <ColorSection
+        colorName="primary"
+        onColorNameChange={onColorNameChangeMock}
+        onDelete={onDeleteMock}
+        onColorsGenerated={onColorsGeneratedMock}
+        usedColorNames={usedColorNames}
+      />,
     );
-    expect(view.getByTestId("color-section-primary")).toBeInTheDocument();
+    expect(screen.getByTestId("color-section-primary")).toBeInTheDocument();
   });
 
   it("renders with custom allowed color name", () => {
-    const view = render(
+    render(
       <ColorSection
-        initialColorName="secondary"
+        colorName="secondary"
+        onColorNameChange={onColorNameChangeMock}
         onDelete={onDeleteMock}
         onColorsGenerated={onColorsGeneratedMock}
+        usedColorNames={usedColorNames}
       />,
     );
-    expect(view.getByTestId("color-section-secondary")).toBeInTheDocument();
+    expect(screen.getByTestId("color-section-secondary")).toBeInTheDocument();
   });
 
   it("initially does not display generated colors", () => {
-    const view = render(
-      <ColorSection onDelete={onDeleteMock} onColorsGenerated={onColorsGeneratedMock} />,
+    render(
+      <ColorSection
+        colorName="primary"
+        onColorNameChange={onColorNameChangeMock}
+        onDelete={onDeleteMock}
+        onColorsGenerated={onColorsGeneratedMock}
+        usedColorNames={usedColorNames}
+      />,
     );
-    expect(view.queryByTestId("generated-colors-primary")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("generated-colors-primary")).not.toBeInTheDocument();
   });
 
   it("displays generated colors when available", () => {
-    const view = render(
-      <ColorSection onDelete={onDeleteMock} onColorsGenerated={onColorsGeneratedMock} />,
-    );
-
-    const generateColorsButton = view.getByTestId("generate-colors-btn");
-    fireEvent.click(generateColorsButton);
-
-    expect(view.getByTestId("generated-colors-primary")).toBeInTheDocument();
-  });
-
-  it("displays generated colors uses primary when empty string color name", () => {
-    const view = render(
-      <ColorSection
-        initialColorName={"    "} // testing for spaces in input
-        onDelete={onDeleteMock}
-        onColorsGenerated={onColorsGeneratedMock}
-      />,
-    );
-
-    const generateColorsButton = view.getByTestId("generate-colors-btn");
-    fireEvent.click(generateColorsButton);
-
-    expect(view.getByTestId("generated-colors-primary")).toBeInTheDocument();
-  });
-
-  it("does not render with custom not allowed color name", async () => {
     render(
       <ColorSection
-        initialColorName="randomColorName"
+        colorName="primary"
+        onColorNameChange={onColorNameChangeMock}
         onDelete={onDeleteMock}
         onColorsGenerated={onColorsGeneratedMock}
+        usedColorNames={usedColorNames}
       />,
     );
 
     const generateColorsButton = screen.getByTestId("generate-colors-btn");
     fireEvent.click(generateColorsButton);
 
-    expect(toast.error).toHaveBeenCalledWith(
-      "Invalid color name. Use one of the following: primary, secondary, tertiary, accent, info, success, warning, error, custom",
-    );
+    expect(screen.getByTestId("generated-colors-primary")).toBeInTheDocument();
   });
 
-  it("sets color name on input", () => {
+  it("calls onDelete when the Remove button is clicked", () => {
     render(
       <ColorSection
-        initialColorName="newColourName"
+        colorName="primary"
+        onColorNameChange={onColorNameChangeMock}
         onDelete={onDeleteMock}
         onColorsGenerated={onColorsGeneratedMock}
+        usedColorNames={usedColorNames}
       />,
     );
 
-    const input = screen.getByPlaceholderText("Color Name: primary, secondary...");
-    fireEvent.change(input, { target: { value: "newColorName" } });
+    const removeButton = screen.getByText("Remove");
+    fireEvent.click(removeButton);
 
-    expect((input as HTMLInputElement).value).toBe("newColorName");
+    expect(onDeleteMock).toHaveBeenCalled();
   });
 });

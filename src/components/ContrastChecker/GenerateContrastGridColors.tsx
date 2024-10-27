@@ -2,12 +2,11 @@
 
 import { useState, useMemo, ReactElement } from "react";
 import chroma, { type Color, scale } from "chroma-js";
-import { toast } from "react-hot-toast";
 
 import ExportColorsModal from "@components/ExportColors/ExportColorsModal";
 import Button from "@components/Shared/Button";
 import { TOTAL_SHADES } from "@constants/index";
-import { copyToClipboard } from "@utils/copyToClipboard";
+import { copyTextWithToast } from "@utils/copyToClipboard";
 
 import ContrastCheckerModal from "./ContrastCheckerModal";
 
@@ -60,9 +59,10 @@ const GenerateContrastGridColors = ({
   };
 
   const handleCopy = (dataToCopy: string): void => {
-    copyToClipboard(dataToCopy).then(
-      () => toast.success(`Copied ${dataToCopy} to clipboard!`),
-      () => toast.error("Failed to copy code to clipboard."),
+    copyTextWithToast(
+      dataToCopy,
+      `Copied ${dataToCopy} to clipboard!`,
+      "Failed to copy color code.",
     );
   };
 

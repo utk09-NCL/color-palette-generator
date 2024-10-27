@@ -3,7 +3,7 @@
 /**
  * Allowed color names for the color sets.
  */
-export const ALLOWED_COLOR_NAMES = [
+export const ALLOWED_COLOR_NAMES: string[] = [
   "primary",
   "secondary",
   "tertiary",

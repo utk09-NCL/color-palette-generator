@@ -8,6 +8,7 @@ import clsx from "clsx";
 import ColorInput from "@components/ColorInput/ColorInput";
 import GenerateContrastGridColors from "@components/ContrastChecker/GenerateContrastGridColors";
 import Button from "@components/Shared/Button";
+import Select, { type SelectOption } from "@components/Shared/Select";
 import { ALLOWED_COLOR_NAMES } from "@constants/index";
 import { generateColorShades } from "@utils/colorUtils";
 
@@ -24,23 +25,25 @@ export type ColorData = {
  * Props for the ColorSection component.
  */
 export type ColorSectionProps = {
-  initialColorName?: string;
+  colorName: string;
+  onColorNameChange: (_newColorName: string) => void;
   onDelete: () => void;
   onColorsGenerated: (_colorData: ColorData) => void;
+  usedColorNames: string[];
 };
 
 /**
  * Component representing a section for inputting a color and generating its shades.
  *
- * @param {string} initialColorName - The initial name for the color. Default 'primary'
- * @param {function} onDelete - Function to call when the section is deleted.
- * @param {function} onColorsGenerated - Function to call when colors are generated.
+ * @param {ColorSectionProps} props - The props for the component.
  * @returns {ReactElement} The rendered component.
  */
 function ColorSection({
-  initialColorName = "primary",
+  colorName,
+  onColorNameChange,
   onDelete,
   onColorsGenerated,
+  usedColorNames,
 }: ColorSectionProps): ReactElement {
   // State to hold the base color input by the user.
   const [color, setColor] = useState<string>("#bc560a");
@@ -48,45 +51,28 @@ function ColorSection({
   // State to hold the generated color after validation.
   const [generatedColor, setGeneratedColor] = useState<string | null>(null);
 
-  // State to hold the name of the color set, defaulting to 'primary' if not provided.
-  const [colorName, setColorName] = useState<string>(initialColorName || "primary");
+  // Prepare options for the Select component
+  const colorNameOptions: SelectOption[] = ALLOWED_COLOR_NAMES.map((name) => ({
+    label: name.charAt(0).toUpperCase() + name.slice(1),
+    value: name,
+  }));
 
-  // State to hold a validated color name to pass to GenerateContrastGridColors
-  const [validatedColorName, setValidatedColorName] = useState<string | null>(
-    ALLOWED_COLOR_NAMES.includes(initialColorName) ? initialColorName : null,
+  // Filter out used color names (except the current one)
+  const availableColorNameOptions = colorNameOptions.filter(
+    (option) => option.value === colorName || !usedColorNames.includes(option.value),
   );
 
   /**
    * Handler function to generate color shades based on the base color.
-   * Validates the color name and base color, generates shades, and calls the callback.
+   * Validates the base color, generates shades, and calls the callback.
    */
   const handleGenerateColors = useCallback(() => {
-    // Trim and convert the color name to lowercase for validation.
-    const trimmedColorName = colorName.trim().toLowerCase();
-
-    // If the color name is empty, default to 'primary'.
-    if (trimmedColorName === "") {
-      setColorName("primary");
-      setValidatedColorName("primary");
-    }
-    // If the color name is not in the allowed list, show an error toast.
-    else if (!ALLOWED_COLOR_NAMES.includes(trimmedColorName)) {
-      toast.error(
-        `Invalid color name. Use one of the following: ${ALLOWED_COLOR_NAMES.join(", ")}`,
-      );
-      setValidatedColorName(null); // Reset validated name if invalid
-      return;
-    } else {
-      // Set the validated color name if it is valid
-      setValidatedColorName(trimmedColorName);
-    }
-
     // Validate the base color using chroma.js.
     if (valid(color)) {
       setGeneratedColor(color);
       const shades = generateColorShades(color);
       onColorsGenerated({
-        colorName: trimmedColorName,
+        colorName: colorName,
         baseColor: color.toUpperCase(),
         shades,
       });
@@ -95,13 +81,13 @@ function ColorSection({
     }
   }, [color, colorName, onColorsGenerated]);
 
-  // Luminance is a method in chroma.js that calculates the brightness of 'color' and returns a value between 0 and 1
+  // Calculate luminance to determine text color for the generate button.
   const luminance = chroma(color).luminance();
 
   return (
     <section
       className="mt-10 rounded-xl border-2 border-gray-200 p-4"
-      data-testid={`color-section-${initialColorName}`} // Test ID for testing
+      data-testid={`color-section-${colorName}`} // Test ID for testing
     >
       {/* Button to remove the color section */}
       <div className="flex justify-end pb-2 md:pb-0">
@@ -113,14 +99,14 @@ function ColorSection({
         </Button>
       </div>
 
-      {/* Input field for the color name */}
-      <input
-        data-testid="color-name-input" // Test ID for testing
-        type="text"
+      {/* Select dropdown for the color name */}
+      <Select
+        label="Color Name"
+        dataTestid="color-name-select" // Test ID for testing
         value={colorName}
-        onChange={(e) => setColorName(e.target.value)}
-        placeholder="Color Name: primary, secondary..."
-        className="mb-4 w-full rounded-lg border px-2 py-1 text-center md:w-64"
+        onChange={onColorNameChange}
+        options={availableColorNameOptions}
+        className="mb-4 w-full md:w-64"
       />
 
       {/* Component for inputting and previewing the base color */}
@@ -132,8 +118,8 @@ function ColorSection({
           dataTestid="generate-colors" // Test ID for testing
           onClick={handleGenerateColors}
           className={clsx({
-            "font-bold text-black": luminance > 0.5, // if luminance is greater than 0.5, make the button text black and bold
-            "font-bold text-white": luminance <= 0.5, // if luminance is less than or equal to 0.5, make the button text white and bold
+            "font-bold text-black": luminance > 0.5, // If luminance > 0.5, use black text
+            "font-bold text-white": luminance <= 0.5, // If luminance <= 0.5, use white text
           })}
           style={{ backgroundColor: color }}
         >
@@ -141,10 +127,10 @@ function ColorSection({
         </Button>
       </div>
 
-      {/* Display the generated color shades if available and name is valid */}
-      {generatedColor && validatedColorName && (
+      {/* Display the generated color shades if available */}
+      {generatedColor && (
         <div className="my-6">
-          <GenerateContrastGridColors baseColor={generatedColor} colorName={validatedColorName} />
+          <GenerateContrastGridColors baseColor={generatedColor} colorName={colorName} />
         </div>
       )}
     </section>

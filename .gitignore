@@ -35,5 +35,9 @@ Thumbs.db
 .cache
 .cache-loader
 
+# Coverage directory
 coverage
 reports/*
+
+# Custom
+custom

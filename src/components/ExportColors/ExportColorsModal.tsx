@@ -1,14 +1,14 @@
 // src/components/ExportColors/ExportColorsModal.tsx
 
-import { useState, ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 import { type Color } from "chroma-js";
-import { toast } from "react-hot-toast";
 import clsx from "clsx";
 
 import { EXPORT_FORMATS } from "@constants/index";
 import Modal from "@components/Shared/Modal";
 import Button from "@components/Shared/Button";
 import { generateExportCode, type ExportFormat } from "@utils/exportUtils";
+import { copyTextWithToast } from "@/utils/copyToClipboard";
 
 /**
  * Props for the ExportColorsModal component.
@@ -25,10 +25,7 @@ const ExportColorsModal = ({ isOpen, onClose, shades }: ExportColorsModalProps):
   const codeOutput = generateExportCode(shades, selectedFormat);
 
   const handleCopy = (): void => {
-    navigator.clipboard.writeText(codeOutput).then(
-      () => toast.success("Code copied to clipboard!"),
-      () => toast.error("Failed to copy code to clipboard."),
-    );
+    copyTextWithToast(codeOutput, "Code copied to clipboard!", "Failed to copy code.");
   };
 
   return (

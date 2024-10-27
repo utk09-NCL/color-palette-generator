@@ -5,11 +5,13 @@ import { toast } from "react-hot-toast";
 
 import CustomSlider from "./CustomSlider/CustomSlider";
 
+export type HSL = [number, number, number];
+
 /**
  * Props for the HSLColorInput component.
  */
 export type HSLColorInputProps = {
-  hsl: [number, number, number];
+  hsl: HSL;
   onHslChange: (_index: number, _value: number) => void;
 };
 
@@ -44,8 +46,8 @@ const HSLColorInput = ({ hsl, onHslChange }: HSLColorInputProps): ReactElement =
     }
 
     // Check if the new value is within the valid range
-    if (value < min || value > max) {
-      toast.error("Value out of range"); // Display an error notification
+    if (isNaN(value) || value < min || value > max) {
+      toast.error(`Value out of range. Please enter a value between ${min} and ${max}.`); // Display an error notification
       return;
     }
 

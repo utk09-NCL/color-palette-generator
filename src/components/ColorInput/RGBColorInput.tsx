@@ -1,16 +1,19 @@
 // src/components/ColorInput/RGBColorInput.tsx
 
 import { type ChangeEvent, type ReactElement } from "react";
+import { toast } from "react-hot-toast";
 
 import CustomSlider from "./CustomSlider/CustomSlider";
+
+export type RGB = [number, number, number];
 
 /**
  * Props for the RGBColorInput component.
  */
-interface RGBColorInputProps {
-  rgb: [number, number, number];
+export type RGBColorInputProps = {
+  rgb: RGB;
   onRgbChange: (_index: number, _value: number) => void;
-}
+};
 
 /**
  * Component for inputting and adjusting RGB color values.
@@ -21,6 +24,15 @@ interface RGBColorInputProps {
 const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement => {
   // Destructure and round the RGB values for display
   const [r, g, b] = rgb.map((val) => Math.round(val));
+
+  const handleRgbInputChange = (index: number, value: number): void => {
+    if (isNaN(value) || value < 0 || value > 255) {
+      toast.error("Value out of range. Please enter a number between 0 and 255."); // Display an error notification
+      return;
+    }
+
+    onRgbChange(index, value);
+  };
 
   return (
     <div className="w-full">
@@ -36,7 +48,7 @@ const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement =
           max="255"
           value={r}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            onRgbChange(0, parseInt(e.target.value) || 0)
+            handleRgbInputChange(0, parseInt(e.target.value) || 0)
           }
           className="w-full rounded-lg border px-2 py-1"
           placeholder="R"
@@ -48,7 +60,7 @@ const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement =
           max="255"
           value={g}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            onRgbChange(1, parseInt(e.target.value) || 0)
+            handleRgbInputChange(1, parseInt(e.target.value) || 0)
           }
           className="w-full rounded-lg border px-2 py-1"
           placeholder="G"
@@ -60,7 +72,7 @@ const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement =
           max="255"
           value={b}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            onRgbChange(2, parseInt(e.target.value) || 0)
+            handleRgbInputChange(2, parseInt(e.target.value) || 0)
           }
           className="w-full rounded-lg border px-2 py-1"
           placeholder="B"
@@ -75,7 +87,7 @@ const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement =
           max={255}
           value={r}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            onRgbChange(0, parseInt(e.target.value) || 0)
+            handleRgbInputChange(0, parseInt(e.target.value) || 0)
           }
           gradient="linear-gradient(to right, #000000, #ff0000)" // Gradient from black to red
         />
@@ -85,7 +97,7 @@ const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement =
           max={255}
           value={g}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            onRgbChange(1, parseInt(e.target.value) || 0)
+            handleRgbInputChange(1, parseInt(e.target.value) || 0)
           }
           gradient="linear-gradient(to right, #000000, #00ff00)" // Gradient from black to green
         />
@@ -95,7 +107,7 @@ const RGBColorInput = ({ rgb, onRgbChange }: RGBColorInputProps): ReactElement =
           max={255}
           value={b}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            onRgbChange(2, parseInt(e.target.value) || 0)
+            handleRgbInputChange(2, parseInt(e.target.value) || 0)
           }
           gradient="linear-gradient(to right, #000000, #0000ff)" // Gradient from black to blue
         />

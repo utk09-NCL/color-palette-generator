@@ -1,7 +1,7 @@
 // src/components/Shared/Button.tsx
 
 import clsx from "clsx";
-import { type ReactNode, type MouseEventHandler, type CSSProperties } from "react";
+import type { ReactNode, ReactElement, MouseEventHandler, CSSProperties } from "react";
 
 export type ButtonProps = {
   children: ReactNode;
@@ -21,7 +21,7 @@ export type ButtonProps = {
  * @param {boolean} [props.disabled=false] - Whether the button is disabled.
  * @param {CSSProperties} [props.style] - Additional inline styles.
  * @param {string} [props.dataTestid] - The data-testid attribute value.
- * @returns {ReactNode} The rendered component.
+ * @returns {ReactElement} The rendered component.
  */
 const Button = ({
   children,
@@ -30,10 +30,10 @@ const Button = ({
   disabled = false,
   style,
   dataTestid,
-}: ButtonProps): ReactNode => {
+}: ButtonProps): ReactElement => {
   return (
     <button
-      data-testid={`${dataTestid}-btn`}
+      {...(dataTestid && { "data-testid": `${dataTestid}-btn` })} // Conditional rendering of data-testid attribute
       className={clsx(
         "rounded-lg border-2 border-slate-200 px-4 py-2 transition",
         disabled ? "cursor-not-allowed opacity-50" : "",

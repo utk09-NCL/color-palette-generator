@@ -1,6 +1,6 @@
 // src/components/Shared/Modal.tsx
 
-import { Fragment, type ReactNode } from "react";
+import { Fragment, type ReactElement, type ReactNode } from "react";
 import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 
 export type ModalProps = {
@@ -15,9 +15,9 @@ export type ModalProps = {
  * @param {boolean} props.isOpen - Whether the modal is open.
  * @param {function} props.onClose - Function to close the modal.
  * @param {ReactNode} props.children - Modal content.
- * @returns {ReactNode} The rendered component.
+ * @returns {ReactElement} The rendered component.
  */
-const Modal = ({ isOpen, onClose, children }: ModalProps): ReactNode => {
+const Modal = ({ isOpen, onClose, children }: ModalProps): ReactElement => {
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog as="div" className="fixed inset-0 z-10 overflow-y-auto" onClose={onClose}>

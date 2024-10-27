@@ -18,6 +18,7 @@ const NotFound = (): ReactElement => {
     generateRandomBackgroundColor(),
   );
 
+  // Generate random background colors for the gradient. This will only run once when the component is mounted.
   useMemo(() => {
     setBackgroundColors(generateRandomBackgroundColor());
   }, []);

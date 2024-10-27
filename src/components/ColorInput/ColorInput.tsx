@@ -7,24 +7,34 @@ import { toast } from "react-hot-toast";
 import useDebounce from "@hooks/useDebounce";
 
 import HEXColorInput from "./HEXColorInput";
-import RGBColorInput from "./RGBColorInput";
-import HSLColorInput from "./HSLColorInput";
+import RGBColorInput, { type RGB } from "./RGBColorInput";
+import HSLColorInput, { type HSL } from "./HSLColorInput";
 import ColorPreview from "./ColorPreview";
 
 /**
  * Props for the ColorInput component.
  */
 export type ColorInputProps = {
+  /** The initial color value in HEX format. */
   colorValue: string;
+  /** Callback function to notify parent of color changes. */
   onChangeColor: (_color: string) => void;
+};
+
+/**
+ * Centralized function to handle error messages for color validation.
+ *
+ * @param {string} message - The error message to display.
+ */
+const showValidationError = (message: string): void => {
+  toast.error(message);
 };
 
 /**
  * Component for inputting and manipulating colors in various formats (HEX, RGB, HSL).
  * Synchronizes the color across different formats and updates the parent component when changes occur.
  *
- * @param {string} colorValue - The initial color value in HEX format.
- * @param {function} onChangeColor - Callback function to notify parent of color changes.
+ * @param {ColorInputProps} props - The initial color value and the change handler callback.
  * @returns {ReactElement} The rendered component.
  */
 const ColorInput = ({ colorValue, onChangeColor }: ColorInputProps): ReactElement => {
@@ -38,8 +48,8 @@ const ColorInput = ({ colorValue, onChangeColor }: ColorInputProps): ReactElemen
   const debouncedHexInput = useDebounce(hexInput, 500);
 
   // State for HSL and RGB values derived from the chromaColor.
-  const [hslValues, setHslValues] = useState<[number, number, number]>(chromaColor.hsl());
-  const [rgbValues, setRgbValues] = useState<[number, number, number]>(chromaColor.rgb());
+  const [hslValues, setHslValues] = useState<HSL>(chromaColor.hsl());
+  const [rgbValues, setRgbValues] = useState<RGB>(chromaColor.rgb());
 
   /**
    * Handler for changes in the HEX input field.
@@ -48,9 +58,11 @@ const ColorInput = ({ colorValue, onChangeColor }: ColorInputProps): ReactElemen
    * @param {string} newHex - The new HEX value input by the user.
    */
   const handleHexChange = (newHex: string): void => {
-    const validHex = /^#?[0-9A-Fa-f]*$/; // Regular expression to validate HEX input.
+    const validHex = /^#?[0-9A-Fa-f]*$/;
     if (validHex.test(newHex)) {
       setHexInput(newHex);
+    } else {
+      showValidationError("Invalid HEX format"); // Show an error message for invalid HEX format
     }
   };
 
@@ -62,18 +74,16 @@ const ColorInput = ({ colorValue, onChangeColor }: ColorInputProps): ReactElemen
    * @param {number} value - The new value for the RGB component.
    */
   const handleRgbChange = (index: number, value: number): void => {
-    const newRgb = [...rgbValues] as [number, number, number];
-    newRgb[index] = value; // Update the specific RGB component.
+    const newRgb = [...rgbValues] as RGB;
+    newRgb[index] = value; // Update the specific RGB component
     setRgbValues(newRgb);
 
-    // Create a new color using the updated RGB values.
     const newColor = chroma(newRgb, "rgb");
-    setChromaColor(newColor);
-    setHexInput(newColor.hex()); // Update HEX input.
-    setHslValues(newColor.hsl()); // Update HSL values.
+    setChromaColor(newColor); // Update the chromaColor state with the new color
+    setHexInput(newColor.hex()); // Synchronize the HEX input
+    setHslValues(newColor.hsl()); // Synchronize the HSL values
 
-    // Notify the parent component of the color change.
-    onChangeColor(newColor.hex());
+    onChangeColor(newColor.hex()); // Notify the parent component of the color change
   };
 
   /**
@@ -84,18 +94,16 @@ const ColorInput = ({ colorValue, onChangeColor }: ColorInputProps): ReactElemen
    * @param {number} value - The new value for the HSL component.
    */
   const handleHslChange = (index: number, value: number): void => {
-    const newHsl = [...hslValues] as [number, number, number];
-    newHsl[index] = value; // Update the specific HSL component.
+    const newHsl = [...hslValues] as HSL;
+    newHsl[index] = value; // Update the specific HSL component
     setHslValues(newHsl);
 
-    // Create a new color using the updated HSL values.
     const newColor = chroma(newHsl, "hsl");
-    setChromaColor(newColor);
-    setHexInput(newColor.hex()); // Update HEX input.
-    setRgbValues(newColor.rgb()); // Update RGB values.
+    setChromaColor(newColor); // Update the chromaColor state with the new color
+    setHexInput(newColor.hex()); // Synchronize the HEX input
+    setRgbValues(newColor.rgb()); // Synchronize the RGB values
 
-    // Notify the parent component of the color change.
-    onChangeColor(newColor.hex());
+    onChangeColor(newColor.hex()); // Notify the parent component of the color change
   };
 
   /**
@@ -117,24 +125,21 @@ const ColorInput = ({ colorValue, onChangeColor }: ColorInputProps): ReactElemen
    * Validates the HEX value and updates the color states.
    */
   useEffect(() => {
-    if (debouncedHexInput === "") return; // Do nothing if input is empty.
+    if (debouncedHexInput === "") return;
 
     if (valid(debouncedHexInput)) {
       const newColor = chroma(debouncedHexInput);
-      setChromaColor(newColor);
-      setHslValues(newColor.hsl()); // Update HSL values.
-      setRgbValues(newColor.rgb()); // Update RGB values.
+      setChromaColor(newColor); // Update chromaColor
+      setHslValues(newColor.hsl()); // Synchronize HSL values
+      setRgbValues(newColor.rgb()); // Synchronize RGB values
 
-      // Notify the parent component of the color change.
-      onChangeColor(debouncedHexInput);
+      onChangeColor(debouncedHexInput); // Notify parent of change
     } else {
-      // Show an error toast if the HEX value is invalid.
-      toast.error(`Invalid HEX value - ${debouncedHexInput}`);
+      showValidationError(`Invalid HEX value - ${debouncedHexInput}`); // Show error for invalid HEX
     }
 
-    // Cleanup function to dismiss any toasts when the component unmounts or updates.
     return () => {
-      toast.dismiss();
+      toast.dismiss(); // Clear toast notifications on cleanup
     };
   }, [debouncedHexInput, onChangeColor]);
 

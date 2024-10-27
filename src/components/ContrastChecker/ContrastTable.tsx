@@ -1,6 +1,6 @@
 // src/components/ContrastChecker/ContrastTable.tsx
 
-import { type ReactNode } from "react";
+import { type ReactElement } from "react";
 import { contrast } from "chroma-js";
 import {
   useReactTable,
@@ -34,9 +34,9 @@ export type ContrastTableProps = {
  * Component to render the contrast table.
  *
  * @param {ContrastTableProps} props - The data to display in the table.
- * @returns {ReactNode} The rendered component.
+ * @returns {ReactElement} The rendered component.
  */
-const ContrastTable = ({ data }: ContrastTableProps): ReactNode => {
+const ContrastTable = ({ data }: ContrastTableProps): ReactElement => {
   const columnHelper = createColumnHelper<ContrastTableData>();
 
   // Define columns for the table

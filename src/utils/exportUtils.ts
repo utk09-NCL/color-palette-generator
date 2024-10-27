@@ -3,12 +3,12 @@
 import { type Color } from "chroma-js";
 
 export type ExportFormat =
-  | "tailwindHex"
-  | "tailwindHsl"
-  | "scssHex"
-  | "cssHex"
-  | "cssHsl"
-  | "cssRgb";
+  | "tailwindHex" // Tailwind-compatible HEX format with 50 to 950 shades
+  | "tailwindHsl" // Tailwind-compatible HSL format
+  | "scssHex" // SCSS variable format using HEX values
+  | "cssHex" // CSS custom properties with HEX values
+  | "cssHsl" // CSS custom properties with HSL values
+  | "cssRgb"; // CSS custom properties with RGB values
 
 /**
  * Generates a structured export of color shades based on the selected format.

@@ -3,17 +3,15 @@
 import { Color } from "chroma-js";
 import { describe, expect, it } from "vitest";
 
+import { type HSL } from "@/components/ColorInput/HSLColorInput";
+import { type RGB } from "@/components/ColorInput/RGBColorInput";
+
 import { generateExportCode, ExportFormat } from "./exportUtils";
 
-const mockColor = (
-  hex: string,
-  hsl: [number, number, number],
-  rgb: [number, number, number],
-): Color => {
+const mockColor = (hex: string, hsl: HSL, rgb: RGB): Color => {
   return {
     hex: () => hex,
-    hsl: () =>
-      hsl.map((value, index) => (index === 0 ? value : value / 100)) as [number, number, number],
+    hsl: () => hsl.map((value, index) => (index === 0 ? value : value / 100)) as HSL,
     rgb: () => rgb,
   } as Color;
 };
