@@ -138,8 +138,7 @@ const GenerateContrastGridColors = ({
         <ExportColorsModal
           isOpen={isExportModalOpen}
           onClose={() => setIsExportModalOpen(false)} // Close handler
-          shades={shades} // Pass the generated shades
-          colorName={colorName} // Pass the color name
+          shades={{ [colorName]: shades }} // Pass the generated shades grouped by color name
         />
       )}
     </div>
