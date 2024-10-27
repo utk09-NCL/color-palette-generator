@@ -1,25 +1,34 @@
-// src/components/ContrastChecker/GenerateContrastGridColors.jsx
+// src/components/ContrastChecker/GenerateContrastGridColors.tsx
 
-import { useState, useMemo } from "react";
-import PropTypes from "prop-types";
-import chroma, { scale } from "chroma-js";
+import { useState, useMemo, ReactElement } from "react";
+import chroma, { type Color, scale } from "chroma-js";
 import { toast } from "react-hot-toast";
 
-import ExportColorsModal from "../ExportColors/ExportColorsModal";
-import Button from "../Shared/Button";
-import { TOTAL_SHADES } from "../../constants";
-import { copyToClipboard } from "../../utils/copyToClipboard";
+import ExportColorsModal from "@components/ExportColors/ExportColorsModal";
+import Button from "@components/Shared/Button";
+import { TOTAL_SHADES } from "@constants/index";
+import { copyToClipboard } from "@utils/copyToClipboard";
 
 import ContrastCheckerModal from "./ContrastCheckerModal";
 
 /**
+ * Props for the GenerateContrastGridColors component.
+ */
+export type GenerateContrastGridColorsProps = {
+  baseColor: string;
+  colorName?: string;
+};
+
+/**
  * Component to display a grid of color shades and provide options to export or check contrast.
  *
- * @param {string} props.baseColor - The base color from which shades are generated.
- * @param {string} props.colorName - The name of the color set. Default "primary"
- * @returns {JSX.Element} The rendered component.
+ * @param {GenerateContrastGridColorsProps} props - The base color and color set name.
+ * @returns {ReactElement} The rendered component.
  */
-const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
+const GenerateContrastGridColors = ({
+  baseColor,
+  colorName = "primary",
+}: GenerateContrastGridColorsProps): ReactElement => {
   // State to manage the visibility of the Export Colors modal.
   const [isExportModalOpen, setIsExportModalOpen] = useState(false);
 
@@ -30,11 +39,9 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
    * Memoized computation of color shades to avoid unnecessary recalculations.
    * Generates an array of chroma color objects representing the shades.
    */
-  const shades = useMemo(
+  const shades: Color[] = useMemo(
     () =>
-      scale(
-        [chroma(baseColor).brighten(1.5), chroma(baseColor).darken(2)], // Create a scale from lighter to darker.
-      )
+      scale([chroma(baseColor).brighten(1.5), chroma(baseColor).darken(2)]) // Create a scale from lighter to darker.
         .mode("lab") // Use Lab color space for perceptual uniformity.
         .colors(TOTAL_SHADES) // Generate the specified number of shades.
         .map((color) => chroma(color)), // Convert each color to a chroma object.
@@ -44,15 +51,15 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
   /**
    * Determines the appropriate text color (black or white) for readability against a given background color.
    *
-   * @param {chroma} bgColor - The background color as a chroma object.
+   * @param {Color} bgColor - The background color as a chroma object.
    * @returns {string} The HEX code of the text color.
    */
-  const getTextColor = (bgColor) => {
+  const getTextColor = (bgColor: Color): string => {
     const luminance = chroma(bgColor).luminance(); // Get the luminance of the background color.
     return luminance > 0.5 ? "#000000" : "#ffffff"; // Return black text for light backgrounds and white text for dark backgrounds.
   };
 
-  const handleCopy = (dataToCopy) => {
+  const handleCopy = (dataToCopy: string): void => {
     copyToClipboard(dataToCopy).then(
       () => toast.success(`Copied ${dataToCopy} to clipboard!`),
       () => toast.error("Failed to copy code to clipboard."),
@@ -102,7 +109,7 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
                 backgroundColor: shade.hex(), // Set background to the shade color.
                 color: textColor, // Set text color for readability.
               }}
-              onClick={() => handleCopy(shade.hex().toUpperCase())} //Copy Hex value to clipboard
+              onClick={() => handleCopy(shade.hex().toUpperCase())} // Copy Hex value to clipboard
             >
               {/* Display the shade step (e.g., 100, 200) */}
               <p className="font-light">{`${step}`}</p>
@@ -137,12 +144,6 @@ const GenerateContrastGridColors = ({ baseColor, colorName = "primary" }) => {
       )}
     </div>
   );
-};
-
-// Define prop types for type checking and documentation.
-GenerateContrastGridColors.propTypes = {
-  baseColor: PropTypes.string.isRequired, // The base color in HEX or named format.
-  colorName: PropTypes.string, // Optional color name.
 };
 
 export default GenerateContrastGridColors;

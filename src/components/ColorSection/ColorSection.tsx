@@ -1,7 +1,6 @@
-// src/components/ColorSection/ColorSection.jsx
+// src/components/ColorSection/ColorSection.tsx
 
-import { useState, useCallback } from "react";
-import PropTypes from "prop-types";
+import { useState, useCallback, type ReactElement } from "react";
 import { toast } from "react-hot-toast";
 import chroma, { valid } from "chroma-js";
 import clsx from "clsx";
@@ -13,26 +12,46 @@ import Button from "../Shared/Button";
 import { generateColorShades } from "../../utils/colorUtils";
 
 /**
+ * Type for the color data structure passed to onColorsGenerated.
+ */
+export type ColorData = {
+  colorName: string;
+  baseColor: string;
+  shades: string[];
+};
+
+/**
+ * Props for the ColorSection component.
+ */
+export type ColorSectionProps = {
+  initialColorName?: string;
+  onDelete: () => void;
+  onColorsGenerated: (_colorData: ColorData) => void;
+};
+
+/**
  * Component representing a section for inputting a color and generating its shades.
  *
- * @param {string} props.initialColorName - The initial name for the color. Default 'primary'
- * @param {function} props.onDelete - Function to call when the section is deleted.
- * @param {function} props.onColorsGenerated - Function to call when colors are generated.
- * @returns {JSX.Element} The rendered component.
+ * @param {string} initialColorName - The initial name for the color. Default 'primary'
+ * @param {function} onDelete - Function to call when the section is deleted.
+ * @param {function} onColorsGenerated - Function to call when colors are generated.
+ * @returns {ReactElement} The rendered component.
  */
 function ColorSection({
   initialColorName = "primary",
   onDelete,
   onColorsGenerated,
-}) {
+}: ColorSectionProps): ReactElement {
   // State to hold the base color input by the user.
-  const [color, setColor] = useState("#bc560a");
+  const [color, setColor] = useState<string>("#bc560a");
 
   // State to hold the generated color after validation.
-  const [generatedColor, setGeneratedColor] = useState(null);
+  const [generatedColor, setGeneratedColor] = useState<string | null>(null);
 
   // State to hold the name of the color set, defaulting to 'primary' if not provided.
-  const [colorName, setColorName] = useState(initialColorName || "primary");
+  const [colorName, setColorName] = useState<string>(
+    initialColorName || "primary",
+  );
 
   /**
    * Handler function to generate color shades based on the base color.
@@ -126,12 +145,5 @@ function ColorSection({
     </section>
   );
 }
-
-// Define the expected prop types for the component.
-ColorSection.propTypes = {
-  initialColorName: PropTypes.string,
-  onDelete: PropTypes.func,
-  onColorsGenerated: PropTypes.func,
-};
 
 export default ColorSection;

@@ -1,17 +1,27 @@
-// src/components/ColorInput/RGBColorInput.jsx
+// src/components/ColorInput/RGBColorInput.tsx
 
-import PropTypes from "prop-types";
+import { type ChangeEvent, type ReactElement } from "react";
 
 import CustomSlider from "./CustomSlider/CustomSlider";
 
 /**
+ * Props for the RGBColorInput component.
+ */
+interface RGBColorInputProps {
+  rgb: [number, number, number];
+  onRgbChange: (_index: number, _value: number) => void;
+}
+
+/**
  * Component for inputting and adjusting RGB color values.
  *
- * @param {Array<number>} props.rgb - The current RGB values as an array [R, G, B].
- * @param {function} props.onRgbChange - Callback function to handle changes to RGB values.
- * @returns {JSX.Element} The rendered RGB color input component.
+ * @param {RGBColorInputProps} props - The RGB values and onChange handler.
+ * @returns {ReactElement} The rendered RGB color input component.
  */
-const RGBColorInput = ({ rgb, onRgbChange }) => {
+const RGBColorInput = ({
+  rgb,
+  onRgbChange,
+}: RGBColorInputProps): ReactElement => {
   // Destructure and round the RGB values for display
   const [r, g, b] = rgb.map((val) => Math.round(val));
 
@@ -28,7 +38,9 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           min="0"
           max="255"
           value={r}
-          onChange={(e) => onRgbChange(0, parseInt(e.target.value) || 0)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            onRgbChange(0, parseInt(e.target.value) || 0)
+          }
           className="w-full rounded-lg border px-2 py-1"
           placeholder="R"
         />
@@ -38,7 +50,9 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           min="0"
           max="255"
           value={g}
-          onChange={(e) => onRgbChange(1, parseInt(e.target.value) || 0)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            onRgbChange(1, parseInt(e.target.value) || 0)
+          }
           className="w-full rounded-lg border px-2 py-1"
           placeholder="G"
         />
@@ -48,7 +62,9 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           min="0"
           max="255"
           value={b}
-          onChange={(e) => onRgbChange(2, parseInt(e.target.value) || 0)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            onRgbChange(2, parseInt(e.target.value) || 0)
+          }
           className="w-full rounded-lg border px-2 py-1"
           placeholder="B"
         />
@@ -61,7 +77,9 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           min={0}
           max={255}
           value={r}
-          onChange={(e) => onRgbChange(0, parseInt(e.target.value) || 0)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            onRgbChange(0, parseInt(e.target.value) || 0)
+          }
           gradient="linear-gradient(to right, #000000, #ff0000)" // Gradient from black to red
         />
         {/* Green component slider */}
@@ -69,7 +87,9 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           min={0}
           max={255}
           value={g}
-          onChange={(e) => onRgbChange(1, parseInt(e.target.value) || 0)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            onRgbChange(1, parseInt(e.target.value) || 0)
+          }
           gradient="linear-gradient(to right, #000000, #00ff00)" // Gradient from black to green
         />
         {/* Blue component slider */}
@@ -77,17 +97,14 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           min={0}
           max={255}
           value={b}
-          onChange={(e) => onRgbChange(2, parseInt(e.target.value) || 0)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            onRgbChange(2, parseInt(e.target.value) || 0)
+          }
           gradient="linear-gradient(to right, #000000, #0000ff)" // Gradient from black to blue
         />
       </div>
     </div>
   );
-};
-
-RGBColorInput.propTypes = {
-  rgb: PropTypes.arrayOf(PropTypes.number).isRequired, // Array of RGB values [R, G, B]
-  onRgbChange: PropTypes.func.isRequired, // Function to handle RGB value changes
 };
 
 export default RGBColorInput;

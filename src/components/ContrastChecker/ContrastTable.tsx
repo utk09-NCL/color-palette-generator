@@ -1,6 +1,6 @@
-// src/components/ContrastChecker/ContrastTable.jsx
+// src/components/ContrastChecker/ContrastTable.tsx
 
-import PropTypes from "prop-types";
+import { type ReactNode } from "react";
 import { contrast } from "chroma-js";
 import {
   useReactTable,
@@ -11,13 +11,33 @@ import {
 } from "@tanstack/react-table";
 
 /**
+ * Type for each data entry in the contrast table.
+ */
+export type ContrastTableData = {
+  bgLabel: string;
+  fgLabel: string;
+  bgShade: string;
+  fgShade: string;
+  contrastRatio: number;
+  aa: "Pass" | "Fail";
+  aaa: "Pass" | "Fail";
+};
+
+/**
+ * Props for the ContrastTable component.
+ */
+export type ContrastTableProps = {
+  data: ContrastTableData[];
+};
+
+/**
  * Component to render the contrast table.
  *
- * @param {Array} props.data - The data to display in the table.
- * @returns {JSX.Element} The rendered component.
+ * @param {ContrastTableProps} props - The data to display in the table.
+ * @returns {ReactNode} The rendered component.
  */
-const ContrastTable = ({ data }) => {
-  const columnHelper = createColumnHelper();
+const ContrastTable = ({ data }: ContrastTableProps): ReactNode => {
+  const columnHelper = createColumnHelper<ContrastTableData>();
 
   // Define columns for the table
   const columns = [
@@ -116,10 +136,11 @@ const ContrastTable = ({ data }) => {
                     header.column.columnDef.header,
                     header.getContext(),
                   )}
-                  {{
-                    asc: " 🔼",
-                    desc: " 🔽",
-                  }[header.column.getIsSorted()] ?? null}
+                  {header.column.getIsSorted() === "asc"
+                    ? " 🔼"
+                    : header.column.getIsSorted() === "desc"
+                      ? " 🔽"
+                      : null}
                 </th>
               ))}
             </tr>
@@ -139,10 +160,6 @@ const ContrastTable = ({ data }) => {
       </table>
     </div>
   );
-};
-
-ContrastTable.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ContrastTable;

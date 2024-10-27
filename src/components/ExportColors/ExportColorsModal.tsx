@@ -1,46 +1,61 @@
-// src/components/ExportColors/ExportColorsModal.jsx
+// src/components/ExportColors/ExportColorsModal.tsx
 
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useState, ReactElement } from "react";
+import { type Color } from "chroma-js";
 import { toast } from "react-hot-toast";
 import clsx from "clsx";
 
-import { EXPORT_FORMATS } from "../../constants";
-import Modal from "../Shared/Modal";
-import Button from "../Shared/Button";
+import { EXPORT_FORMATS } from "@constants/index";
+import Modal from "@components/Shared/Modal";
+import Button from "@components/Shared/Button";
+
+/**
+ * Props for the ExportColorsModal component.
+ */
+export type ExportColorsModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  shades: Color[];
+  colorName: string;
+};
 
 /**
  * Modal component to export generated colors in various formats.
  *
- * @param {boolean} props.isOpen - Whether the modal is open.
- * @param {function} props.onClose - Function to close the modal.
- * @param {Array} props.shades - Array of chroma color objects representing shades.
- * @param {string} props.colorName - The name of the color set.
- * @returns {JSX.Element} The rendered component.
+ * @param {ExportColorsModalProps} props - Modal settings, color data, and handlers.
+ * @returns {ReactElement} The rendered component.
  */
-const ExportColorsModal = ({ isOpen, onClose, shades, colorName }) => {
+const ExportColorsModal = ({
+  isOpen,
+  onClose,
+  shades,
+  colorName,
+}: ExportColorsModalProps): ReactElement => {
   const [selectedFormat, setSelectedFormat] = useState("tailwindHex");
 
   // Generate code output based on the selected format
-  const generateCodeOutput = () => {
+  const generateCodeOutput = (): string => {
     const shadeSteps = shades.map((shade, index) => {
       const step =
         index === 0 ? 50 : index === shades.length - 1 ? 950 : index * 100;
+
+      // Get HSL and handle NaN for hue
+      const [h, s, l] = shade.hsl();
+      const hue = isNaN(h) ? 0 : Math.round(h);
+      const saturation = Math.round(s * 100);
+      const lightness = Math.round(l * 100);
+
       switch (selectedFormat) {
         case "tailwindHex":
           return `  '${step}': '${shade.hex().toUpperCase()}',`;
-        case "tailwindHsl": {
-          const [h, s, l] = shade.hsl();
-          return `  '${step}': 'hsl(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)',`;
-        }
+        case "tailwindHsl":
+          return `  '${step}': 'hsl(${hue}, ${saturation}%, ${lightness}%)',`;
         case "scssHex":
           return `$${colorName}-${step}: ${shade.hex().toUpperCase()};`;
         case "cssHex":
           return `  --${colorName}-${step}: ${shade.hex().toUpperCase()};`;
-        case "cssHsl": {
-          const [h, s, l] = shade.hsl();
-          return `  --${colorName}-${step}: hsl(${Math.round(h)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%);`;
-        }
+        case "cssHsl":
+          return `  --${colorName}-${step}: hsl(${hue}, ${saturation}%, ${lightness}%);`;
         case "cssRgb": {
           const [r, g, b] = shade.rgb();
           return `  --${colorName}-${step}: rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)});`;
@@ -68,7 +83,7 @@ const ExportColorsModal = ({ isOpen, onClose, shades, colorName }) => {
   const codeOutput = generateCodeOutput();
 
   // Handle copying code to clipboard
-  const handleCopy = () => {
+  const handleCopy = (): void => {
     navigator.clipboard.writeText(codeOutput).then(
       () => toast.success("Code copied to clipboard!"),
       () => toast.error("Failed to copy code to clipboard."),
@@ -121,13 +136,6 @@ const ExportColorsModal = ({ isOpen, onClose, shades, colorName }) => {
       </div>
     </Modal>
   );
-};
-
-ExportColorsModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  shades: PropTypes.arrayOf(PropTypes.object).isRequired, // shades are chroma color objects
-  colorName: PropTypes.string.isRequired,
 };
 
 export default ExportColorsModal;

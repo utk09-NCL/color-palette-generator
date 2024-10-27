@@ -1,22 +1,36 @@
-// src/components/ContrastChecker/ContrastCheckerModal.jsx
+// src/components/ContrastChecker/ContrastCheckerModal.tsx
 
-import PropTypes from "prop-types";
+import { type ReactElement } from "react";
+import { type Color } from "chroma-js";
 
-import useContrastData from "../../hooks/useContrastData";
-import Modal from "../Shared/Modal";
-import Button from "../Shared/Button";
+import useContrastData from "@hooks/useContrastData";
+import Modal from "@components/Shared/Modal";
+import Button from "@components/Shared/Button";
 
 import ContrastTable from "./ContrastTable";
 
 /**
+ * Props for the ContrastCheckerModal component.
+ */
+export type ContrastCheckerModalProps = {
+  isOpen: boolean;
+  onClose: () => void;
+  shades: Color[]; // Array of chroma color objects representing shades
+};
+
+/**
  * Modal component to display contrast ratios between colors.
  *
- * @param {boolean} props.isOpen - Whether the modal is open.
- * @param {function} props.onClose - Function to close the modal.
- * @param {Array} props.shades - Array of chroma color objects representing shades.
- * @returns {JSX.Element} The rendered component.
+ * @param {boolean} isOpen - Whether the modal is open.
+ * @param {function} onClose - Function to close the modal.
+ * @param {Color[]} shades - Array of chroma color objects representing shades.
+ * @returns {ReactElement} The rendered component.
  */
-const ContrastCheckerModal = ({ isOpen, onClose, shades }) => {
+const ContrastCheckerModal = ({
+  isOpen,
+  onClose,
+  shades,
+}: ContrastCheckerModalProps): ReactElement => {
   // Use the custom hook to get the contrast data
   const data = useContrastData(shades);
 
@@ -39,12 +53,6 @@ const ContrastCheckerModal = ({ isOpen, onClose, shades }) => {
       <ContrastTable data={data} />
     </Modal>
   );
-};
-
-ContrastCheckerModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  shades: PropTypes.arrayOf(PropTypes.object).isRequired, // shades are chroma color objects
 };
 
 export default ContrastCheckerModal;
