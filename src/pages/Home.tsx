@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 
-import { ALLOWED_COLOR_NAMES } from "../constants";
-import { generateExportData } from "../utils/colorUtils";
-import Button from "../components/Shared/Button";
-import ColorSection from "../components/ColorSection/ColorSection";
+import { ALLOWED_COLOR_NAMES } from "@constants/index";
+import { generateExportData } from "@utils/colorUtils";
+import Button from "@components/Shared/Button";
+import ColorSection from "@components/ColorSection/ColorSection";
 
 /**
  * The main Home component that renders the application.

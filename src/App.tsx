@@ -1,11 +1,13 @@
-// src/App.jsx
+// src/App.tsx
+import { type ReactElement } from "react";
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import "./styles/App.css";
-import Layout from "./components/Layout/Layout";
+import Home from "@pages/Home";
+import NotFound from "@pages/NotFound";
+import Layout from "@components/Layout/Layout";
+
+import "@styles/App.css";
 
 // Create a browser router
 const router = createBrowserRouter([
@@ -31,9 +33,9 @@ const router = createBrowserRouter([
 /**
  * The main App component that renders the application.
  *
- * @returns {JSX.Element} The rendered App component.
+ * @returns {ReactElement} The rendered application.
  */
-function App() {
+function App(): ReactElement {
   return (
     <div className="App">
       {/* Render toast notifications */}
