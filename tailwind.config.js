@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         headerBrand: "#003049",
-        headerBackground: "#fdf0d5",
+        headerBackground: "#f0f0f0",
       },
     },
   },
