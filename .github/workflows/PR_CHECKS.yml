@@ -31,29 +31,34 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Step 4: Build the project
+      # Step 4: Run TypeScript Type-Checking
+      - name: Run TypeScript Type-Checking
+        run: npx tsc --noEmit
+        continue-on-error: false # Fail the PR if type-checking fails
+
+      # Step 5: Build the project
       - name: Build the project
         run: npm run build
 
-      # Step 5: Run linting
+      # Step 6: Run linting
       - name: Run Linting
         run: npm run lint
 
-      # Step 6: Run Unit Tests with Coverage
+      # Step 7: Run Unit Tests with Coverage
       - name: Run Tests with Coverage
         run: npm run test
         env:
           CI: true # Ensure tests run in CI mode
 
-      # Step 7: Enforce Code Coverage Threshold
+      # Step 8: Enforce Code Coverage Threshold
       - name: Check Code Coverage Threshold
         run: |
           npm run test -- --coverage --coverageThreshold='{
             "global": {
-              "statements": 60,
-              "lines":60,
-              "branches": 20,
-              "functions": 20
+              "statements": 100,
+              "lines": 100,
+              "branches": 50,
+              "functions": 50
             }
           }'
         continue-on-error: false # Fail if coverage doesn't meet the threshold
