@@ -1,7 +1,5 @@
 # Color Conjure 🎨
 
-## NOTE - CODEBASE IS CURRENTLY BEING UPDATED FROM JAVASCRIPT TO TYPESCRIPT. PLEASE REFRAIN FROM RASING ANY PR'S TILL SUNDAY 16:00 GMT
-
 [![Netlify Status](https://api.netlify.com/api/v1/badges/77b1cc7e-418c-4dc4-9ee0-bd8f985968f5/deploy-status)](https://app.netlify.com/sites/color-conjure/deploys)
 
 Color Conjure is an open-source color palette generator that helps designers and developers create accessible and consistent color schemes for their projects. Generate shades, check color contrasts, and export colors in various formats with ease.
