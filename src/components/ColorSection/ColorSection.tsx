@@ -73,14 +73,14 @@ function ColorSection({
 
   return (
     <section
-      className="p-4 border-2 border-gray-200 rounded-xl mt-10"
+      className="mt-10 rounded-xl border-2 border-gray-200 p-4"
       data-testid={`color-section-${initialColorName}`} // Test ID for testing
     >
       {/* Button to remove the color section */}
       <div className="flex justify-end pb-2 md:pb-0">
         <Button
           onClick={onDelete}
-          className="text-red-500 font-bold hover:bg-red-500 hover:text-white"
+          className="font-bold text-red-500 hover:bg-red-500 hover:text-white"
         >
           Remove
         </Button>
@@ -93,20 +93,20 @@ function ColorSection({
         value={colorName}
         onChange={(e) => setColorName(e.target.value)}
         placeholder="Color Name: primary, secondary..."
-        className="border px-2 py-1 rounded-lg w-full md:w-64 mb-4 text-center"
+        className="mb-4 w-full rounded-lg border px-2 py-1 text-center md:w-64"
       />
 
       {/* Component for inputting and previewing the base color */}
       <ColorInput colorValue={color} onChangeColor={setColor} />
 
       {/* Button to generate color shades */}
-      <div className="text-center mt-6">
+      <div className="mt-6 text-center">
         <Button
           dataTestid="generate-colors" // Test ID for testing
           onClick={handleGenerateColors}
           className={clsx({
-            "text-black font-bold": luminance > 0.5, // if luminance is greater than 0.5, make the button text black and bold
-            "text-white font-bold": luminance <= 0.5, // if luminance is less than or equal to 0.5, make the button text white and bold
+            "font-bold text-black": luminance > 0.5, // if luminance is greater than 0.5, make the button text black and bold
+            "font-bold text-white": luminance <= 0.5, // if luminance is less than or equal to 0.5, make the button text white and bold
           })}
           style={{ backgroundColor: color }}
         >

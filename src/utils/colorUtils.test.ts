@@ -9,19 +9,19 @@ import {
 
 describe("calculateShadeStep", () => {
   it("should return 50 when index is 0", () => {
-    const result = calculateShadeStep(0, 11);
+    const result = calculateShadeStep({ index: 0, totalShades: 11 });
     expect(result).toBe(50);
   });
 
   it("should return 950 when index is the last element", () => {
-    const result = calculateShadeStep(10, 11);
+    const result = calculateShadeStep({ index: 10, totalShades: 11 });
     expect(result).toBe(950);
   });
 
   it("should return appropriate values for other indices", () => {
-    expect(calculateShadeStep(1, 11)).toBe(100);
-    expect(calculateShadeStep(5, 11)).toBe(500);
-    expect(calculateShadeStep(8, 11)).toBe(800);
+    expect(calculateShadeStep({ index: 1, totalShades: 11 })).toBe(100);
+    expect(calculateShadeStep({ index: 5, totalShades: 11 })).toBe(500);
+    expect(calculateShadeStep({ index: 8, totalShades: 11 })).toBe(800);
   });
 });
 

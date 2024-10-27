@@ -12,7 +12,7 @@ const ColorPreview = ({ color }) => {
   return (
     // A div element styled to display the selected color
     <div
-      className="w-full h-24 lg:h-32 lg:w-full rounded-lg shadow-2xl"
+      className="h-24 w-full rounded-lg shadow-2xl lg:h-32 lg:w-full"
       style={{ backgroundColor: color }} // Inline style to set the background color
     ></div>
   );

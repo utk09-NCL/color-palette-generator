@@ -28,11 +28,11 @@ export default defineConfig({
     environment: "jsdom",
     reporters: ["default", "junit"],
     outputFile: { junit: "./reports/junit/junit.xml" },
-    setupFiles: ["vitest.setup.js"],
+    setupFiles: ["vitest.setup.ts"],
     coverage: {
       provider: "istanbul",
       include: ["src/**/*"],
-      exclude: ["src/**/*.test.js*", "src/main.jsx", "src/App.jsx"],
+      exclude: ["src/**/*.test.ts*", "src/main.tsx", "src/App.tsx"],
       reporter: ["text", "json-summary"],
       thresholds: {
         perFile: true,

@@ -1,3 +1,3 @@
-export const copyToClipboard = (dataToCopy) => {
+export const copyToClipboard = (dataToCopy: string): Promise<void> => {
   return navigator.clipboard.writeText(dataToCopy);
 };

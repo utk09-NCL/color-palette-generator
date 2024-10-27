@@ -1,32 +1,46 @@
-import { useState } from "react";
+// Home.tsx
+
+import { useState, type ReactElement } from "react";
 import { toast } from "react-hot-toast";
 
 import { ALLOWED_COLOR_NAMES } from "@constants/index";
-import { generateExportData } from "@utils/colorUtils";
+import {
+  generateExportData,
+  type ExportData,
+  type GeneratedColors,
+} from "@utils/colorUtils";
 import Button from "@components/Shared/Button";
 import ColorSection from "@components/ColorSection/ColorSection";
+
+/**
+ * Type for each color section in the app.
+ */
+export type ColorSectionType = {
+  id: number;
+  initialColorName: string;
+};
 
 /**
  * The main Home component that renders the application.
  * This component manages the state of color sections and generated colors.
  * It also provides functions to add, remove, and export colors.
  *
- * @returns {JSX.Element} The rendered Home component.
+ * @returns {ReactElement} The Home component.
  */
-const Home = () => {
+const Home = (): ReactElement => {
   // State to keep track of color sections added by the user.
-  const [sections, setSections] = useState([
+  const [sections, setSections] = useState<ColorSectionType[]>([
     { id: Date.now(), initialColorName: "primary" },
   ]);
 
   // State to store all generated colors from the color sections.
-  const [generatedColors, setGeneratedColors] = useState({});
+  const [generatedColors, setGeneratedColors] = useState<GeneratedColors>({});
 
   /**
    * Adds a new color section to the app.
    * Suggests a default color name based on ALLOWED_COLOR_NAMES.
    */
-  const addSection = () => {
+  const addSection = (): void => {
     // Get the names of existing color sections.
     const existingNames = sections.map((s) => s.initialColorName);
 
@@ -53,7 +67,7 @@ const Home = () => {
    *
    * @param {number} id - The unique identifier of the section to remove.
    */
-  const removeSection = (id) => {
+  const removeSection = (id: number): void => {
     // Update the sections state to exclude the removed section.
     setSections((prevSections) => prevSections.filter((s) => s.id !== id));
 
@@ -71,9 +85,12 @@ const Home = () => {
    * Handles the event when colors are generated in a section.
    *
    * @param {number} id - The unique identifier of the section.
-   * @param {Object} colorData - The generated color data from the section.
+   * @param {GeneratedColors} colorData - The generated color data from the section.
    */
-  const handleColorsGenerated = (id, colorData) => {
+  const handleColorsGenerated = (
+    id: number,
+    colorData: GeneratedColors,
+  ): void => {
     // Update the generatedColors state with the new color data.
     setGeneratedColors((prevColors) => ({
       ...prevColors,
@@ -84,9 +101,9 @@ const Home = () => {
   /**
    * Exports all generated colors as a JSON string and copies it to the clipboard.
    */
-  const exportAllColorsAsJSON = () => {
+  const exportAllColorsAsJSON = (): void => {
     // Combine all color data into a single object.
-    const exportData = generateExportData(generatedColors);
+    const exportData: ExportData = generateExportData(generatedColors);
 
     // Convert the color data object to a JSON string with indentation.
     const jsonString = JSON.stringify(exportData, null, 2);
@@ -101,13 +118,13 @@ const Home = () => {
   /**
    * Exports all generated colors as CSS variables and copies them to the clipboard.
    */
-  const exportAllColorsAsCSSVariables = () => {
+  const exportAllColorsAsCSSVariables = (): void => {
     // Combine all color data into a single object.
-    const exportData = generateExportData(generatedColors);
+    const exportData: ExportData = generateExportData(generatedColors);
 
     // Convert the color data to CSS variable declarations.
     const cssVariables = Object.entries(exportData).reduce(
-      (acc, [colorName, shades]) => {
+      (acc: string[], [colorName, shades]) => {
         const colorVariables = Object.entries(shades).map(
           ([step, shade]) => `--${colorName}-${step}: ${shade};`,
         );
@@ -125,10 +142,11 @@ const Home = () => {
       () => toast.error("Failed to copy colors to clipboard."),
     );
   };
+
   return (
-    <main className="container mx-auto px-6 py-12 mt-12">
+    <main className="container mx-auto mt-12 px-6 py-12">
       {/* Buttons for adding sections and exporting colors */}
-      <div className="flex flex-wrap justify-center items-center space-x-4">
+      <div className="flex flex-wrap items-center justify-center space-x-4">
         {/* Button to add a new color set */}
         <Button onClick={addSection} className="bg-rose-600 text-white">
           Add Color Set

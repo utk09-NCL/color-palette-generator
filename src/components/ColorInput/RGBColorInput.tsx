@@ -29,7 +29,7 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           max="255"
           value={r}
           onChange={(e) => onRgbChange(0, parseInt(e.target.value) || 0)}
-          className="border px-2 py-1 rounded-lg w-full"
+          className="w-full rounded-lg border px-2 py-1"
           placeholder="R"
         />
         {/* Green component input */}
@@ -39,7 +39,7 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           max="255"
           value={g}
           onChange={(e) => onRgbChange(1, parseInt(e.target.value) || 0)}
-          className="border px-2 py-1 rounded-lg w-full"
+          className="w-full rounded-lg border px-2 py-1"
           placeholder="G"
         />
         {/* Blue component input */}
@@ -49,7 +49,7 @@ const RGBColorInput = ({ rgb, onRgbChange }) => {
           max="255"
           value={b}
           onChange={(e) => onRgbChange(2, parseInt(e.target.value) || 0)}
-          className="border px-2 py-1 rounded-lg w-full"
+          className="w-full rounded-lg border px-2 py-1"
           placeholder="B"
         />
       </div>

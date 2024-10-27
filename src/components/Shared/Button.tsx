@@ -26,8 +26,8 @@ const Button = ({
     <button
       data-testid={`${dataTestid}-btn`}
       className={clsx(
-        "py-2 px-4 rounded-lg transition border-2 border-slate-200",
-        disabled ? "opacity-50 cursor-not-allowed" : "",
+        "rounded-lg border-2 border-slate-200 px-4 py-2 transition",
+        disabled ? "cursor-not-allowed opacity-50" : "",
         className,
       )}
       onClick={onClick}

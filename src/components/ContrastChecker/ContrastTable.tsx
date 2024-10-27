@@ -101,8 +101,8 @@ const ContrastTable = ({ data }) => {
   });
 
   return (
-    <div className="overflow-x-auto max-h-[70vh]">
-      <table className="min-w-full bg-white border border-gray-300">
+    <div className="max-h-[70vh] overflow-x-auto">
+      <table className="min-w-full border border-gray-300 bg-white">
         <thead className="bg-gray-100 text-center">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -110,7 +110,7 @@ const ContrastTable = ({ data }) => {
                 <th
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
-                  className="py-2 px-4 border-b cursor-pointer select-none"
+                  className="cursor-pointer select-none border-b px-4 py-2"
                 >
                   {flexRender(
                     header.column.columnDef.header,
@@ -129,7 +129,7 @@ const ContrastTable = ({ data }) => {
           {table.getRowModel().rows.map((row, index) => (
             <tr key={row.id} className={index % 2 === 0 ? "bg-gray-50" : ""}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="py-2 px-4 border-b text-center">
+                <td key={cell.id} className="border-b px-4 py-2 text-center">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
