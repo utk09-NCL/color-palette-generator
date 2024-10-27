@@ -41,6 +41,7 @@ Please note that this is a work in progress, and some features may not be fully 
 - **[@testing-library/jest-dom](https://testing-library.com/docs/ecosystem-jest-dom/)**
 - **[@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)**
 - **[@vitest/coverage-istanbul](https://vitest.dev/guide/coverage.html#coverage-providers)**
+- **[typescript](https://www.typescriptlang.org/)**
 
 ## 🛠️ Installation
 
@@ -77,7 +78,7 @@ Please note that this is a work in progress, and some features may not be fully 
 
 5. **Build for Production**
 
-   To build the application for production, run:
+   To build and view the application for production, run:
 
    ```bash
    npm run build && npm run preview
@@ -102,7 +103,7 @@ Please note that this is a work in progress, and some features may not be fully 
    - Click on the "Export Colors" button to view the export options.
    - Choose from range of formats like HEX, HSL, CSS variables, and Tailwind CSS configurations.
    - Click on the "Copy Code" button to copy the color values to the clipboard.
-   - If you add more than one color set/section, then you can "Export All Colors to JSON" and "Export All Colors to HEX".
+   - If you add more than one color set/section, then you can use "Export All Colors".
 
 ## 📄 License
 

@@ -30,7 +30,8 @@ Have an idea for a new feature? [open an issue](https://github.com/utk09-NCL/col
 
    ```bash
     # Update your main branch
-    git checkout main && git pull origin main
+    git checkout main # Switch to the main branch
+    git pull origin main # Get the latest changes from the main branch
 
     # Create a new branch for your feature or fix using a descriptive name
     git checkout -b my-new-feature-branch
@@ -48,9 +49,11 @@ Have an idea for a new feature? [open an issue](https://github.com/utk09-NCL/col
    - Make corresponding changes to the documentation if necessary.
    - Ensure your changes generate no new warnings or errors.
 
-5. **Lint and Test** - ❗️Unit Testing using vitest to be added soon ❗️
+5. **Lint, Build and Test** - Before submitting your changes, make sure to run the following commands:
 
    - Run `npm run lint` to lint your code.
+   - Run `npm run build` to ensure your changes build without errors (and check TypeScript errors).
+   - Run `npm run test` to run the tests and check the coverage.
    - Run `npm run dev` to test your changes locally.
 
 6. **Commit Your Changes** - Please follow the [Common types according to commitlint-config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional#type-enum) specification for your commit messages.
