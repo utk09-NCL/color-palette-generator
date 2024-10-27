@@ -5,11 +5,11 @@ import { toast } from "react-hot-toast";
 import chroma, { valid } from "chroma-js";
 import clsx from "clsx";
 
-import ColorInput from "../ColorInput/ColorInput";
-import GenerateContrastGridColors from "../ContrastChecker/GenerateContrastGridColors";
-import { ALLOWED_COLOR_NAMES } from "../../constants";
-import Button from "../Shared/Button";
-import { generateColorShades } from "../../utils/colorUtils";
+import ColorInput from "@components/ColorInput/ColorInput";
+import GenerateContrastGridColors from "@components/ContrastChecker/GenerateContrastGridColors";
+import Button from "@components/Shared/Button";
+import { ALLOWED_COLOR_NAMES } from "@constants/index";
+import { generateColorShades } from "@utils/colorUtils";
 
 /**
  * Type for the color data structure passed to onColorsGenerated.
@@ -53,6 +53,11 @@ function ColorSection({
     initialColorName || "primary",
   );
 
+  // State to hold a validated color name to pass to GenerateContrastGridColors
+  const [validatedColorName, setValidatedColorName] = useState<string | null>(
+    ALLOWED_COLOR_NAMES.includes(initialColorName) ? initialColorName : null,
+  );
+
   /**
    * Handler function to generate color shades based on the base color.
    * Validates the color name and base color, generates shades, and calls the callback.
@@ -64,13 +69,18 @@ function ColorSection({
     // If the color name is empty, default to 'primary'.
     if (trimmedColorName === "") {
       setColorName("primary");
+      setValidatedColorName("primary");
     }
     // If the color name is not in the allowed list, show an error toast.
     else if (!ALLOWED_COLOR_NAMES.includes(trimmedColorName)) {
       toast.error(
         `Invalid color name. Use one of the following: ${ALLOWED_COLOR_NAMES.join(", ")}`,
       );
+      setValidatedColorName(null); // Reset validated name if invalid
       return;
+    } else {
+      // Set the validated color name if it is valid
+      setValidatedColorName(trimmedColorName);
     }
 
     // Validate the base color using chroma.js.
@@ -78,7 +88,7 @@ function ColorSection({
       setGeneratedColor(color);
       const shades = generateColorShades(color);
       onColorsGenerated({
-        colorName: colorName.trim(),
+        colorName: trimmedColorName,
         baseColor: color.toUpperCase(),
         shades,
       });
@@ -133,12 +143,12 @@ function ColorSection({
         </Button>
       </div>
 
-      {/* Display the generated color shades if available */}
-      {generatedColor && (
+      {/* Display the generated color shades if available and name is valid */}
+      {generatedColor && validatedColorName && (
         <div className="my-6">
           <GenerateContrastGridColors
             baseColor={generatedColor}
-            colorName={colorName || "primary"}
+            colorName={validatedColorName}
           />
         </div>
       )}
