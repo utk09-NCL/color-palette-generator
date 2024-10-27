@@ -1,3 +1,5 @@
+// src/pages/NotFound.tsx
+
 import { useMemo, useState, type ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRightLong } from "react-icons/fa6";
