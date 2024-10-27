@@ -68,7 +68,9 @@ describe("Layout", () => {
       </MemoryRouter>,
     );
 
-    const children = container.firstChild.children;
+    const children = container.firstChild
+      ? (container.firstChild as Element).children
+      : [];
     expect(children[0]).toHaveAttribute("data-testid", "mock-header");
     expect(children[1]).toHaveAttribute("data-testid", "mock-outlet");
   });

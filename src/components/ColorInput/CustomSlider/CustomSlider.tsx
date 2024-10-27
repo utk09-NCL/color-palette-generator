@@ -1,7 +1,15 @@
-// src/components/ColorInput/CustomSlider/CustomSlider.jsx
+// src/components/ColorInput/CustomSlider/CustomSlider.tsx
 
-import PropTypes from "prop-types";
 import "./CustomSlider.css";
+import type { ChangeEventHandler, ReactElement } from "react";
+
+export type CustomSliderProps = {
+  min: number;
+  max: number;
+  value: number | string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  gradient?: string;
+};
 
 /**
  * Custom slider component with a gradient background.
@@ -9,9 +17,9 @@ import "./CustomSlider.css";
  * @param {number} props.min - Minimum value for the slider.
  * @param {number} props.max - Maximum value for the slider.
  * @param {number|string} props.value - Current value of the slider.
- * @param {function} props.onChange - Callback function to handle value changes.
- * @param {string} props.gradient - CSS gradient string for the slider background.
- * @returns {JSX.Element} The rendered custom slider component.
+ * @param {ChangeEventHandler<HTMLInputElement>} props.onChange - Callback function to handle value changes.
+ * @param {string} [props.gradient] - CSS gradient string for the slider background.
+ * @returns {ReactElement} The rendered custom slider component.
  */
 const CustomSlider = ({
   min,
@@ -19,7 +27,7 @@ const CustomSlider = ({
   value,
   onChange,
   gradient = "linear-gradient(to right, #000000, #ffffff)",
-}) => {
+}: CustomSliderProps): ReactElement => {
   return (
     <div className="slider-container">
       {/* Range input acting as a slider */}
@@ -36,14 +44,6 @@ const CustomSlider = ({
       />
     </div>
   );
-};
-
-CustomSlider.propTypes = {
-  min: PropTypes.number.isRequired, // Minimum value (required)
-  max: PropTypes.number.isRequired, // Maximum value (required)
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired, // Current value (number or string)
-  onChange: PropTypes.func.isRequired, // Function to handle changes (required)
-  gradient: PropTypes.string.isRequired, // CSS gradient string (required)
 };
 
 export default CustomSlider;

@@ -1,13 +1,20 @@
-import { useState, useEffect } from "react";
+// src/components/Header/Header.tsx
+
+import {
+  useState,
+  useEffect,
+  type ReactElement,
+  type CSSProperties,
+} from "react";
 import { FaGithub, FaBars, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const Header = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+const Header = (): ReactElement => {
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       const scrollPosition = window.scrollY;
       const maxScroll = 10;
       const progress =
@@ -19,16 +26,16 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const headerStyle = {
+  const headerStyle: CSSProperties = {
     width: `${100 - (1 - scrollProgress) * 20}%`,
     maxWidth: "1536px",
     transform: `scale(${0.9 + scrollProgress * 0.1})`,
     borderRadius: `${(1 - scrollProgress) * 0.75}rem`,
   };
 
-  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
+  const toggleMenu = (): void => setIsMenuOpen((prev) => !prev);
 
-  const renderMobileNav = () => (
+  const renderMobileNav = (): ReactElement => (
     <div
       data-testid="mobile-menu"
       className={`fixed left-0 top-0 z-50 h-full w-64 transform bg-headerBackground transition-transform duration-300 ease-in-out ${

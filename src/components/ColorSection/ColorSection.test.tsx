@@ -113,6 +113,6 @@ describe("ColorSection", () => {
     );
     fireEvent.change(input, { target: { value: "newColorName" } });
 
-    expect(input.value).toBe("newColorName");
+    expect((input as HTMLInputElement).value).toBe("newColorName");
   });
 });

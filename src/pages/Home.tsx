@@ -11,6 +11,7 @@ import {
 } from "@utils/colorUtils";
 import Button from "@components/Shared/Button";
 import ColorSection from "@components/ColorSection/ColorSection";
+import { type ColorData } from "@components/ColorSection/ColorSection";
 
 /**
  * Type for each color section in the app.
@@ -85,12 +86,9 @@ const Home = (): ReactElement => {
    * Handles the event when colors are generated in a section.
    *
    * @param {number} id - The unique identifier of the section.
-   * @param {GeneratedColors} colorData - The generated color data from the section.
+   * @param {ColorData} colorData - The generated color data from the section.
    */
-  const handleColorsGenerated = (
-    id: number,
-    colorData: GeneratedColors,
-  ): void => {
+  const handleColorsGenerated = (id: number, colorData: ColorData): void => {
     // Update the generatedColors state with the new color data.
     setGeneratedColors((prevColors) => ({
       ...prevColors,

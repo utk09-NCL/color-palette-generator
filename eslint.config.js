@@ -84,15 +84,15 @@ export default [
       ...prettierConfig.rules,
 
       // TypeScript and additional custom rules
-      "@typescript-eslint/no-explicit-any": "warn",
+      "@typescript-eslint/no-explicit-any": "error",
       "@typescript-eslint/explicit-function-return-type": [
-        "warn",
+        "error",
         {
           allowExpressions: true,
           allowTypedFunctionExpressions: true,
         },
       ],
-      "@typescript-eslint/explicit-module-boundary-types": "warn",
+      "@typescript-eslint/explicit-module-boundary-types": "error",
       "@typescript-eslint/no-unused-vars": [
         "error",
         { argsIgnorePattern: "^_" },

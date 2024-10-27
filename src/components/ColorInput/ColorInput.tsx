@@ -1,11 +1,10 @@
-// src/components/ColorInput/ColorInput.jsx
+// src/components/ColorInput/ColorInput.tsx
 
-import { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import chroma, { valid } from "chroma-js";
+import { useState, useEffect, type ReactElement } from "react";
+import chroma, { type Color, valid } from "chroma-js";
 import { toast } from "react-hot-toast";
 
-import useDebounce from "../../hooks/useDebounce";
+import useDebounce from "@hooks/useDebounce";
 
 import HEXColorInput from "./HEXColorInput";
 import RGBColorInput from "./RGBColorInput";
@@ -13,26 +12,41 @@ import HSLColorInput from "./HSLColorInput";
 import ColorPreview from "./ColorPreview";
 
 /**
+ * Props for the ColorInput component.
+ */
+export type ColorInputProps = {
+  colorValue: string;
+  onChangeColor: (_color: string) => void;
+};
+
+/**
  * Component for inputting and manipulating colors in various formats (HEX, RGB, HSL).
  * Synchronizes the color across different formats and updates the parent component when changes occur.
  *
- * @param {string} props.colorValue - The initial color value in HEX format.
- * @param {function} props.onChangeColor - Callback function to notify parent of color changes.
- * @returns {JSX.Element} The rendered component.
+ * @param {string} colorValue - The initial color value in HEX format.
+ * @param {function} onChangeColor - Callback function to notify parent of color changes.
+ * @returns {ReactElement} The rendered component.
  */
-const ColorInput = ({ colorValue, onChangeColor }) => {
+const ColorInput = ({
+  colorValue,
+  onChangeColor,
+}: ColorInputProps): ReactElement => {
   // Initialize chromaColor state with the initial color value using chroma.js.
-  const [chromaColor, setChromaColor] = useState(chroma(colorValue));
+  const [chromaColor, setChromaColor] = useState<Color>(chroma(colorValue));
 
   // State for the HEX input field.
-  const [hexInput, setHexInput] = useState(colorValue);
+  const [hexInput, setHexInput] = useState<string>(colorValue);
 
   // Debounced HEX input to prevent rapid state updates.
   const debouncedHexInput = useDebounce(hexInput, 500);
 
   // State for HSL and RGB values derived from the chromaColor.
-  const [hslValues, setHslValues] = useState(chromaColor.hsl());
-  const [rgbValues, setRgbValues] = useState(chromaColor.rgb());
+  const [hslValues, setHslValues] = useState<[number, number, number]>(
+    chromaColor.hsl(),
+  );
+  const [rgbValues, setRgbValues] = useState<[number, number, number]>(
+    chromaColor.rgb(),
+  );
 
   /**
    * Handler for changes in the HEX input field.
@@ -40,7 +54,7 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
    *
    * @param {string} newHex - The new HEX value input by the user.
    */
-  const handleHexChange = (newHex) => {
+  const handleHexChange = (newHex: string): void => {
     const validHex = /^#?[0-9A-Fa-f]*$/; // Regular expression to validate HEX input.
     if (validHex.test(newHex)) {
       setHexInput(newHex);
@@ -54,8 +68,8 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
    * @param {number} index - Index of the RGB component (0 for R, 1 for G, 2 for B).
    * @param {number} value - The new value for the RGB component.
    */
-  const handleRgbChange = (index, value) => {
-    const newRgb = [...rgbValues];
+  const handleRgbChange = (index: number, value: number): void => {
+    const newRgb = [...rgbValues] as [number, number, number];
     newRgb[index] = value; // Update the specific RGB component.
     setRgbValues(newRgb);
 
@@ -76,8 +90,8 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
    * @param {number} index - Index of the HSL component (0 for H, 1 for S, 2 for L).
    * @param {number} value - The new value for the HSL component.
    */
-  const handleHslChange = (index, value) => {
-    const newHsl = [...hslValues];
+  const handleHslChange = (index: number, value: number): void => {
+    const newHsl = [...hslValues] as [number, number, number];
     newHsl[index] = value; // Update the specific HSL component.
     setHslValues(newHsl);
 
@@ -148,11 +162,6 @@ const ColorInput = ({ colorValue, onChangeColor }) => {
       <HSLColorInput hsl={hslValues} onHslChange={handleHslChange} />
     </div>
   );
-};
-
-ColorInput.propTypes = {
-  colorValue: PropTypes.string.isRequired, // The initial color value in HEX format.
-  onChangeColor: PropTypes.func.isRequired, // Callback function for when the color changes.
 };
 
 export default ColorInput;

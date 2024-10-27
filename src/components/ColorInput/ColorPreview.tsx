@@ -1,14 +1,21 @@
-// src/components/ColorInput/ColorPreview.jsx
+// src/components/ColorInput/ColorPreview.tsx
 
-import PropTypes from "prop-types";
+import { type ReactElement } from "react";
+
+/**
+ * Props for the ColorPreview component.
+ */
+export type ColorPreviewProps = {
+  color: string;
+};
 
 /**
  * Component to display a preview of the current color.
  *
- * @param {string} props.color - The color to display in the preview.
- * @returns {JSX.Element} The rendered component.
+ * @param {string} color - The color to display in the preview.
+ * @returns {ReactElement} The rendered component.
  */
-const ColorPreview = ({ color }) => {
+const ColorPreview = ({ color }: ColorPreviewProps): ReactElement => {
   return (
     // A div element styled to display the selected color
     <div
@@ -16,11 +23,6 @@ const ColorPreview = ({ color }) => {
       style={{ backgroundColor: color }} // Inline style to set the background color
     ></div>
   );
-};
-
-// Define the expected prop types for the component
-ColorPreview.propTypes = {
-  color: PropTypes.string.isRequired, // The 'color' prop is required and must be a string
 };
 
 export default ColorPreview;
