@@ -76,9 +76,9 @@ const Home = (): ReactElement => {
         {Object.keys(generatedColors).length > 0 && (
           <Button
             onClick={() => setIsExportModalOpen(true)}
-            className="bg-emerald-600 text-white"
+            className="bg-blue-600 text-white"
           >
-            Export Colors
+            Export All Colors
           </Button>
         )}
       </div>
