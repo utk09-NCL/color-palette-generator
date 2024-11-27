@@ -1,7 +1,8 @@
 // src/components/ColorInput/CustomSlider/CustomSlider.tsx
 
-import "./CustomSlider.css";
 import type { ChangeEventHandler, ReactElement } from "react";
+
+import "./CustomSlider.css";
 
 export type CustomSliderProps = {
   min: number;

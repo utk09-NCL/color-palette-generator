@@ -1,8 +1,8 @@
 // src/pages/NotFound.tsx
 
-import { useMemo, useState, type ReactElement } from "react";
-import { Link } from "react-router-dom";
+import { type ReactElement, useMemo, useState } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 import Button from "@components/Shared/Button";
 import { generateRandomBackgroundColor, type RandomBackgroundColor } from "@utils/colorUtils";

@@ -1,13 +1,14 @@
 // src/components/ExportColors/ExportColorsModal.tsx
 
-import { useState, type ReactElement } from "react";
 import { type Color } from "chroma-js";
 import clsx from "clsx";
+import { type ReactElement, useState } from "react";
 
-import { EXPORT_FORMATS } from "@constants/index";
-import Modal from "@components/Shared/Modal";
 import Button from "@components/Shared/Button";
-import { generateExportCode, type ExportFormat } from "@utils/exportUtils";
+import Modal from "@components/Shared/Modal";
+import { EXPORT_FORMATS } from "@constants/index";
+import { type ExportFormat, generateExportCode } from "@utils/exportUtils";
+
 import { copyTextWithToast } from "@/utils/copyToClipboard";
 
 /**

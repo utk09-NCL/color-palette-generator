@@ -1,8 +1,10 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+
 import { fireEvent, render } from "@testing-library/react";
-import "@testing-library/jest-dom";
 
 import HEXColorInput from "./HEXColorInput";
+
+import "@testing-library/jest-dom";
 
 describe("HEXColorInput", () => {
   beforeEach(() => {

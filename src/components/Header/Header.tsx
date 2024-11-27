@@ -1,7 +1,7 @@
 // src/components/Header/Header.tsx
 
-import { useState, useEffect, type ReactElement, type CSSProperties } from "react";
-import { FaGithub, FaBars } from "react-icons/fa";
+import { type CSSProperties, type ReactElement, useEffect, useState } from "react";
+import { FaBars, FaGithub } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 import MobileNav from "./MobileNav";

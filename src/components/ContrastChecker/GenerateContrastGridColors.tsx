@@ -1,7 +1,7 @@
 // src/components/ContrastChecker/GenerateContrastGridColors.tsx
 
-import { useState, useMemo, ReactElement } from "react";
 import chroma, { type Color, scale } from "chroma-js";
+import { ReactElement, useMemo, useState } from "react";
 
 import ExportColorsModal from "@components/ExportColors/ExportColorsModal";
 import Button from "@components/Shared/Button";

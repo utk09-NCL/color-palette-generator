@@ -1,9 +1,9 @@
 // src/components/ColorSection/ColorSection.tsx
 
-import { useState, useCallback, type ReactElement } from "react";
-import { toast } from "react-hot-toast";
 import chroma, { valid } from "chroma-js";
 import clsx from "clsx";
+import { type ReactElement, useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
 import ColorInput from "@components/ColorInput/ColorInput";
 import GenerateContrastGridColors from "@components/ContrastChecker/GenerateContrastGridColors";

@@ -1,15 +1,15 @@
 // src/components/ColorInput/ColorInput.tsx
 
-import { useState, useEffect, type ReactElement } from "react";
 import chroma, { type Color, valid } from "chroma-js";
+import { type ReactElement, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 import useDebounce from "@hooks/useDebounce";
 
-import HEXColorInput from "./HEXColorInput";
-import RGBColorInput, { type RGB } from "./RGBColorInput";
-import HSLColorInput, { type HSL } from "./HSLColorInput";
 import ColorPreview from "./ColorPreview";
+import HEXColorInput from "./HEXColorInput";
+import HSLColorInput, { type HSL } from "./HSLColorInput";
+import RGBColorInput, { type RGB } from "./RGBColorInput";
 
 /**
  * Props for the ColorInput component.

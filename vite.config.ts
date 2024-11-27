@@ -2,8 +2,9 @@
 /// <reference types="vite/client" />
 /// <reference types="vitest" />
 import path from "path";
-
+import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig } from "vite";
+
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
@@ -19,7 +20,16 @@ export default defineConfig({
       "@utils": path.resolve(__dirname, "src/utils"),
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    visualizer({
+      filename: "./analyze/stats.html", // Path to visualizer output
+      template: "treemap", // Visualization types
+      open: true, // Automatically open the visualization in the browser
+      gzipSize: true, // Show the compressed size
+      brotliSize: true, // Show the Brotli compressed size
+    }),
+  ],
   server: {
     open: true,
   },

@@ -1,7 +1,8 @@
 // src/components/ColorSection/ColorSection.test.tsx
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { render, fireEvent, screen } from "@testing-library/react";
+
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import ColorSection from "./ColorSection";
 

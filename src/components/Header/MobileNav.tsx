@@ -1,8 +1,8 @@
 // src/components/Header/MobileNav.tsx
 
 import { type ReactElement } from "react";
-import { Link } from "react-router-dom";
 import { FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export type MobileNavProps = {
   isMenuOpen: boolean;

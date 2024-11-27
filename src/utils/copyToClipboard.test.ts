@@ -1,4 +1,4 @@
-import { beforeAll, vi, describe, it, expect } from "vitest";
+import { beforeAll, describe, expect, it, vi } from "vitest";
 
 import { copyToClipboard } from "./copyToClipboard";
 

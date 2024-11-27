@@ -1,6 +1,6 @@
 // src/hooks/useDebounce.ts
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * Custom hook to debounce a value.

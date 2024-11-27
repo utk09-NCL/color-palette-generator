@@ -7,6 +7,10 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "strictPropertyInitialization": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": true,
+    "allowJs": true,
 
     /* Bundler mode */
     "moduleResolution": "Bundler",
@@ -37,12 +41,6 @@
     }
   },
   // File Inclusion/Exclusion Config
-  "include": [
-    "src/**/*.d.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx"
-  ],
-  "exclude": ["node_modules", "build", "dist"]
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js", "src/**/*.jsx"],
+  "exclude": ["node_modules", "build", "dist", "eslint.config.js", "vite.config.ts"]
 }

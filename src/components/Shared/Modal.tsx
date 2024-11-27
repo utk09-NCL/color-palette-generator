@@ -1,6 +1,7 @@
 // src/components/Shared/Modal.tsx
 
 import { Fragment, type ReactElement, type ReactNode } from "react";
+
 import { Dialog, Transition, TransitionChild } from "@headlessui/react";
 
 export type ModalProps = {

@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { type HSL } from "@/components/ColorInput/HSLColorInput";
 import { type RGB } from "@/components/ColorInput/RGBColorInput";
 
-import { generateExportCode, ExportFormat } from "./exportUtils";
+import { ExportFormat, generateExportCode } from "./exportUtils";
 
 const mockColor = (hex: string, hsl: HSL, rgb: RGB): Color => {
   return {

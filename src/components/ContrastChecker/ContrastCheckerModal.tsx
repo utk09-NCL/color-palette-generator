@@ -1,11 +1,11 @@
 // src/components/ContrastChecker/ContrastCheckerModal.tsx
 
-import { type ReactElement } from "react";
 import { type Color } from "chroma-js";
+import { type ReactElement } from "react";
 
-import useContrastData from "@hooks/useContrastData";
-import Modal from "@components/Shared/Modal";
 import Button from "@components/Shared/Button";
+import Modal from "@components/Shared/Modal";
+import useContrastData from "@hooks/useContrastData";
 
 import ContrastTable from "./ContrastTable";
 

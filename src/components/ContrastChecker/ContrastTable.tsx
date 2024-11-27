@@ -1,13 +1,14 @@
 // src/components/ContrastChecker/ContrastTable.tsx
 
-import { type ReactElement } from "react";
 import { contrast } from "chroma-js";
+import { type ReactElement } from "react";
+
 import {
-  useReactTable,
-  getCoreRowModel,
-  getSortedRowModel,
   createColumnHelper,
   flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
 
 /**

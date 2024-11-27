@@ -1,13 +1,13 @@
 // src/pages/Home.tsx
 
-import { useCallback, useState, type ReactElement } from "react";
-import { toast } from "react-hot-toast";
 import chroma, { type Color } from "chroma-js";
+import { type ReactElement, useCallback, useState } from "react";
+import { toast } from "react-hot-toast";
 
-import { ALLOWED_COLOR_NAMES } from "@constants/index";
-import Button from "@components/Shared/Button";
 import ColorSection, { type ColorData } from "@components/ColorSection/ColorSection";
 import ExportColorsModal from "@components/ExportColors/ExportColorsModal";
+import Button from "@components/Shared/Button";
+import { ALLOWED_COLOR_NAMES } from "@constants/index";
 
 /**
  * Type representing a color section in the application.

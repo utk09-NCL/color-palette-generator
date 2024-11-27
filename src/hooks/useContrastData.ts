@@ -1,7 +1,7 @@
 // src/hooks/useContrastData.ts
 
-import { useMemo } from "react";
 import chroma, { type Color, contrast } from "chroma-js";
+import { useMemo } from "react";
 
 import { calculateShadeStep } from "../utils/colorUtils";
 

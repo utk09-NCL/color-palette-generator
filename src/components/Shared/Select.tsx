@@ -1,6 +1,9 @@
 // src/components/Shared/Select.tsx
 
+import clsx from "clsx";
 import { Fragment, type ReactElement } from "react";
+import { FaCheck, FaChevronDown } from "react-icons/fa6";
+
 import {
   Label,
   Listbox,
@@ -9,8 +12,6 @@ import {
   ListboxOptions,
   Transition,
 } from "@headlessui/react";
-import { FaChevronDown, FaCheck } from "react-icons/fa6";
-import clsx from "clsx";
 
 /**
  * Type representing an option in the select dropdown.

@@ -3,9 +3,9 @@ import { type ReactElement } from "react";
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import Layout from "@components/Layout/Layout";
 import Home from "@pages/Home";
 import NotFound from "@pages/NotFound";
-import Layout from "@components/Layout/Layout";
 
 import "@styles/App.css";
 
