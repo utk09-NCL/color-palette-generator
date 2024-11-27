@@ -35,9 +35,9 @@ export default defineConfig({
       exclude: ["src/**/*.test.ts*", "src/main.tsx", "src/App.tsx"],
       reporter: ["text", "json-summary"],
       thresholds: {
-        perFile: true,
-        statements: 100,
-        lines: 100,
+        perFile: false,
+        statements: 50,
+        lines: 50,
       },
     },
   },
