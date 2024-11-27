@@ -72,6 +72,9 @@
       "eslint --fix",
       "prettier --write"
     ],
+    "src/**/*.{ts,tsx}": [
+      "tsc --noEmit --skipLibCheck"
+    ],
     "**/*.{css,scss}": [
       "prettier --write"
     ],
