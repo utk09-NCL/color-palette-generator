@@ -57,7 +57,7 @@
     "globals": "15.13.0",
     "husky": "9.1.7",
     "jsdom": "25.0.1",
-    "lint-staged": "15.2.10",
+    "lint-staged": "15.5.0",
     "postcss": "8.4.49",
     "prettier-plugin-tailwindcss": "0.6.9",
     "rollup-plugin-visualizer": "5.12.0",
