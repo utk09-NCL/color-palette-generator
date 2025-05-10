@@ -127,7 +127,7 @@ const ContrastTable = ({ data }: ContrastTableProps): ReactElement => {
                 <th
                   key={header.id}
                   onClick={header.column.getToggleSortingHandler()}
-                  className="cursor-pointer select-none border-b px-4 py-2"
+                  className="cursor-pointer border-b px-4 py-2 select-none"
                 >
                   {flexRender(header.column.columnDef.header, header.getContext())}
                   {header.column.getIsSorted() === "asc"

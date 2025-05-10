@@ -38,16 +38,16 @@ const Header = (): ReactElement => {
       } fixed top-0 z-50 flex w-full items-center justify-center transition-all duration-300 ease-in-out`}
     >
       <>
-        <header className="fixed top-0 z-50 w-full bg-headerBackground p-4 lg:hidden">
+        <header className="bg-headerBackground fixed top-0 z-50 w-full p-4 lg:hidden">
           <div className="relative flex w-full items-center justify-between">
             <button
               onClick={toggleMenu}
-              className="text-2xl text-gray-500 focus:outline-none"
+              className="text-2xl text-gray-500 focus:outline-hidden"
               data-testid="hamburger-button"
             >
               <FaBars />
             </button>
-            <h1 className="whitespace-nowrap text-[20px] font-extrabold text-headerBrand">
+            <h1 className="text-headerBrand text-[20px] font-extrabold whitespace-nowrap">
               Color Conjure
             </h1>
             <a
@@ -66,12 +66,12 @@ const Header = (): ReactElement => {
       </>
 
       <header
-        className="hidden w-full bg-headerBackground transition-all duration-300 ease-in-out lg:block"
+        className="bg-headerBackground hidden w-full transition-all duration-300 ease-in-out lg:block"
         style={headerStyle}
         data-testid="desktop-header"
       >
         <div className="relative flex w-full items-center justify-between p-4">
-          <h1 className="whitespace-nowrap text-[20px] font-extrabold text-headerBrand md:text-[24px]">
+          <h1 className="text-headerBrand text-[20px] font-extrabold whitespace-nowrap md:text-[24px]">
             Color Conjure
           </h1>
 

@@ -66,7 +66,7 @@ const Select = ({
           <>
             {label && <Label className="mb-1 block text-gray-700 dark:text-gray-50">{label}</Label>}
             <div className="relative">
-              <ListboxButton className="relative w-full cursor-default rounded-lg border border-gray-300 bg-white py-2 pl-3 pr-10 text-left focus:border-gray-500 focus:outline-none focus:ring-1 focus:ring-gray-500">
+              <ListboxButton className="relative w-full cursor-default rounded-lg border border-gray-300 bg-white py-2 pr-10 pl-3 text-left focus:border-gray-500 focus:ring-1 focus:ring-gray-500 focus:outline-hidden">
                 <span className="block truncate">
                   {selectedOption ? selectedOption.label : placeholder}
                 </span>
@@ -82,14 +82,14 @@ const Select = ({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <ListboxOptions className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white/95 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                <ListboxOptions className="ring-opacity-5 absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white/95 py-1 text-base shadow-lg ring-1 ring-black focus:outline-hidden sm:text-sm">
                   {options.map((option) => (
                     <ListboxOption
                       key={option.value}
                       className={({ focus }) =>
                         clsx(
                           focus ? "bg-gray-600 text-white" : "text-gray-900",
-                          "relative cursor-default select-none py-2 pl-10 pr-4",
+                          "relative cursor-default py-2 pr-4 pl-10 select-none",
                           "mx-2 rounded-md",
                         )
                       }

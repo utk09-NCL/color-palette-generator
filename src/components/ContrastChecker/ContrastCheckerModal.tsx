@@ -38,7 +38,7 @@ const ContrastCheckerModal = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       {/* Modal Header */}
       <div className="mb-4 flex justify-between">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Color Contrast Checker</h3>
+        <h3 className="text-lg leading-6 font-medium text-gray-900">Color Contrast Checker</h3>
         <Button onClick={onClose} className="bg-white text-black hover:bg-gray-300">
           Close
         </Button>

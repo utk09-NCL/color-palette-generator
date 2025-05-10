@@ -17,12 +17,12 @@ export type MobileNavProps = {
 const MobileNav = ({ isMenuOpen, toggleMenu }: MobileNavProps): ReactElement => (
   <div
     data-testid="mobile-menu"
-    className={`fixed left-0 top-0 z-50 h-full w-64 transform bg-headerBackground transition-transform duration-300 ease-in-out ${
+    className={`bg-headerBackground fixed top-0 left-0 z-50 h-full w-64 transform transition-transform duration-300 ease-in-out ${
       isMenuOpen ? "translate-x-0" : "-translate-x-full"
     }`}
   >
     <div className="flex items-center justify-between border-b border-gray-200 p-4">
-      <h1 className="text-[20px] font-bold text-headerBrand">Menu</h1>
+      <h1 className="text-headerBrand text-[20px] font-bold">Menu</h1>
       <button
         onClick={toggleMenu}
         className="text-2xl text-gray-500"

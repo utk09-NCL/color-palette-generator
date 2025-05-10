@@ -31,7 +31,7 @@ const ExportColorsModal = ({ isOpen, onClose, shades }: ExportColorsModalProps):
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <h3 className="mb-4 text-lg font-medium leading-6 text-gray-900">Export Colors</h3>
+      <h3 className="mb-4 text-lg leading-6 font-medium text-gray-900">Export Colors</h3>
 
       <div className="lg:flex">
         <div className="lg:w-1/4 lg:border-r lg:pr-4">
@@ -41,7 +41,7 @@ const ExportColorsModal = ({ isOpen, onClose, shades }: ExportColorsModalProps):
                 <Button
                   onClick={() => setSelectedFormat(option.id as ExportFormat)}
                   className={clsx(
-                    "w-full px-2 py-1 text-center shadow-sm lg:text-left",
+                    "w-full px-2 py-1 text-center shadow-xs lg:text-left",
                     selectedFormat === option.id ? "bg-blue-500 text-white" : "hover:bg-gray-100",
                   )}
                 >
@@ -53,7 +53,7 @@ const ExportColorsModal = ({ isOpen, onClose, shades }: ExportColorsModalProps):
         </div>
 
         <div className="mt-4 lg:mt-0 lg:w-3/4 lg:pl-4">
-          <pre className="h-64 overflow-auto rounded-[10px] bg-gray-100 p-4 shadow-sm">
+          <pre className="h-64 overflow-auto rounded-[10px] bg-gray-100 p-4 shadow-xs">
             <code>{codeOutput}</code>
           </pre>
           <div className="mt-4 flex justify-between">

@@ -10,7 +10,6 @@ import prettier from "eslint-plugin-prettier";
 import prettierConfig from "eslint-config-prettier";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
-import tailwindcss from "eslint-plugin-tailwindcss";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 
 export default [
@@ -61,7 +60,6 @@ export default [
       react,
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      tailwindcss,
       "simple-import-sort": simpleImportSort,
       "jsx-a11y": jsxA11y,
       prettier,
@@ -115,10 +113,6 @@ export default [
       ],
       "@typescript-eslint/explicit-module-boundary-types": "error",
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
-
-      // tailwindcss plugin rules
-      "tailwindcss/classnames-order": "warn",
-      "tailwindcss/no-custom-classname": "off",
 
       // Other custom rules
       "react/jsx-no-target-blank": "off",
