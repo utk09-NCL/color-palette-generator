@@ -55,7 +55,7 @@ Please note that this is a work in progress, and some features may not be fully 
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/utk09-NCL/color-palette-generator.git
+   git clone https://github.com/<your-username>/color-palette-generator.git
 
    cd color-palette-generator
    ```

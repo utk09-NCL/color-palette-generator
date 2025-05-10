@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "bootstrap-dev": "npm run clean:install && npm i && npm i -D",
+    "bootstrap-dev": "npm run clean:install && npm i -D && npm run build",
     "dev": "vite",
     "build": "tsc --build && vite build",
     "lint": "eslint .",
