@@ -18,7 +18,8 @@
     "prepare": "husky || true",
     "test": "vitest run --coverage",
     "test:watch": "vitest",
-    "analyze": "vite build --mode analyze"
+    "analyze": "vite build --mode analyze",
+    "host:coverage": "vite preview --outDir coverage"
   },
   "dependencies": {
     "@headlessui/react": "2.2.2",

@@ -43,7 +43,7 @@ export default defineConfig({
       provider: "istanbul",
       include: ["src/**/*"],
       exclude: ["src/**/*.test.ts*", "src/main.tsx", "src/App.tsx"],
-      reporter: ["text", "json-summary"],
+      reporter: ["text", "json-summary", "html"],
       thresholds: {
         perFile: false,
         statements: 50,

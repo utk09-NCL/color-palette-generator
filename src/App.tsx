@@ -3,8 +3,7 @@ import { type ReactElement } from "react";
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Layout from "@components/Layout/Layout";
-import Home from "@pages/Home";
+import ThreeColumnLayout from "@components/Layout/ThreeColumnLayout";
 import NotFound from "@pages/NotFound";
 
 import "@styles/App.css";
@@ -13,20 +12,8 @@ import "@styles/App.css";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-        errorElement: <NotFound />,
-      },
-      {
-        id: "not-found",
-        path: "*",
-        element: <NotFound />,
-      },
-      // Add more routes here as needed
-    ],
+    element: <ThreeColumnLayout />,
+    errorElement: <NotFound />,
   },
 ]);
 
