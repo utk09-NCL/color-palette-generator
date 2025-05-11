@@ -1,4 +1,11 @@
 import { type FC } from "react";
+import { BsEyedropper, BsFloppy, BsPlus, BsTrash3 } from "react-icons/bs";
+
+const ICON_BTN =
+  "grid h-10 w-10 place-content-center rounded-sm border border-slate-900 hover:bg-slate-700 hover:text-white transition-colors";
+
+const BOX =
+  "h-10 w-10 rounded-sm border border-slate-900 px-1 py-0.5 text-center text-[11px] text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none";
 
 /**
  * ColorCard component is the parent component for the color card.
@@ -9,23 +16,108 @@ import { type FC } from "react";
  */
 const ColorCard: FC = () => {
   return (
-    <div className="flex w-full bg-white p-4 shadow-sm">
-      {/* Row 1 */}
-      <div className="flex w-full flex-row items-center space-x-4">
-        <select className="rounded-sm border border-slate-900 px-2 py-2 text-sm">
-          <option value="primary">Primary</option>
-          <option value="primary">Secondary</option>
-          <option value="primary">Tertiary</option>
-        </select>
-        <div className="flex w-full flex-row items-center space-x-2">
-          <div className="h-10 w-10 rounded-sm border border-slate-900 bg-blue-400"></div>
-          <button className="h-10 w-10 cursor-pointer rounded-sm border border-slate-900 px-2 py-1 text-sm hover:bg-slate-700 hover:text-white">
-            E
-          </button>
-          <button className="h-10 w-10 cursor-pointer rounded-sm border border-slate-900 px-2 py-1 text-sm hover:bg-slate-700 hover:text-white">
-            S
-          </button>
+    <div className="my-4 flex flex-col gap-2 rounded-sm bg-white p-2 shadow-sm">
+      <div className="grid grid-cols-[1fr_auto_auto_auto] items-start gap-1">
+        <div className="flex flex-col">
+          <input
+            type="text"
+            className="h-10 min-w-1 rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            placeholder="Color Name (e.g. primary)"
+            aria-label="Color Name"
+          />
         </div>
+
+        <div
+          className="h-10 w-10 rounded-sm border border-slate-900"
+          style={{ backgroundColor: "#FF5733" }}
+          aria-label="Color Preview"
+          title="Color Preview"
+        ></div>
+
+        <button className={ICON_BTN} title="Pick Color">
+          <BsEyedropper size={20} />
+        </button>
+
+        <button className={ICON_BTN} title="Save Color">
+          <BsFloppy size={20} />
+        </button>
+      </div>
+
+      <div className="grid grid-cols-[1fr_auto_auto_auto] items-start gap-1">
+        <div className="flex flex-col">
+          <input
+            type="text"
+            className="h-10 min-w-1 rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            placeholder="Hex Value (e.g. #FF5733)"
+            aria-label="Hex Value"
+          />
+        </div>
+
+        <button className={ICON_BTN} title="Add Color">
+          <BsPlus size={28} />
+        </button>
+
+        <button className={ICON_BTN} title="Delete Color">
+          <BsTrash3 size={20} />
+        </button>
+
+        <input
+          type="text"
+          className="h-10 w-10 rounded-sm border border-slate-900 px-2 py-1 text-center text-base text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          placeholder="10"
+          aria-label="Number of Shades"
+        />
+      </div>
+
+      <div className="grid grid-cols-7 gap-1">
+        {(["r", "g", "b", "a"] as const).map((color) => (
+          <span key={color} className="flex flex-col items-center">
+            <input
+              type="text"
+              className={BOX}
+              placeholder={color.toUpperCase()}
+              aria-label={`${color.toUpperCase()} Value`}
+            />
+            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+          </span>
+        ))}
+
+        {(["h", "s", "l"] as const).map((color) => (
+          <span key={color} className="flex flex-col items-center">
+            <input
+              type="text"
+              className={BOX}
+              placeholder={color.toUpperCase()}
+              aria-label={`${color.toUpperCase()} Value`}
+            />
+            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+          </span>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-7 gap-1">
+        {(["c", "m", "y", "k"] as const).map((color) => (
+          <span key={color} className="flex flex-col items-center">
+            <input
+              type="text"
+              className={BOX}
+              placeholder={color.toUpperCase()}
+              aria-label={`${color.toUpperCase()} Value`}
+            />
+            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+          </span>
+        ))}
+        {(["l", "c", "h"] as const).map((color) => (
+          <span key={color} className="flex flex-col items-center">
+            <input
+              type="text"
+              className={BOX}
+              placeholder={color.toUpperCase()}
+              aria-label={`${color.toUpperCase()} Value`}
+            />
+            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+          </span>
+        ))}
       </div>
     </div>
   );
