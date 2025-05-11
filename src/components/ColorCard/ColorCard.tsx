@@ -1,4 +1,4 @@
-import { type ReactElement } from "react";
+import { type FC } from "react";
 
 /**
  * ColorCard component is the parent component for the color card.
@@ -6,9 +6,8 @@ import { type ReactElement } from "react";
  * It has input boxes for different color types & values (HEX, RGBA, HSL, CMYK, LCH), number of shades to generate.
  * It has a color preview box.
  * It has icon buttons for eyedropper, save, add, delete.
- * @returns {ReactElement} The rendered ColorCard component.
  */
-const ColorCard = (): ReactElement => {
+const ColorCard: FC = () => {
   return (
     <div className="flex w-full bg-white p-4 shadow-sm">
       {/* Row 1 */}

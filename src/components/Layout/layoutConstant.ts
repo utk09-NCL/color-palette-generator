@@ -1,22 +1,24 @@
+import { ROUTES } from "@/constants";
+
 export const HEADER_BUTTONS = [
   {
     name: "Home",
-    route: "/",
+    route: ROUTES.HOME,
   },
   {
     name: "Saved Palettes",
-    route: "/saved-palettes",
+    route: ROUTES.SAVED_PALETTES,
   },
   {
     name: "Accessibility",
-    route: "/accessibility",
+    route: ROUTES.ACCESSIBILITY,
   },
   {
     name: "Extract Colors",
-    route: "/extract-colors",
+    route: ROUTES.EXTRACT_COLORS,
   },
   {
     name: "About",
-    route: "/about",
+    route: ROUTES.ABOUT,
   },
-];
+] as const;

@@ -1,7 +1,7 @@
 // src/components/Layout/ThreeColumnLayout.tsx
 
-import { type ReactElement } from "react";
-import { Outlet } from "react-router-dom";
+import { type FC } from "react";
+import { NavLink, Outlet } from "react-router-dom";
 
 import ColorCard from "../ColorCard/ColorCard";
 
@@ -9,10 +9,8 @@ import { HEADER_BUTTONS } from "./layoutConstant";
 
 /**
  * Three Column layout component, that serves as a wrapper for the home page.
- *
- * @returns {ReactElement} The rendered layout component.
  */
-const ThreeColumnLayout = (): ReactElement => {
+const ThreeColumnLayout: FC = () => {
   return (
     <div className="grid grid-cols-12 gap-0">
       {/* Column 1 */}
@@ -38,12 +36,13 @@ const ThreeColumnLayout = (): ReactElement => {
       <div className="col-span-6 bg-white" data-testid="column-2">
         <header className="sticky top-0 z-50 flex w-full items-center justify-around bg-slate-100 p-4 shadow-sm">
           {HEADER_BUTTONS.map((eachButton) => (
-            <button
+            <NavLink
+              to={eachButton.route}
               key={eachButton.name}
               className="cursor-pointer rounded-sm border border-slate-900 px-2 py-1 text-sm hover:bg-slate-700 hover:text-white"
             >
               {eachButton.name}
-            </button>
+            </NavLink>
           ))}
         </header>
       </div>

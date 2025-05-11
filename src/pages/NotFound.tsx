@@ -1,15 +1,14 @@
 // src/pages/NotFound.tsx
 
-import { type ReactElement } from "react";
+import { type FC } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 
 /**
  * The NotFound component displays a 404 page with a randomly generated background gradient.
  *
- * @returns {ReactElement} The NotFound component.
  */
-const NotFound = (): ReactElement => {
+const NotFound: FC = () => {
   return (
     <div
       id="not-found"
