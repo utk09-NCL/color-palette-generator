@@ -1,11 +1,8 @@
 // src/pages/NotFound.tsx
 
-import { type ReactElement, useMemo, useState } from "react";
+import { type ReactElement } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-
-import Button from "@components/Shared/Button";
-import { generateRandomBackgroundColor, type RandomBackgroundColor } from "@utils/colorUtils";
 
 /**
  * The NotFound component displays a 404 page with a randomly generated background gradient.
@@ -13,22 +10,12 @@ import { generateRandomBackgroundColor, type RandomBackgroundColor } from "@util
  * @returns {ReactElement} The NotFound component.
  */
 const NotFound = (): ReactElement => {
-  // State to store the random background colors for the gradient.
-  const [backgroundColors, setBackgroundColors] = useState<RandomBackgroundColor>(
-    generateRandomBackgroundColor(),
-  );
-
-  // Generate random background colors for the gradient. This will only run once when the component is mounted.
-  useMemo(() => {
-    setBackgroundColors(generateRandomBackgroundColor());
-  }, []);
-
   return (
     <div
       id="not-found"
       className="flex h-screen justify-center pt-52"
       style={{
-        background: `linear-gradient(to right, ${backgroundColors[0]} 35%, ${backgroundColors[1]})`,
+        background: `linear-gradient(to right, #81b9ff 35%, #03527a)`,
       }}
     >
       <div
@@ -44,11 +31,11 @@ const NotFound = (): ReactElement => {
         <p className="mt-6 text-base leading-7 text-slate-200">
           Sorry, we couldn&apos;t find the page you&apos;re looking for.
         </p>
-        <Button className="mt-10 w-80 border-none bg-slate-900 align-middle text-slate-50 hover:bg-slate-800">
+        <button className="mt-10 w-80 rounded-lg border-none bg-slate-900 p-2 align-middle text-slate-50 hover:bg-slate-800">
           <Link to="/">
             Go back to Color Conjure <FaArrowRightLong className="inline" />
           </Link>
-        </Button>
+        </button>
       </div>
     </div>
   );

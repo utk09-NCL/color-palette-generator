@@ -120,7 +120,7 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
       "prettier/prettier": ["error"],
-      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "no-unused-vars": "off",
       "react/jsx-props-no-spreading": "off",
       "no-restricted-syntax": [
         "error",
