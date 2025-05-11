@@ -1,20 +1,36 @@
 import { type FC } from "react";
 import { BsEyedropper, BsFloppy, BsPlus, BsTrash3 } from "react-icons/bs";
 
+import { useColorStore } from "@/store/colorStore";
+
 const ICON_BTN =
   "grid h-10 w-10 place-content-center rounded-sm border border-slate-900 hover:bg-slate-700 hover:text-white transition-colors";
 
 const BOX =
   "h-10 w-10 rounded-sm border border-slate-900 px-1 py-0.5 text-center text-[11px] text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none";
 
-/**
- * ColorCard component is the parent component for the color card.
- * It has dropdown for color name selection.
- * It has input boxes for different color types & values (HEX, RGBA, HSL, CMYK, LCH), number of shades to generate.
- * It has a color preview box.
- * It has icon buttons for eyedropper, save, add, delete.
- */
-const ColorCard: FC = () => {
+type ColorCardProps = {
+  cardId: string;
+};
+
+const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
+  const cardData = useColorStore((state) => state.colorCards.find((card) => card.id === cardId));
+
+  // const {
+  //   updateColorCardName,
+  //   updateColorCardHex,
+  //   updateColorCardShades,
+  //   updateColorCardRgbaChannel,
+  //   updateColorCardHslChannel,
+  //   updateColorCardCmykChannel,
+  //   updateColorCardLchChannel,
+  //   removeColorCard,
+  // } = useColorStore((state) => state);
+
+  if (!cardData) {
+    return <div className="my-2 text-red-500">Loading color card... or Color card not found.</div>;
+  }
+
   return (
     <div className="my-4 flex flex-col gap-2 rounded-sm bg-white p-2 shadow-sm">
       <div className="grid grid-cols-[1fr_auto_auto_auto] items-start gap-1">
