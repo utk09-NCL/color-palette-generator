@@ -1,5 +1,6 @@
 // src/components/Layout/ThreeColumnLayout.tsx
 
+import clsx from "clsx";
 import { type FC } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
@@ -12,48 +13,59 @@ import { HEADER_BUTTONS } from "./layoutConstant";
  */
 const ThreeColumnLayout: FC = () => {
   return (
-    <div className="grid grid-cols-12 gap-0">
+    <div className="grid h-screen grid-cols-12">
       {/* Column 1 */}
-      <div
-        className="col-span-3 flex w-full flex-col items-center justify-around border-r border-slate-300 py-4"
+      <aside
+        className="col-span-3 flex flex-col items-center overflow-y-auto border-r border-slate-300 py-4"
         data-testid="column-1"
       >
-        <div className="flex flex-row items-center justify-center">
-          <h1 className="text-sm">
-            <span className="rounded-l-sm border-t border-b border-l border-slate-900 bg-purple-200 px-2 py-1 text-sm font-bold">
-              CC
-            </span>
-            <span className="rounded-r-sm border border-slate-900 px-2 py-1 text-sm">
-              Color Conjure
-            </span>
-          </h1>
-        </div>
-        <div className="flex flex-row items-center justify-center py-2">
+        <h1 className="text-sm">
+          <span className="rounded-l-sm border border-r-0 border-slate-900 bg-purple-200 px-2 py-1 font-bold">
+            CC
+          </span>
+          <span className="rounded-r-sm border border-slate-900 px-2 py-1">Color Conjure</span>
+        </h1>
+
+        <div className="grid grid-cols-1 gap-4">
           <ColorCard />
         </div>
-      </div>
+      </aside>
       {/* Column 2 */}
-      <div className="col-span-6 bg-white" data-testid="column-2">
-        <header className="sticky top-0 z-50 flex w-full items-center justify-around bg-slate-100 p-4 shadow-sm">
-          {HEADER_BUTTONS.map((eachButton) => (
+      <main className="col-span-6 flex flex-col" data-testid="column-2">
+        <nav className="sticky top-0 z-50 flex justify-around bg-slate-100 p-4 shadow-sm">
+          {HEADER_BUTTONS.map(({ name, route }) => (
             <NavLink
-              to={eachButton.route}
-              key={eachButton.name}
-              className="cursor-pointer rounded-sm border border-slate-900 px-2 py-1 text-sm hover:bg-slate-700 hover:text-white"
+              key={name}
+              to={route}
+              className={({ isActive }) =>
+                clsx(
+                  "rounded-sm border border-slate-900 px-2 py-1 text-sm transition-colors",
+                  isActive
+                    ? "bg-slate-900 text-white"
+                    : "text-slate-900 hover:bg-slate-700 hover:text-white",
+                )
+              }
             >
-              {eachButton.name}
+              {name}
             </NavLink>
           ))}
-        </header>
-      </div>
+        </nav>
+
+        <section className="flex-1 overflow-y-auto p-4">
+          <Outlet />
+        </section>
+      </main>
       {/* Column 3 */}
-      <div
-        className="col-span-3 flex w-full items-center justify-around border-l border-slate-300"
+      <aside
+        className="col-span-3 overflow-y-auto border-l border-slate-300 py-4 text-center"
         data-testid="column-3"
       >
-        <h1 className="rounded-sm border border-slate-900 px-2 py-1 text-sm">UI Components</h1>
-      </div>
-      <Outlet />
+        <h1 className="inline-block rounded-sm border border-slate-900 px-2 py-1 text-sm">
+          UI Components
+        </h1>
+
+        <p className="my-10 text-sm text-slate-600">Components will be here...</p>
+      </aside>
     </div>
   );
 };
