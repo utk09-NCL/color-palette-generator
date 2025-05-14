@@ -72,6 +72,24 @@ const ThreeColumnLayout: FC = () => {
 
         <section className="flex-1 overflow-y-auto p-4">
           <Outlet />
+
+          {colorCards.map((card) =>
+            card.generatedShades && card.generatedShades.length > 0 ? (
+              <div key={card.id} className="my-4">
+                <h2 className="mb-2 text-sm font-bold">{card.name} shade</h2>
+                <div className="flex flex-wrap gap-0.5">
+                  {card.generatedShades.map((shade, index) => (
+                    <div
+                      key={index}
+                      className="h-10 w-10 rounded-sm border border-slate-900"
+                      style={{ backgroundColor: shade }}
+                      title={shade}
+                    ></div>
+                  ))}
+                </div>
+              </div>
+            ) : null,
+          )}
         </section>
       </main>
       {/* Column 3 */}
