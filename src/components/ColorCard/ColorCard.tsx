@@ -14,21 +14,21 @@ type ColorCardProps = {
 };
 
 const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
-  const cardData = useColorStore((state) => state.colorCards.find((card) => card.id === cardId));
+  const cardData = useColorStore((state) =>
+    cardId ? state.colorCards.find((card) => card.id === cardId) : undefined,
+  );
+  const updateColorCardName = useColorStore((state) => state.updateColorCardName);
+  const updateColorCardHex = useColorStore((state) => state.updateColorCardHex);
+  const updateColorCardShades = useColorStore((state) => state.updateColorCardShades);
+  const removeColorCard = useColorStore((state) => state.removeColorCard);
+  // const updateColorCardRgbaChannel = useColorStore((state) => state.updateColorCardRgbaChannel);
+  // const updateColorCardHslChannel = useColorStore((state) => state.updateColorCardHslChannel);
+  // const updateColorCardCmykChannel = useColorStore((state) => state.updateColorCardCmykChannel);
+  // const updateColorCardLchChannel = useColorStore((state) => state.updateColorCardLchChannel);
+  const generateColorCardShades = useColorStore((state) => state.generateColorCardShades);
 
-  // const {
-  //   updateColorCardName,
-  //   updateColorCardHex,
-  //   updateColorCardShades,
-  //   updateColorCardRgbaChannel,
-  //   updateColorCardHslChannel,
-  //   updateColorCardCmykChannel,
-  //   updateColorCardLchChannel,
-  //   removeColorCard,
-  // } = useColorStore((state) => state);
-
-  if (!cardData) {
-    return <div className="my-2 text-red-500">Loading color card... or Color card not found.</div>;
+  if (!cardId || !cardData) {
+    return null;
   }
 
   return (
@@ -40,12 +40,14 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
             className="h-10 min-w-1 rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
             placeholder="Color Name (e.g. primary)"
             aria-label="Color Name"
+            value={cardData.name}
+            onChange={(e) => updateColorCardName(cardId, e.target.value)}
           />
         </div>
 
         <div
           className="h-10 w-10 rounded-sm border border-slate-900"
-          style={{ backgroundColor: "#FF5733" }}
+          style={{ backgroundColor: cardData.hex }}
           aria-label="Color Preview"
           title="Color Preview"
         ></div>
@@ -66,14 +68,20 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
             className="h-10 min-w-1 rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
             placeholder="Hex Value (e.g. #FF5733)"
             aria-label="Hex Value"
+            value={cardData.hex}
+            onChange={(e) => updateColorCardHex(cardId, e.target.value)}
           />
         </div>
 
-        <button className={ICON_BTN} title="Add Color">
+        <button
+          className={ICON_BTN}
+          title="Generate Shades"
+          onClick={() => generateColorCardShades(cardId)}
+        >
           <BsPlus size={28} />
         </button>
 
-        <button className={ICON_BTN} title="Delete Color">
+        <button className={ICON_BTN} title="Delete Color" onClick={() => removeColorCard(cardId)}>
           <BsTrash3 size={20} />
         </button>
 
@@ -82,6 +90,8 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
           className="h-10 w-10 rounded-sm border border-slate-900 px-2 py-1 text-center text-base text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
           placeholder="10"
           aria-label="Number of Shades"
+          value={cardData.shades}
+          onChange={(e) => updateColorCardShades(cardId, Number(e.target.value))}
         />
       </div>
 
