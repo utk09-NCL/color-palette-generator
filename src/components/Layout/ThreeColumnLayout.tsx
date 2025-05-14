@@ -1,7 +1,9 @@
 // src/components/Layout/ThreeColumnLayout.tsx
 
+import chroma from "chroma-js";
 import clsx from "clsx";
 import { type FC } from "react";
+import toast from "react-hot-toast";
 import { NavLink, Outlet } from "react-router-dom";
 
 import { useColorStore } from "@/store/colorStore";
@@ -79,12 +81,31 @@ const ThreeColumnLayout: FC = () => {
                 <h2 className="mb-2 text-sm font-bold">{card.name} shade</h2>
                 <div className="flex flex-wrap gap-0.5">
                   {card.generatedShades.map((shade, index) => (
-                    <div
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(shade);
+                        toast.success(`Copied ${shade} to clipboard`, {
+                          duration: 2000,
+                          position: "top-center",
+                          style: {
+                            backgroundColor: shade,
+                            color: chroma(shade).luminance() > 0.5 ? "#000" : "#fff",
+                          },
+                          iconTheme: {
+                            primary: chroma(shade).luminance() > 0.5 ? "#000" : "#fff",
+                            secondary: shade,
+                          },
+                        });
+                      }}
                       key={index}
-                      className="h-10 w-10 rounded-sm border border-slate-900"
-                      style={{ backgroundColor: shade }}
-                      title={shade}
-                    ></div>
+                    >
+                      <div
+                        key={index}
+                        className="h-10 w-10 rounded-sm border border-slate-900"
+                        style={{ backgroundColor: shade }}
+                        title={shade}
+                      ></div>
+                    </button>
                   ))}
                 </div>
               </div>
