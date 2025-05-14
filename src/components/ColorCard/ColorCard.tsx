@@ -21,10 +21,10 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
   const updateColorCardHex = useColorStore((state) => state.updateColorCardHex);
   const updateColorCardShades = useColorStore((state) => state.updateColorCardShades);
   const removeColorCard = useColorStore((state) => state.removeColorCard);
-  // const updateColorCardRgbaChannel = useColorStore((state) => state.updateColorCardRgbaChannel);
-  // const updateColorCardHslChannel = useColorStore((state) => state.updateColorCardHslChannel);
-  // const updateColorCardCmykChannel = useColorStore((state) => state.updateColorCardCmykChannel);
-  // const updateColorCardLchChannel = useColorStore((state) => state.updateColorCardLchChannel);
+  const updateColorCardRgbaChannel = useColorStore((state) => state.updateColorCardRgbaChannel);
+  const updateColorCardHslChannel = useColorStore((state) => state.updateColorCardHslChannel);
+  const updateColorCardCmykChannel = useColorStore((state) => state.updateColorCardCmykChannel);
+  const updateColorCardLchChannel = useColorStore((state) => state.updateColorCardLchChannel);
   const generateColorCardShades = useColorStore((state) => state.generateColorCardShades);
 
   if (!cardId || !cardData) {
@@ -96,52 +96,60 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
       </div>
 
       <div className="grid grid-cols-7 gap-1">
-        {(["r", "g", "b", "a"] as const).map((color) => (
-          <span key={color} className="flex flex-col items-center">
+        {(["r", "g", "b", "a"] as const).map((channel) => (
+          <span key={channel} className="flex flex-col items-center">
             <input
               type="text"
               className={BOX}
-              placeholder={color.toUpperCase()}
-              aria-label={`${color.toUpperCase()} Value`}
+              placeholder={channel.toUpperCase()}
+              aria-label={`${channel.toUpperCase()} Value`}
+              value={cardData.rgba[channel]}
+              onChange={(e) => updateColorCardRgbaChannel(cardId, channel, Number(e.target.value))}
             />
-            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+            <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
         ))}
 
-        {(["h", "s", "l"] as const).map((color) => (
-          <span key={color} className="flex flex-col items-center">
+        {(["h", "s", "l"] as const).map((channel) => (
+          <span key={channel} className="flex flex-col items-center">
             <input
               type="text"
               className={BOX}
-              placeholder={color.toUpperCase()}
-              aria-label={`${color.toUpperCase()} Value`}
+              placeholder={channel.toUpperCase()}
+              aria-label={`${channel.toUpperCase()} Value`}
+              value={cardData.hsl[channel]}
+              onChange={(e) => updateColorCardHslChannel(cardId, channel, Number(e.target.value))}
             />
-            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+            <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
         ))}
       </div>
 
       <div className="grid grid-cols-7 gap-1">
-        {(["c", "m", "y", "k"] as const).map((color) => (
-          <span key={color} className="flex flex-col items-center">
+        {(["c", "m", "y", "k"] as const).map((channel) => (
+          <span key={channel} className="flex flex-col items-center">
             <input
               type="text"
               className={BOX}
-              placeholder={color.toUpperCase()}
-              aria-label={`${color.toUpperCase()} Value`}
+              placeholder={channel.toUpperCase()}
+              aria-label={`${channel.toUpperCase()} Value`}
+              value={cardData.cmyk[channel]}
+              onChange={(e) => updateColorCardCmykChannel(cardId, channel, Number(e.target.value))}
             />
-            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+            <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
         ))}
-        {(["l", "c", "h"] as const).map((color) => (
-          <span key={color} className="flex flex-col items-center">
+        {(["l", "c", "h"] as const).map((channel) => (
+          <span key={channel} className="flex flex-col items-center">
             <input
               type="text"
               className={BOX}
-              placeholder={color.toUpperCase()}
-              aria-label={`${color.toUpperCase()} Value`}
+              placeholder={channel.toUpperCase()}
+              aria-label={`${channel.toUpperCase()} Value`}
+              value={cardData.lch[channel]}
+              onChange={(e) => updateColorCardLchChannel(cardId, channel, Number(e.target.value))}
             />
-            <label className="text-center text-xs text-slate-900">{color.toUpperCase()}</label>
+            <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
         ))}
       </div>
