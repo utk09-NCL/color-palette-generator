@@ -10,7 +10,7 @@ const BOX =
   "h-10 w-10 rounded-sm border border-slate-900 px-1 py-0.5 text-center text-[11px] text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none";
 
 type ColorCardProps = {
-  cardId: string;
+  cardId?: string;
 };
 
 const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
