@@ -9,6 +9,7 @@ import { NavLink, Outlet } from "react-router-dom";
 import { useColorStore } from "@/store/colorStore";
 
 import ColorCard from "../ColorCard/ColorCard";
+import UIComponentsPanel from "../FakeComponents/UIComponentsPanel";
 
 import { HEADER_BUTTONS } from "./layoutConstant";
 
@@ -122,7 +123,7 @@ const ThreeColumnLayout: FC = () => {
           UI Components
         </h1>
 
-        <p className="my-10 text-sm text-slate-600">Components will be here...</p>
+        <UIComponentsPanel />
       </aside>
     </div>
   );
