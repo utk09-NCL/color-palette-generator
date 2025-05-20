@@ -1,7 +1,9 @@
-import { type FC } from "react";
+import chroma from "chroma-js";
+import { FC } from "react";
 import { BsEyedropper, BsFloppy, BsPlus, BsTrash3 } from "react-icons/bs";
 
-import { useColorStore } from "@/store/colorStore";
+import { ExportButton } from "@/components/Shared/ExportButton";
+import { usePaletteStore } from "@/store";
 
 const ICON_BTN =
   "grid h-10 w-10 place-content-center rounded-sm border border-slate-900 hover:bg-slate-700 hover:text-white transition-colors";
@@ -14,18 +16,19 @@ type ColorCardProps = {
 };
 
 const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
-  const cardData = useColorStore((state) =>
-    cardId ? state.colorCards.find((card) => card.id === cardId) : undefined,
+  const cardData = usePaletteStore((state) =>
+    cardId ? state.palettes.find((card) => card.id === cardId) : undefined,
   );
-  const updateColorCardName = useColorStore((state) => state.updateColorCardName);
-  const updateColorCardHex = useColorStore((state) => state.updateColorCardHex);
-  const updateColorCardShades = useColorStore((state) => state.updateColorCardShades);
-  const removeColorCard = useColorStore((state) => state.removeColorCard);
-  const updateColorCardRgbaChannel = useColorStore((state) => state.updateColorCardRgbaChannel);
-  const updateColorCardHslChannel = useColorStore((state) => state.updateColorCardHslChannel);
-  const updateColorCardCmykChannel = useColorStore((state) => state.updateColorCardCmykChannel);
-  const updateColorCardLchChannel = useColorStore((state) => state.updateColorCardLchChannel);
-  const generateColorCardShades = useColorStore((state) => state.generateColorCardShades);
+  const updatePalette = usePaletteStore((state) => state.updatePalette);
+  const deletePalette = usePaletteStore((state) => state.deletePalette);
+
+  // Generate shades and persist
+  const handleGenerateShades = (): void => {
+    if (!cardData) return;
+    const scale = chroma.scale(["white", cardData.hex, "black"]).mode("lab");
+    const shades = scale.colors(cardData.shades);
+    updatePalette(cardId!, { generatedShades: shades }).catch(console.error);
+  };
 
   if (!cardId || !cardData) {
     return null;
@@ -41,7 +44,7 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
             placeholder="Color Name (e.g. primary)"
             aria-label="Color Name"
             value={cardData.name}
-            onChange={(e) => updateColorCardName(cardId, e.target.value)}
+            onChange={(e) => updatePalette(cardId!, { name: e.target.value })}
           />
         </div>
 
@@ -56,7 +59,8 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
           <BsEyedropper size={20} />
         </button>
 
-        <button className={ICON_BTN} title="Save Color">
+        {/* Save is automatic via DB persistence */}
+        <button className={ICON_BTN} title="Save Color" disabled>
           <BsFloppy size={20} />
         </button>
       </div>
@@ -69,19 +73,15 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
             placeholder="Hex Value (e.g. #FF5733)"
             aria-label="Hex Value"
             value={cardData.hex}
-            onChange={(e) => updateColorCardHex(cardId, e.target.value)}
+            onChange={(e) => updatePalette(cardId!, { hex: e.target.value })}
           />
         </div>
 
-        <button
-          className={ICON_BTN}
-          title="Generate Shades"
-          onClick={() => generateColorCardShades(cardId)}
-        >
+        <button className={ICON_BTN} title="Generate Shades" onClick={handleGenerateShades}>
           <BsPlus size={28} />
         </button>
 
-        <button className={ICON_BTN} title="Delete Color" onClick={() => removeColorCard(cardId)}>
+        <button className={ICON_BTN} title="Delete Color" onClick={() => deletePalette(cardId!)}>
           <BsTrash3 size={20} />
         </button>
 
@@ -91,7 +91,7 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
           placeholder="10"
           aria-label="Number of Shades"
           value={cardData.shades}
-          onChange={(e) => updateColorCardShades(cardId, Number(e.target.value))}
+          onChange={(e) => updatePalette(cardId!, { shades: Number(e.target.value) })}
         />
       </div>
 
@@ -104,7 +104,11 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
               placeholder={channel.toUpperCase()}
               aria-label={`${channel.toUpperCase()} Value`}
               value={cardData.rgba[channel]}
-              onChange={(e) => updateColorCardRgbaChannel(cardId, channel, Number(e.target.value))}
+              onChange={(e) =>
+                updatePalette(cardId!, {
+                  rgba: { ...cardData.rgba, [channel]: Number(e.target.value) },
+                }).catch(console.error)
+              }
             />
             <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
@@ -118,7 +122,11 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
               placeholder={channel.toUpperCase()}
               aria-label={`${channel.toUpperCase()} Value`}
               value={cardData.hsl[channel]}
-              onChange={(e) => updateColorCardHslChannel(cardId, channel, Number(e.target.value))}
+              onChange={(e) =>
+                updatePalette(cardId!, {
+                  hsl: { ...cardData.hsl, [channel]: Number(e.target.value) },
+                }).catch(console.error)
+              }
             />
             <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
@@ -134,7 +142,11 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
               placeholder={channel.toUpperCase()}
               aria-label={`${channel.toUpperCase()} Value`}
               value={cardData.cmyk[channel]}
-              onChange={(e) => updateColorCardCmykChannel(cardId, channel, Number(e.target.value))}
+              onChange={(e) =>
+                updatePalette(cardId!, {
+                  cmyk: { ...cardData.cmyk, [channel]: Number(e.target.value) },
+                }).catch(console.error)
+              }
             />
             <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
@@ -147,12 +159,23 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
               placeholder={channel.toUpperCase()}
               aria-label={`${channel.toUpperCase()} Value`}
               value={cardData.lch[channel]}
-              onChange={(e) => updateColorCardLchChannel(cardId, channel, Number(e.target.value))}
+              onChange={(e) =>
+                updatePalette(cardId!, {
+                  lch: { ...cardData.lch, [channel]: Number(e.target.value) },
+                }).catch(console.error)
+              }
             />
             <label className="text-center text-xs text-slate-900">{channel.toUpperCase()}</label>
           </span>
         ))}
       </div>
+
+      {/* Export section - show only if shades are generated */}
+      {cardData.generatedShades && cardData.generatedShades.length > 0 && (
+        <div className="mt-2 border-t border-slate-200 pt-2">
+          <ExportButton palette={cardData} className="w-full" />
+        </div>
+      )}
     </div>
   );
 };

@@ -1,49 +1,65 @@
 // src/App.tsx
-import { type JSX, Suspense } from "react";
+import { type JSX, lazy, Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import SimpleLayout from "@components/Layout/SimpleLayout";
 import ThreeColumnLayout from "@components/Layout/ThreeColumnLayout";
+import { Spinner } from "@components/Shared/Spinner";
 import NotFound from "@pages/NotFound";
 
-import { ROUTES } from "./constants";
+import { ROUTES } from "@/constants";
 
-import "@styles/App.css";
+import "./styles/App.css";
 
-// const Home = lazy(() => import("@pages/Home"));
-// const SavedPalettes = lazy(() => import("@pages/SavedPalettes"));
-// const Accessibility = lazy(() => import("@pages/Accessibility"));
-// const ExtractColors = lazy(() => import("@pages/ExtractColors"));
-// const About = lazy(() => import("@pages/About"));
+const SavedPalettes = lazy(() => import("@pages/SavedPalettes"));
+const Accessibility = lazy(() => import("@pages/Accessibility"));
+const ExtractColors = lazy(() => import("@pages/ExtractColors"));
+const About = lazy(() => import("@pages/About"));
 
-// Create a browser router
 const router = createBrowserRouter([
   {
-    path: ROUTES.HOME,
-    element: <ThreeColumnLayout />,
     errorElement: <NotFound />,
+    children: [
+      {
+        path: ROUTES.HOME,
+        index: true,
+        element: <ThreeColumnLayout />,
+      },
+      {
+        path: ROUTES.SAVED_PALETTES,
+        element: (
+          <SimpleLayout>
+            <SavedPalettes />
+          </SimpleLayout>
+        ),
+      },
+      {
+        path: ROUTES.ACCESSIBILITY,
+        element: (
+          <SimpleLayout>
+            <Accessibility />
+          </SimpleLayout>
+        ),
+      },
+      {
+        path: ROUTES.EXTRACT_COLORS,
+        element: (
+          <SimpleLayout>
+            <ExtractColors />
+          </SimpleLayout>
+        ),
+      },
+      {
+        path: ROUTES.ABOUT,
+        element: (
+          <SimpleLayout>
+            <About />
+          </SimpleLayout>
+        ),
+      },
+    ],
   },
-  // {
-  //   children: [
-  //     { index: true, element: <Home /> },
-  //     {
-  //       path: ROUTES.SAVED_PALETTES,
-  //       element: <SavedPalettes />,
-  //     },
-  //     {
-  //       path: ROUTES.ACCESSIBILITY,
-  //       element: <Accessibility />,
-  //     },
-  //     {
-  //       path: ROUTES.EXTRACT_COLORS,
-  //       element: <ExtractColors />,
-  //     },
-  //     {
-  //       path: ROUTES.ABOUT,
-  //       element: <About />,
-  //     },
-  //   ],
-  // },
 ]);
 
 /**
@@ -54,7 +70,7 @@ export default function App(): JSX.Element {
     <>
       {/* Render toast notifications */}
       <Toaster />
-      <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <Suspense fallback={<Spinner />}>
         <RouterProvider router={router} />
       </Suspense>
     </>

@@ -1,24 +1,38 @@
 // src/components/Layout/ThreeColumnLayout.tsx
 
 import chroma from "chroma-js";
-import clsx from "clsx";
-import { type FC } from "react";
+import { FC, useEffect } from "react";
 import toast from "react-hot-toast";
-import { NavLink, Outlet } from "react-router-dom";
 
-import { useColorStore } from "@/store/colorStore";
+import { usePaletteStore } from "@/store";
+import { createInitialColorCardState } from "@/store/colorTypes";
 
 import ColorCard from "../ColorCard/ColorCard";
 import UIComponentsPanel from "../FakeComponents/UIComponentsPanel";
-
-import { HEADER_BUTTONS } from "./layoutConstant";
+import NavBar from "../NavBar/NavBar";
 
 /**
- * Three Column layout component, that serves as a wrapper for the home page.
+ * Three Column layout component, the home page of the app.
+ * It consists of:
+ * - Column 1: Color Cards
+ * - Column 2: Main content area with NavBar and color shade previews
+ * - Column 3: UI Components Panel
  */
 const ThreeColumnLayout: FC = () => {
-  const colorCards = useColorStore((state) => state.colorCards);
-  const addColorCard = useColorStore((state) => state.addColorCard);
+  const palettes = usePaletteStore((state) => state.palettes);
+  const addPalette = usePaletteStore((state) => state.addPalette);
+  const loadPalettes = usePaletteStore((state) => state.loadPalettes);
+
+  // Helper to create and persist a new palette
+  const handleAddPalette = (): void => {
+    const id = Date.now().toString();
+    const newPalette = createInitialColorCardState(id);
+    addPalette(newPalette).catch((err) => console.error(err));
+  };
+
+  useEffect(() => {
+    loadPalettes();
+  }, [loadPalettes]);
 
   return (
     <div className="grid h-screen grid-cols-12">
@@ -36,15 +50,15 @@ const ThreeColumnLayout: FC = () => {
 
         <button
           className="cursor-pointer place-content-center rounded-sm border border-slate-900 bg-blue-700 px-2 py-1 text-sm text-blue-50 transition-colors hover:bg-slate-700 hover:text-slate-50"
-          onClick={() => addColorCard()}
+          onClick={handleAddPalette}
           title="Add Color Card"
         >
           Add Color Card
         </button>
 
         <div className="grid w-full grid-cols-1 gap-4 overflow-y-auto px-2">
-          {colorCards.length > 0 ? (
-            colorCards.map((card) => <ColorCard key={card.id} cardId={card.id} />)
+          {palettes.length > 0 ? (
+            palettes.map((card) => <ColorCard key={card.id} cardId={card.id} />)
           ) : (
             <div className="my-2 text-center text-blue-400">
               Click on <strong>Add Color Card</strong> to add a new one
@@ -54,29 +68,9 @@ const ThreeColumnLayout: FC = () => {
       </aside>
       {/* Column 2 */}
       <main className="col-span-6 flex flex-col" data-testid="column-2">
-        <nav className="sticky top-0 z-50 flex justify-around bg-slate-100 p-4 shadow-sm">
-          {HEADER_BUTTONS.map(({ name, route }) => (
-            <NavLink
-              key={name}
-              to={route}
-              className={({ isActive }) =>
-                clsx(
-                  "rounded-sm border border-slate-900 px-2 py-1 text-sm transition-colors",
-                  isActive
-                    ? "bg-slate-900 text-white"
-                    : "text-slate-900 hover:bg-slate-700 hover:text-white",
-                )
-              }
-            >
-              {name}
-            </NavLink>
-          ))}
-        </nav>
-
+        <NavBar />
         <section className="flex-1 overflow-y-auto p-4">
-          <Outlet />
-
-          {colorCards.map((card) =>
+          {palettes.map((card) =>
             card.generatedShades && card.generatedShades.length > 0 ? (
               <div key={card.id} className="my-4">
                 <h2 className="mb-2 text-sm font-bold">{card.name} shade</h2>

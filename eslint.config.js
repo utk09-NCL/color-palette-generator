@@ -19,6 +19,7 @@ export default [
       "dist",
       "node_modules",
       "build",
+      "coverage",
       "eslint.config.js",
       "tailwind.config.js",
       "postcss.config.js",
