@@ -36,11 +36,11 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
 
   return (
     <div className="my-4 flex flex-col gap-2 rounded-sm bg-white p-2 shadow-sm">
-      <div className="grid grid-cols-[1fr_auto_auto_auto] items-start gap-1">
+      <div className="grid grid-cols-[minmax(120px,1fr)_40px_40px_40px] items-center gap-2">
         <div className="flex flex-col">
           <input
             type="text"
-            className="h-10 min-w-1 rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            className="h-10 min-w-[120px] rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
             placeholder="Color Name (e.g. primary)"
             aria-label="Color Name"
             value={cardData.name}
@@ -65,11 +65,11 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-[1fr_auto_auto_auto] items-start gap-1">
+      <div className="grid grid-cols-[minmax(120px,1fr)_40px_40px_40px] items-center gap-2">
         <div className="flex flex-col">
           <input
             type="text"
-            className="h-10 min-w-1 rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+            className="h-10 min-w-[120px] rounded-sm border border-slate-900 px-2 py-1 text-xs focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
             placeholder="Hex Value (e.g. #FF5733)"
             aria-label="Hex Value"
             value={cardData.hex}
@@ -87,7 +87,7 @@ const ColorCard: FC<ColorCardProps> = ({ cardId }) => {
 
         <input
           type="text"
-          className="h-10 w-10 rounded-sm border border-slate-900 px-2 py-1 text-center text-base text-slate-900 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+          className={BOX}
           placeholder="10"
           aria-label="Number of Shades"
           value={cardData.shades}
